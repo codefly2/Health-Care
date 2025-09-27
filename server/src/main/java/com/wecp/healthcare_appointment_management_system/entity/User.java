@@ -5,6 +5,7 @@ import java.util.Set;
 
 
 @Table(name = "users") // do not change table name
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
     // implement user entity
     @Id
@@ -17,8 +18,7 @@ public class User {
     private String role;
     public User() {
     }
-    public User(Long id, String username, String password, String email, String role) {
-        this.id = id;
+    public User( String username, String password, String email, String role) {
         this.username = username;
         this.password = password;
         this.email = email;
