@@ -5,5 +5,19 @@ import java.time.LocalDateTime;
 
 
 public class Appointment {
-    // implement appointment entity
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer tId;
+    
+    @ManyToOne
+
+    private Patient patient;
+    
+    @ManyToOne
+    private Doctor doctor;
+    
+    private LocalDateTime appointmentTime;
+    
+    private String status; // 'Scheduled', 'Completed', 'Canceled'
 }
