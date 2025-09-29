@@ -1,7 +1,8 @@
 package com.wecp.healthcare_appointment_management_system.entity;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+
+import java.util.Date;
 
 @Entity
 public class Appointment {
@@ -10,11 +11,11 @@ public class Appointment {
     private Long id;
     @ManyToOne private Patient patient;
     @ManyToOne private Doctor doctor;
-    private LocalDateTime appointmentTime;
+    private Date appointmentTime;
     private String status;
     public Appointment() {
     }
-    public Appointment(Patient patient, Doctor doctor, LocalDateTime appointmentTime, String status) {
+    public Appointment(Patient patient, Doctor doctor, Date appointmentTime, String status) {
         this.patient = patient;
         this.doctor = doctor;
         this.appointmentTime = appointmentTime;
@@ -38,17 +39,18 @@ public class Appointment {
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
     }
-    public LocalDateTime getAppointmentTime() {
-        return appointmentTime;
-    }
-    public void setAppointmentTime(LocalDateTime appointmentTime) {
-        this.appointmentTime = appointmentTime;
-    }
+    
     public String getStatus() {
         return status;
     }
     public void setStatus(String status) {
         this.status = status;
+    }
+    public Date getAppointmentTime() {
+        return appointmentTime;
+    }
+    public void setAppointmentTime(Date appointmentTime) {
+        this.appointmentTime = appointmentTime;
     }
     
     
