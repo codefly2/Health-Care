@@ -19,11 +19,13 @@ public class DoctorController {
 
     @GetMapping("/api/doctor/appointments")
     public ResponseEntity<List<Appointment>> viewAppointments(@RequestParam Long doctorId) {
+            return null;
         // view appointments
     }
 
     @PostMapping("/api/doctor/availability")
     public ResponseEntity<Doctor> manageAvailability(@RequestParam Long doctorId, @RequestParam String availability) {
+            return null;
         // manage availablity
     }
 }

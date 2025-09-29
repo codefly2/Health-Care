@@ -21,5 +21,4 @@ public class Receptionist extends User {
     public void setShift(String shift) {
         this.shift = shift;
     }
-    
 }

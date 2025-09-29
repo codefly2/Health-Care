@@ -26,6 +26,7 @@ public class Patient extends User {
     public void setMedicalRecords(Set<MedicalRecord> medicalRecords) {
         this.medicalRecords = medicalRecords;
     }
+    //
     
     
 
