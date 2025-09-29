@@ -7,5 +7,11 @@ import { HttpService } from '../../services/http.service';
   selector: 'app-registration',
   templateUrl: './registration.component.html',
 })
+<<<<<<< HEAD
 export class RegistrationComponent //todo: complete missing code..
 
+=======
+export class RegistrationComponent {
+  
+}
+>>>>>>> Abhay
