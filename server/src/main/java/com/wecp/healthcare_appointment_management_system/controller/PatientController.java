@@ -23,6 +23,7 @@ public class PatientController {
 
     @GetMapping("/api/patient/doctors")
     public ResponseEntity<List<Doctor>> getDoctors() {
+            return null;
         // get all doctors
     }
 
@@ -30,16 +31,19 @@ public class PatientController {
     public ResponseEntity<?> scheduleAppointment(@RequestParam Long patientId,
                                                  @RequestParam Long doctorId,
                                                  @RequestBody TimeDto timeDto) {
+                                                                                                     return null;
       // schedule appointment
     }
 
     @GetMapping("/api/patient/appointments")
     public ResponseEntity<List<Appointment>> getAppointmentsByPatientId(@RequestParam Long patientId) {
+            return null;
         // get appointments by patient id
     }
 
     @GetMapping("/api/patient/medicalrecords")
     public ResponseEntity<List<MedicalRecord>> viewMedicalRecords(@RequestParam Long patientId) {
+            return null;
         // view medical records
     }
 }

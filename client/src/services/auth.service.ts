@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-
   private token: string | null = null;
   private isLoggedIn: boolean = false;
   id: string | null | undefined;
@@ -29,9 +28,7 @@ export class AuthService {
   }
   // Method to retrieve login status
   get getLoginStatus(): boolean {
-  
       return !!localStorage.getItem('token');
-   
   }
   getToken(): string | null {
    this.token= localStorage.getItem('token');
@@ -45,7 +42,6 @@ export class AuthService {
      this.isLoggedIn=false
    }
    saveUserId(userid: string) {
-  
     localStorage.setItem('userId',userid);
   }
 }
