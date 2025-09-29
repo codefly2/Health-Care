@@ -8,9 +8,5 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class HttpService {
-  public serverName=environment.apiUrl;
- 
- //todo:
-  
-  
+
 }
