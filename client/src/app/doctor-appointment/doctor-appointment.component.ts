@@ -7,5 +7,6 @@ import { HttpService } from '../../services/http.service';
   styleUrls: ['./doctor-appointment.component.scss']
 })
 export class DoctorAppointmentComponent 
-
-//todo: complete missing code..
+{
+  
+}

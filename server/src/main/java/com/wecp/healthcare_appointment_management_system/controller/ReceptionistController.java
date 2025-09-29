@@ -21,6 +21,7 @@ public class ReceptionistController {
 
     @GetMapping("/api/receptionist/appointments")
     public List<Appointment> getAppointments() {
+          return null;
       // get all appointments
     }
 
@@ -28,12 +29,14 @@ public class ReceptionistController {
     public ResponseEntity<Appointment> scheduleAppointment(@RequestParam Long patientId,
                                                            @RequestParam Long doctorId,
                                                            @RequestBody TimeDto timeDto) {
+                                                                                                                       return null;
         // schedule appointment
     }
 
     @PutMapping("/api/receptionist/appointment-reschedule/{appointmentId}")
     public ResponseEntity<Appointment> rescheduleAppointment(@PathVariable Long appointmentId,
                                                              @RequestBody TimeDto timeDto) {
+                                                                                                                           return null;
         // reschedule appointment
     }
 }
