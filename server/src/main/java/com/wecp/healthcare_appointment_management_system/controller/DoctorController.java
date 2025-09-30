@@ -2,90 +2,53 @@ package com.wecp.healthcare_appointment_management_system.controller;
 
 import com.wecp.healthcare_appointment_management_system.entity.Appointment;
 import com.wecp.healthcare_appointment_management_system.entity.Doctor;
-import com.wecp.healthcare_appointment_management_system.service.AppointmentService;
-import com.wecp.healthcare_appointment_management_system.service.DoctorService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.wecp.healthcare_appointment_management_system.entity.User;
+import com.wecp.healthcare_appointment_management_system.repository.AppointmentRepository;
+import com.wecp.healthcare_appointment_management_system.repository.DoctorRepository;
+import com.wecp.healthcare_appointment_management_system.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/doctor")
+@RequestMapping
 public class DoctorController {
 
-    @Autowired
-    private DoctorService doctorService;
+    private final DoctorRepository doctorRepository;
+    private final AppointmentRepository appointmentRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private AppointmentService appointmentService;
-
-    /**
-     * Get all doctors
-     */
-    @GetMapping
-    public ResponseEntity<List<Doctor>> getAllDoctors() {
-        return ResponseEntity.ok(doctorService.getAllDoctors());
+    public DoctorController(DoctorRepository doctorRepository,
+                            AppointmentRepository appointmentRepository,
+                            UserRepository userRepository) {
+        this.doctorRepository = doctorRepository;
+        this.appointmentRepository = appointmentRepository;
+        this.userRepository = userRepository;
     }
 
-    /**
-     * Get doctor by ID
-     */
-    @GetMapping("/{id}")
-    public ResponseEntity<Doctor> getDoctorById(@PathVariable Long id) {
-        Optional<Doctor> doctor = doctorService.getDoctorById(id);
-        return doctor.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    // Registration for doctor
+    @PostMapping("/api/doctors/register")
+    public ResponseEntity<Doctor> registerDoctor(@RequestBody Doctor doctor) {
+        Doctor saved = doctorRepository.save(doctor);
+        userRepository.save(new User(saved.getUsername(), saved.getPassword(), saved.getEmail(), "DOCTOR"));
+        return ResponseEntity.ok(saved);
     }
 
-    /**
-     * Create new doctor
-     */
-    @PostMapping
-    public ResponseEntity<Doctor> createDoctor(@RequestBody Doctor doctor) {
-        return ResponseEntity.ok(doctorService.createDoctor(doctor));
+    // Get appointments for a doctor
+    @GetMapping("/api/doctor/appointments")
+    public ResponseEntity<List<Appointment>> getAppointmentsByDoctorId(@RequestParam Long doctorId) {
+        List<Appointment> list = appointmentRepository.findByDoctorId(doctorId);
+        return ResponseEntity.ok(list);
     }
 
-    /**
-     * Update doctor details
-     */
-    @PutMapping("/{id}")
-    public ResponseEntity<Doctor> updateDoctor(@PathVariable Long id, @RequestBody Doctor updatedDoctor) {
-        Doctor doctor = doctorService.updateDoctor(id, updatedDoctor);
-        if (doctor != null) {
-            return ResponseEntity.ok(doctor);
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    /**
-     * Delete doctor
-     */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDoctor(@PathVariable Long id) {
-        doctorService.deleteDoctor(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    /**
-     * View appointments for doctor
-     */
-    @GetMapping("/appointments")
-    public ResponseEntity<List<Appointment>> viewAppointments(@RequestParam Long doctorId) {
-        List<Appointment> appointments = appointmentService.getAppointmentsByDoctorId(doctorId);
-        return ResponseEntity.ok(appointments);
-    }
-
-    /**
-     * Manage availability of doctor
-     */
-    @PostMapping("/availability")
-    public ResponseEntity<Doctor> manageAvailability(@RequestParam Long doctorId,
+    // Update availability
+    @PostMapping("/api/doctor/availability")
+    public ResponseEntity<Doctor> updateAvailability(@RequestParam Long doctorId,
                                                      @RequestParam String availability) {
-        Doctor updatedDoctor = doctorService.updateAvailability(doctorId, availability);
-        if (updatedDoctor != null) {
-            return ResponseEntity.ok(updatedDoctor);
-        }
-        return ResponseEntity.notFound().build();
+        Doctor doctor = doctorRepository.findById(doctorId).orElseThrow();
+        doctor.setAvailability(availability);
+        Doctor updated = doctorRepository.save(doctor);
+        return ResponseEntity.ok(updated);
     }
 }
