@@ -1,57 +1,42 @@
 package com.wecp.healthcare_appointment_management_system.entity;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class MedicalRecord {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String diagnosis;
-    private String treatment;
-    @ManyToOne private Patient patient;
-    @ManyToOne private Doctor doctor;
-    public MedicalRecord() {
-    }
-    public MedicalRecord(String diagnosis, String treatment, Patient patient, Doctor doctor) {
-        this.diagnosis = diagnosis;
-        this.treatment = treatment;
-        this.patient = patient;
-        this.doctor = doctor;
-    }
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getDiagnosis() {
-        return diagnosis;
-    }
-    public void setDiagnosis(String diagnosis) {
-        this.diagnosis = diagnosis;
-    }
-    public String getTreatment() {
-        return treatment;
-    }
-    public void setTreatment(String treatment) {
-        this.treatment = treatment;
-    }
-    public Patient getPatient() {
-        return patient;
-    }
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-    public Doctor getDoctor() {
-        return doctor;
-    }
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
-    
+
+    @ManyToOne(optional = false)
+    private Patient patient;
+
+    @ManyToOne(optional = false)
+    private Doctor doctor;
+
+    @Lob
+    private String details;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt = new Date();
+
+    public MedicalRecord() {}
+
+    // getters & setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Patient getPatient() { return patient; }
+    public void setPatient(Patient patient) { this.patient = patient; }
+
+    public Doctor getDoctor() { return doctor; }
+    public void setDoctor(Doctor doctor) { this.doctor = doctor; }
+
+    public String getDetails() { return details; }
+    public void setDetails(String details) { this.details = details; }
+
+    public Date getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
 }

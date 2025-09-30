@@ -1,56 +1,36 @@
 package com.wecp.healthcare_appointment_management_system.entity;
 
 import javax.persistence.*;
-
 import java.util.Date;
 
 @Entity
 public class Appointment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne private Patient patient;
-    @ManyToOne private Doctor doctor;
+
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Patient patient;
+
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Doctor doctor;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date appointmentTime;
-    private String status;
-    public Appointment() {
-    }
-    public Appointment(Patient patient, Doctor doctor, Date appointmentTime, String status) {
-        this.patient = patient;
-        this.doctor = doctor;
-        this.appointmentTime = appointmentTime;
-        this.status = status;
-    }
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public Patient getPatient() {
-        return patient;
-    }
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-    public Doctor getDoctor() {
-        return doctor;
-    }
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
-    
-    public String getStatus() {
-        return status;
-    }
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    public Date getAppointmentTime() {
-        return appointmentTime;
-    }
-    public void setAppointmentTime(Date appointmentTime) {
-        this.appointmentTime = appointmentTime;
-    }
-    
+
+    public Appointment() {}
+
+    // getters & setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Patient getPatient() { return patient; }
+    public void setPatient(Patient patient) { this.patient = patient; }
+
+    public Doctor getDoctor() { return doctor; }
+    public void setDoctor(Doctor doctor) { this.doctor = doctor; }
+
+    public Date getAppointmentTime() { return appointmentTime; }
+    public void setAppointmentTime(Date appointmentTime) { this.appointmentTime = appointmentTime; }
 }
