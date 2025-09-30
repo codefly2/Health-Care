@@ -9,37 +9,65 @@ import com.wecp.healthcare_appointment_management_system.service.DoctorService;
 import com.wecp.healthcare_appointment_management_system.service.MedicalRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
-
+@RestController
+@RequestMapping("/api/patient")
 public class PatientController {
 
+    @Autowired
+    private DoctorService doctorService;
 
-    @GetMapping("/api/patient/doctors")
+    @Autowired
+    private AppointmentService appointmentService;
+
+    @Autowired
+    private MedicalRecordService medicalRecordService;
+
+    /**
+     * Get all doctors
+     */
+    @GetMapping("/doctors")
     public ResponseEntity<List<Doctor>> getDoctors() {
-        // get all doctors
+        return ResponseEntity.ok(doctorService.getAllDoctors());
     }
 
-    @PostMapping("/api/patient/appointment")
+    /**
+     * Schedule an appointment
+     */
+    @PostMapping("/appointment")
     public ResponseEntity<?> scheduleAppointment(@RequestParam Long patientId,
                                                  @RequestParam Long doctorId,
                                                  @RequestBody TimeDto timeDto) {
-      // schedule appointment
+        try {
+            Date appointmentTime = timeDto.getTime();
+            Appointment appointment = appointmentService.scheduleAppointment(patientId, doctorId, appointmentTime);
+            if (appointment != null) {
+                return ResponseEntity.ok(appointment);
+            } else {
+                return ResponseEntity.badRequest().body("Invalid patientId or doctorId");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Invalid date format. Use yyyy-MM-dd HH:mm:ss");
+        }
     }
 
-    @GetMapping("/api/patient/appointments")
+    /**
+     * Get all appointments for a patient
+     */
+    @GetMapping("/appointments")
     public ResponseEntity<List<Appointment>> getAppointmentsByPatientId(@RequestParam Long patientId) {
-        // get appointments by patient id
+        return ResponseEntity.ok(appointmentService.getAppointmentsByPatientId(patientId));
     }
 
-    @GetMapping("/api/patient/medicalrecords")
+    /**
+     * Get all medical records for a patient
+     */
+    @GetMapping("/medicalrecords")
     public ResponseEntity<List<MedicalRecord>> viewMedicalRecords(@RequestParam Long patientId) {
-        // view medical records
+        return ResponseEntity.ok(medicalRecordService.getMedicalRecordsByPatientId(patientId));
     }
 }

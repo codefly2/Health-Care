@@ -7,6 +7,6 @@ import { HttpService } from '../../services/http.service';
   templateUrl: './doctor-availability.component.html',
   styleUrls: ['./doctor-availability.component.scss']
 })
-export class DoctorAvailabilityComponent //todo: complete missing code..
+export class DoctorAvailabilityComponent{} //todo: complete missing code..
 
 

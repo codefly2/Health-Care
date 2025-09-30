@@ -43,8 +43,8 @@ public class Appointment {
     public Date getAppointmentTime() {
         return appointmentTime;
     }
-    public void setAppointmentTime(Date appointmentTime) {
-        this.appointmentTime = appointmentTime;
+    public void setAppointmentTime(Date time) {
+        this.appointmentTime = time;
     }
     public String getStatus() {
         return status;
