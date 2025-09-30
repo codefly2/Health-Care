@@ -29,21 +29,25 @@ public class RegisterAndLoginController {
 
     @PostMapping("/api/patient/register")
     public ResponseEntity<Patient> registerPatient(@RequestBody Patient patient) {
+            return null;
         // register patient
     }
 
     @PostMapping("/api/doctors/register")
     public ResponseEntity<Doctor> registerDoctor(@RequestBody Doctor doctor) {
+            return null;
         // register doctor
     }
 
     @PostMapping("/api/receptionist/register")
     public ResponseEntity<Receptionist> registerReceptionist(@RequestBody Receptionist receptionist) {
+            return null;
        // register receptionist
     }
 
     @PostMapping("/api/user/login")
     public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest) {
+            return null;
       // login user and return jwt in LoginResponse object
         // return 401 unauthorized if authentication fail
     }

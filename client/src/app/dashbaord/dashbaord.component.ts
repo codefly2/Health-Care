@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashbaord.component.scss']
 })
 export class DashbaordComponent {
-
+  
 }
