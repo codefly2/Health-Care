@@ -1,58 +1,48 @@
 package com.wecp.healthcare_appointment_management_system.entity;
 
 import javax.persistence.*;
-import java.util.Set;
 
+@Entity
+public class Doctor {
 
-public class Doctor extends User {
-   private String specialty;
-   private String availability;
-   @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
-   private Set<Appointment> appointments;
-   @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
-   private Set<MedicalRecord> medicalRecords;
-   public Doctor(){}
-   
-   public Doctor(String username, String password, String email, String role, String specialty,
-    String availability) {
-      super(username, password, email, role);
-      this.specialty = specialty;
-      this.availability = availability;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-   }
+    @Column(unique = true)
+    private String username;
 
-   public String getSpecialty() {
-      return specialty;
-   }
+    private String password;
 
-   public void setSpecialty(String specialty) {
-      this.specialty = specialty;
-   }
+    private String email;
 
-   public String getAvailability() {
-      return availability;
-   }
+    private String role = "DOCTOR";
 
-   public void setAvailability(String availability) {
-      this.availability = availability;
-   }
+    private String specialty;
 
-   public Set<Appointment> getAppointments() {
-      return appointments;
-   }
+    private String availability;
 
-   public void setAppointments(Set<Appointment> appointments) {
-      this.appointments = appointments;
-   }
+    public Doctor() {}
 
-   public Set<MedicalRecord> getMedicalRecords() {
-      return medicalRecords;
-   }
+    // getters & setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-   public void setMedicalRecords(Set<MedicalRecord> medicalRecords) {
-      this.medicalRecords = medicalRecords;
-   }
-   
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
 
-   
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
+
+    public String getSpecialty() { return specialty; }
+    public void setSpecialty(String specialty) { this.specialty = specialty; }
+
+    public String getAvailability() { return availability; }
+    public void setAvailability(String availability) { this.availability = availability; }
 }
