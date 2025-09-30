@@ -5,6 +5,9 @@ import java.util.Set;
 
 
 public class Doctor extends User {
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private Long id;
    private String specialty;
    private String availability;
    @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
