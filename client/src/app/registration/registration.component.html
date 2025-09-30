@@ -1,1 +1,114 @@
-//todo: complete missing code..
+<form
+  class="registration-form"
+  [formGroup]="itemForm"
+  (ngSubmit)="onSubmit()"
+  novalidate
+>
+  <h1 class="title">Create your account</h1>
+
+  <!-- Username -->
+  <div class="field">
+    <label for="username">Username</label>
+    <input
+      id="username"
+      type="text"
+      formControlName="username"
+      [class.invalid]="itemForm.get('username')?.touched && itemForm.get('username')?.invalid"
+      placeholder="e.g., testuser"
+      autocomplete="username"
+    />
+    <small class="error" *ngIf="itemForm.get('username')?.touched && itemForm.get('username')?.hasError('required')">
+      Username is required.
+    </small>
+  </div>
+
+  <!-- Email -->
+  <div class="field">
+    <label for="email">Email</label>
+    <input
+      id="email"
+      type="email"
+      formControlName="email"
+      [class.invalid]="itemForm.get('email')?.touched && itemForm.get('email')?.invalid"
+      placeholder="you@example.com"
+      autocomplete="email"
+    />
+    <small class="error" *ngIf="itemForm.get('email')?.touched && itemForm.get('email')?.hasError('required')">
+      Email is required.
+    </small>
+    <small class="error" *ngIf="itemForm.get('email')?.touched && itemForm.get('email')?.hasError('email')">
+      Enter a valid email address.
+    </small>
+  </div>
+
+  <!-- Password -->
+  <div class="field">
+    <label for="password">Password</label>
+    <input
+      id="password"
+      type="password"
+      formControlName="password"
+      [class.invalid]="itemForm.get('password')?.touched && itemForm.get('password')?.invalid"
+      placeholder="••••••••"
+      autocomplete="new-password"
+    />
+    <small class="error" *ngIf="itemForm.get('password')?.touched && itemForm.get('password')?.hasError('required')">
+      Password is required.
+    </small>
+  </div>
+
+  <!-- Role -->
+  <div class="field">
+    <label for="role">Role</label>
+    <select
+      id="role"
+      formControlName="role"
+      [class.invalid]="itemForm.get('role')?.touched && itemForm.get('role')?.invalid"
+    >
+      <option value="" disabled selected>Select a role</option>
+      <option value="PATIENT">Patient</option>
+      <option value="DOCTOR">Doctor</option>
+      <!-- Add more if you use them -->
+      <option value="ADMIN">Admin</option>
+      <option value="user">User</option>
+    </select>
+    <small class="error" *ngIf="itemForm.get('role')?.touched && itemForm.get('role')?.hasError('required')">
+      Role is required.
+    </small>
+  </div>
+
+  <!-- DOCTOR-only fields -->
+  <div class="doctor-section" *ngIf="itemForm.get('role')?.value === 'DOCTOR'">
+    <div class="field">
+      <label for="specialty">Specialty</label>
+      <input
+        id="specialty"
+        type="text"
+        formControlName="specialty"
+        [class.invalid]="itemForm.get('specialty')?.touched && itemForm.get('specialty')?.invalid"
+        placeholder="e.g., Cardiology"
+      />
+      <small class="error" *ngIf="itemForm.get('specialty')?.touched && itemForm.get('specialty')?.hasError('required')">
+        Specialty is required for doctors.
+      </small>
+    </div>
+
+    <div class="field">
+      <label for="availability">Availability</label>
+      <input
+        id="availability"
+        type="text"
+        formControlName="availability"
+        [class.invalid]="itemForm.get('availability')?.touched && itemForm.get('availability')?.invalid"
+        placeholder="e.g., Mon–Fri 9:00–17:00"
+      />
+      <small class="error" *ngIf="itemForm.get('availability')?.touched && itemForm.get('availability')?.hasError('required')">
+        Availability is required for doctors.
+      </small>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button type="submit" [disabled]="itemForm.invalid">Register</button>
+  </div>
+</form>
