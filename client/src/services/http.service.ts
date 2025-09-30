@@ -81,7 +81,7 @@ export class HttpService {
     );
   }
 
-  getAppointmentByPatient(patientId: number): Observable<any> {
+  getAppointmentByPatient(patientId: number|null): Observable<any> {
     return this.http.get(
       `${this.serverName}/api/patient/appointments?patientId=${patientId}`,
       { headers: this.getAuthHeaders() }
