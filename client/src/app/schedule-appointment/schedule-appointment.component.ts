@@ -7,59 +7,56 @@ import { DatePipe } from '@angular/common';
   selector: 'app-schedule-appointment',
   templateUrl: './schedule-appointment.component.html',
   styleUrls: ['./schedule-appointment.component.scss'],
-  providers: [DatePipe]
+  providers: [DatePipe] 
 })
 export class ScheduleAppointmentComponent implements OnInit {
-  itemForm!: FormGroup;
-  successMessage = '';
-  errorMessage = '';
-
-  constructor(
-    private fb: FormBuilder,
-    private httpService: HttpService,
-    private datePipe: DatePipe
-  ) {}
+  doctorList: any=[];
+  itemForm: FormGroup;
+  formModel:any={};
+  responseMessage:any;
+  isAdded: boolean=false;
+  constructor(public httpService:HttpService,private formBuilder: FormBuilder,private datePipe: DatePipe) {
+    this.itemForm = this.formBuilder.group({
+      patientId: [this.formModel.patientId,[ Validators.required]],
+      doctorId: [this.formModel.doctorId,[ Validators.required]],
+      time: [this.formModel.time,[ Validators.required]],
+  });
+   }
 
   ngOnInit(): void {
-    // ✅ Create form with required fields
-    this.itemForm = this.fb.group({
-      patientId: ['', Validators.required],
-      doctorId: ['', Validators.required],
-      time: ['', Validators.required]
-    });
+    this.getPatients();
+  }
+  getPatients() {
+    this.doctorList
+    this.httpService.getDoctors().subscribe((data)=>{
+      this.doctorList=data;
+      console.log(this.doctorList);
+    })
+  }
+  addAppointment(val:any)
+  {  
+    const userIdString = localStorage.getItem('userId');
+    const userId = userIdString ? parseInt(userIdString, 10) : null;
+    this.itemForm.controls["doctorId"].setValue(val.id);
+    this.itemForm.controls["patientId"].setValue(userId);
+  
+    this.isAdded=true;
+  }
+  onSubmit()
+  {
+    const formattedTime = this.datePipe.transform(this.itemForm.controls['time'].value, 'yyyy-MM-dd HH:mm:ss');
+
+    // Update the form value with the formatted date
+    this.itemForm.controls['time'].setValue(formattedTime);
+    debugger;
+    // this.itemForm.controls["time"].setValue("2018-02-05T12:59:11.332")
+    this.httpService.ScheduleAppointment( this.itemForm.value).subscribe((data)=>{
+   
+      this.itemForm.reset();
+      this.responseMessage="Appointment Save Successfully";
+      this.isAdded=false;
+    })
+    
   }
 
-  // 🔹 Getter for form controls
-  get f() {
-    return this.itemForm.controls;
-  }
-
-  // 🔹 Submit form and call API
-  onSubmit(): void {
-    if (this.itemForm.invalid) {
-      this.errorMessage = 'Please fill in all required fields';
-      return;
-    }
-
-    const formValue = this.itemForm.value;
-
-    const appointmentDetails = {
-      patientId: formValue.patientId,
-      doctorId: formValue.doctorId,
-      time: this.datePipe.transform(formValue.time, 'yyyy-MM-ddTHH:mm:ss')
-    };
-
-    this.httpService.ScheduleAppointment(appointmentDetails).subscribe({
-      next: (res) => {
-        this.successMessage = 'Appointment scheduled successfully';
-        this.errorMessage = '';
-        console.log('API Response:', res);
-      },
-      error: (err) => {
-        this.successMessage = '';
-        this.errorMessage = 'Error scheduling appointment';
-        console.error('Error:', err);
-      }
-    });
-  }
 }
