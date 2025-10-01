@@ -9,7 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
+@Service
 public class MedicalRecordService {
+
+    @Autowired
+   private MedicalRecordRepository medicalRecordRepository;
+ 
+   public List<MedicalRecord> getMedicalRecordsByPatientId(Long patientId){
+        return medicalRecordRepository.getMedicalRecordsByPatientId(patientId);
+   }
 
 }
