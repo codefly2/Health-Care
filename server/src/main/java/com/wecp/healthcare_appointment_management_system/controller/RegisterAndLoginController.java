@@ -1,38 +1,55 @@
 package com.wecp.healthcare_appointment_management_system.controller;
 
 import com.wecp.healthcare_appointment_management_system.dto.LoginRequest;
+import com.wecp.healthcare_appointment_management_system.dto.LoginResponse;
 import com.wecp.healthcare_appointment_management_system.entity.User;
+import com.wecp.healthcare_appointment_management_system.jwt.JwtUtil;
 import com.wecp.healthcare_appointment_management_system.repository.UserRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/user")
 public class RegisterAndLoginController {
 
     private final UserRepository userRepository;
+    private final JwtUtil jwtUtil;
+    private final PasswordEncoder passwordEncoder;
 
-    public RegisterAndLoginController(UserRepository userRepository) {
+    public RegisterAndLoginController(UserRepository userRepository,
+                                      JwtUtil jwtUtil,
+                                      PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.jwtUtil = jwtUtil;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<User> register(@RequestBody User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return ResponseEntity.ok(userRepository.save(user));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest req) {
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest req) {
         User user = userRepository.findByUsername(req.getUsername())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials"));
+                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
 
-        if (!user.getPassword().equals(req.getPassword())) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
+        if (!passwordEncoder.matches(req.getPassword(), user.getPassword())) {
+            throw new RuntimeException("Invalid credentials");
         }
 
-        // Return a simple dummy token to satisfy test expectations
-        Map<String, String> body = new HashMap<>();
-        body.put("token", "dummy-token-for-" + user.getUsername());
-        return ResponseEntity.ok(body);
+        String token = jwtUtil.generateToken(user.getUsername(), user.getRole());
+
+        LoginResponse response = new LoginResponse(
+                user.getId(),
+                token,
+                user.getUsername(),
+                user.getEmail(),
+                user.getRole()
+        );
+
+        return ResponseEntity.ok(response);
     }
 }

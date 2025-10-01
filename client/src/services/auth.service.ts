@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AuthService {
   private isLoggedIn: boolean = false;
   id: string | null | undefined;
 
-  private apiUrl = 'http://localhost:3000/api/auth'; // 🔹 Replace with your backend endpoint
+  private apiUrl = `${environment.apiUrl}`; // 🔹 Replace with your backend endpoint
 
   constructor(private http: HttpClient) {}
 

@@ -1,1 +1,38 @@
-//todo: complete missing code..
+<div class="login-container">
+  <div class="login-card">
+    <h2>Login</h2>
+    <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          placeholder="Enter your username"
+        />
+        <div class="error" *ngIf="itemForm.get('username')?.['invalid'] && (itemForm.get('username')?.['dirty'] || itemForm.get('username')?.['touched']) && itemForm.get('username')?.errors?.['required']">
+          Username is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Enter your password"
+        />
+        <div class="error" *ngIf="itemForm.get('password')?.['invalid'] && (itemForm.get('password')?.['dirty'] || itemForm.get('password')?.['touched']) && itemForm.get('password')?.errors?.['required']">
+          Password is required
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="itemForm.invalid">Login</button>
+    </form>
+
+    <div class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+  </div>
+</div>
