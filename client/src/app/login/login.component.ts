@@ -4,58 +4,63 @@ import { Router } from '@angular/router';
 import { HttpService } from '../../services/http.service';
 import { AuthService } from '../../services/auth.service';
 
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  itemForm!: FormGroup;   // form initialized in ngOnInit
-  errorMessage: string = '';
-
-  constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private httpService: HttpService,
-    private authService: AuthService
-  ) {}
+  itemForm: FormGroup;
+  formModel:any={};
+  showError:boolean=false;
+  errorMessage:any;
+  constructor(public router:Router, public httpService:HttpService, private formBuilder: FormBuilder, private authService:AuthService) 
+    {
+      this.itemForm = this.formBuilder.group({
+        username: [this.formModel.username,[ Validators.required]],
+        password: [this.formModel.password,[ Validators.required]],
+       
+    });
+  }
 
   ngOnInit(): void {
-    // initialize form with required validators
-    this.itemForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
   }
-
-  // getter for form controls
-  get f() {
-    return this.itemForm.controls;
-  }
-
-  onSubmit(): void {
-    if (this.itemForm.invalid) {
-      this.errorMessage = 'Username and password are required';
-      return;
-    }
-
-    const { username, password } = this.itemForm.value;
-
-    // Example: Use AuthService to login
-    this.authService.login(username, password).subscribe({
-      next: (response) => {
-        // assuming response has token or success flag
-        if (response && response.token) {
-          this.authService.saveToken(response.token);
-          this.router.navigate(['/dashboard']); // redirect after login
-        } else {
-          this.errorMessage = 'Invalid login credentials';
-        }
-      },
-      error: (err) => {
-        console.error('Login error:', err);
-        this.errorMessage = 'Login failed. Please try again later.';
+  onLogin() {
+  if (this.itemForm.valid) {
+    this.showError = false;
+    this.httpService.Login(this.itemForm.value).subscribe((data: any) => {
+      if (data.userNo != 0) {
+        // debugger;
+    
+        // localStorage.setItem('role', data.role);
+        this.authService.SetRole(data.role);
+        this.authService.saveToken(data.token)
+        this.authService.saveUserId(data.userId)
+        this.router.navigateByUrl('/dashboard');
+      
+        
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } else {
+        this.showError = true;
+        this.errorMessage = "Wrong User or Password";
       }
-    });
+    }, error => {
+      // Handle error
+      this.showError = true;
+      this.errorMessage = "An error occurred while logging in. Please try again later.";
+      console.error('Login error:', error);
+    });;
+  } else {
+    this.itemForm.markAllAsTouched();
+  }
+}
+
+registration()
+  {
+    this.router.navigateByUrl('/registration');
   }
 }

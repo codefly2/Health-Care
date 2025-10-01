@@ -1,78 +1,45 @@
 package com.wecp.healthcare_appointment_management_system.controller;
 
+
 import com.wecp.healthcare_appointment_management_system.dto.TimeDto;
 import com.wecp.healthcare_appointment_management_system.entity.Appointment;
-import com.wecp.healthcare_appointment_management_system.entity.Doctor;
-import com.wecp.healthcare_appointment_management_system.entity.Patient;
-import com.wecp.healthcare_appointment_management_system.entity.Receptionist;
-import com.wecp.healthcare_appointment_management_system.entity.User;
-import com.wecp.healthcare_appointment_management_system.repository.AppointmentRepository;
-import com.wecp.healthcare_appointment_management_system.repository.DoctorRepository;
-import com.wecp.healthcare_appointment_management_system.repository.PatientRepository;
-import com.wecp.healthcare_appointment_management_system.repository.ReceptionistRepository;
-import com.wecp.healthcare_appointment_management_system.repository.UserRepository;
+import com.wecp.healthcare_appointment_management_system.service.AppointmentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/api/receptionist")
 public class ReceptionistController {
 
-    private final ReceptionistRepository receptionistRepository;
-    private final AppointmentRepository appointmentRepository;
-    private final PatientRepository patientRepository;
-    private final DoctorRepository doctorRepository;
-    private final UserRepository userRepository;
+    @Autowired
+    private AppointmentService appointmentService;
 
-    public ReceptionistController(ReceptionistRepository receptionistRepository,
-                                  AppointmentRepository appointmentRepository,
-                                  PatientRepository patientRepository,
-                                  DoctorRepository doctorRepository,
-                                  UserRepository userRepository) {
-        this.receptionistRepository = receptionistRepository;
-        this.appointmentRepository = appointmentRepository;
-        this.patientRepository = patientRepository;
-        this.doctorRepository = doctorRepository;
-        this.userRepository = userRepository;
+    @GetMapping("/api/receptionist/appointments")
+    public List<Appointment> getAppointments() {
+      // get all appointments
+      return appointmentService.getAppointments();
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<Receptionist> registerReceptionist(@RequestBody Receptionist receptionist) {
-        Receptionist saved = receptionistRepository.save(receptionist);
-        userRepository.save(new User(saved.getUsername(), saved.getPassword(), saved.getEmail(), "RECEPTIONIST"));
-        return ResponseEntity.ok(saved);
-    }
-
-    @GetMapping("/appointments")
-    public ResponseEntity<List<Appointment>> getAllAppointments() {
-        List<Appointment> list = appointmentRepository.findAllByOrderByAppointmentTimeAsc();
-        return ResponseEntity.ok(list);
-    }
-
-    @PostMapping("/appointment")
+    @PostMapping("/api/receptionist/appointment")
     public ResponseEntity<Appointment> scheduleAppointment(@RequestParam Long patientId,
                                                            @RequestParam Long doctorId,
                                                            @RequestBody TimeDto timeDto) {
-        Patient patient = patientRepository.findById(patientId).orElseThrow();
-        Doctor doctor = doctorRepository.findById(doctorId).orElseThrow();
-
-        Appointment appt = new Appointment();
-        appt.setPatient(patient);
-        appt.setDoctor(doctor);
-        appt.setAppointmentTime(timeDto.getAppointmentTime());
-
-        Appointment saved = appointmentRepository.save(appt);
-        return ResponseEntity.ok(saved);
+        // schedule appointment
+        return new ResponseEntity<Appointment>(appointmentService.scheduleAppointment(patientId, doctorId, timeDto), HttpStatus.OK);
     }
 
-    @PutMapping("/appointment-reschedule/{appointmentId}")
+    @PutMapping("/api/receptionist/appointment-reschedule/{appointmentId}")
     public ResponseEntity<Appointment> rescheduleAppointment(@PathVariable Long appointmentId,
                                                              @RequestBody TimeDto timeDto) {
-        Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow();
-        appointment.setAppointmentTime(timeDto.getAppointmentTime());
-        Appointment saved = appointmentRepository.save(appointment);
-        return ResponseEntity.ok(saved);
+        // reschedule appointment
+        return new ResponseEntity<Appointment>(appointmentService.rescheduleAppointment(appointmentId,timeDto), HttpStatus.OK);
     }
-}
+  }

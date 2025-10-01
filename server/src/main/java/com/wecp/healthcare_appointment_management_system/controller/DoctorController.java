@@ -2,53 +2,38 @@ package com.wecp.healthcare_appointment_management_system.controller;
 
 import com.wecp.healthcare_appointment_management_system.entity.Appointment;
 import com.wecp.healthcare_appointment_management_system.entity.Doctor;
-import com.wecp.healthcare_appointment_management_system.entity.User;
-import com.wecp.healthcare_appointment_management_system.repository.AppointmentRepository;
-import com.wecp.healthcare_appointment_management_system.repository.DoctorRepository;
-import com.wecp.healthcare_appointment_management_system.repository.UserRepository;
+import com.wecp.healthcare_appointment_management_system.service.AppointmentService;
+import com.wecp.healthcare_appointment_management_system.service.DoctorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping
 public class DoctorController {
 
-    private final DoctorRepository doctorRepository;
-    private final AppointmentRepository appointmentRepository;
-    private final UserRepository userRepository;
+    @Autowired
+    private AppointmentService appointmentService;
 
-    public DoctorController(DoctorRepository doctorRepository,
-                            AppointmentRepository appointmentRepository,
-                            UserRepository userRepository) {
-        this.doctorRepository = doctorRepository;
-        this.appointmentRepository = appointmentRepository;
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private DoctorService doctorService;
 
-    // Registration for doctor
-    @PostMapping("/api/doctors/register")
-    public ResponseEntity<Doctor> registerDoctor(@RequestBody Doctor doctor) {
-        Doctor saved = doctorRepository.save(doctor);
-        userRepository.save(new User(saved.getUsername(), saved.getPassword(), saved.getEmail(), "DOCTOR"));
-        return ResponseEntity.ok(saved);
-    }
-
-    // Get appointments for a doctor
     @GetMapping("/api/doctor/appointments")
-    public ResponseEntity<List<Appointment>> getAppointmentsByDoctorId(@RequestParam Long doctorId) {
-        List<Appointment> list = appointmentRepository.findByDoctorId(doctorId);
-        return ResponseEntity.ok(list);
+    public ResponseEntity<List<Appointment>> viewAppointments(@RequestParam Long doctorId) {
+        // view appointments
+        List<Appointment> appointments = appointmentService.getAppointmentsByDoctorId(doctorId);
+        return new ResponseEntity<List<Appointment>>(appointments, HttpStatus.OK);
     }
 
-    // Update availability
     @PostMapping("/api/doctor/availability")
-    public ResponseEntity<Doctor> updateAvailability(@RequestParam Long doctorId,
-                                                     @RequestParam String availability) {
-        Doctor doctor = doctorRepository.findById(doctorId).orElseThrow();
-        doctor.setAvailability(availability);
-        Doctor updated = doctorRepository.save(doctor);
-        return ResponseEntity.ok(updated);
+    public ResponseEntity<Doctor> manageAvailability(@RequestParam Long doctorId, @RequestParam String availability) throws Exception {
+        // manage availablity
+        Doctor updatedDoctor = doctorService.updateAvailability(doctorId, availability);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedDoctor);
     }
 }
