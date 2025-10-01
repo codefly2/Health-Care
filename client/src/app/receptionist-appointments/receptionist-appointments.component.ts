@@ -2,59 +2,104 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { map, of } from 'rxjs';
 
 @Component({
   selector: 'app-receptionist-appointments',
   templateUrl: './receptionist-appointments.component.html',
   styleUrls: ['./receptionist-appointments.component.scss'],
-  providers: [DatePipe]
+  providers: [DatePipe] 
 })
 export class ReceptionistAppointmentsComponent implements OnInit {
+  itemForm: FormGroup;
+  formModel:any={};
+  responseMessage:any;
+  isAdded: boolean=false;
+  filteredAppointments$:any;
+  appointmentList$:any;
+  paginatedList$: any;
+  currentPage: number = 1; 
+  itemsPerPage: number = 10;
 
-  itemForm!: FormGroup;
-  appointments: any[] = []; // Holds appointment data
-
-  constructor(
-    private fb: FormBuilder,
-    private httpService: HttpService,
-    private datePipe: DatePipe
-  ) {}
+  constructor(public httpService:HttpService,private formBuilder: FormBuilder,private datePipe: DatePipe) {
+    this.itemForm = this.formBuilder.group({
+   
+      id: [this.formModel.id,[ Validators.required]],
+      time: [this.formModel.time,[ Validators.required]],
+  });
+   }
 
   ngOnInit(): void {
-    this.itemForm = this.fb.group({
-      id: ['', Validators.required], // patientId or appointmentId
-      time: ['', Validators.required], // appointment time
-    });
-
-    this.loadAppointments();
+    this.getAppointments();
   }
 
-  loadAppointments(): void {
-    this.httpService.getAllAppointments().subscribe({
-      next: (data) => (this.appointments = data),
-      error: (err) => console.error('Error loading appointments', err)
+
+  getAppointments() {
+  
+    this.httpService.getAllAppointments().subscribe((data)=>{
+      this.appointmentList$ = of(data);
+      this.filteredAppointments$ = of(data); //
+    })
+  }
+  
+  editAppointment(val:any)
+  {  
+    
+    this.itemForm.controls["id"].setValue(val.id);
+  
+    this.isAdded=true;
+
+  }
+
+  
+  onSubmit()
+  { 
+    const formattedTime = this.datePipe.transform(this.itemForm.controls['time'].value, 'yyyy-MM-dd HH:mm:ss');
+
+    // Update the form value with the formatted date
+    this.itemForm.controls['time'].setValue(formattedTime);
+    this.httpService.reScheduleAppointment(this.itemForm.controls["id"].value, this.itemForm.value).subscribe((data)=>{   
+      this.itemForm.reset();
+      this.responseMessage="Appointment Rescheduled  Save Successfully";
+      this.isAdded=false;
+      this.getAppointments();
+    })
+    
+  }
+
+  searchAppointments(event: any) {
+    const searchTerm = event.target.value.trim().toLowerCase();
+    this.filteredAppointments$ = this.appointmentList$.pipe(
+      map((appointments: any[]) => {
+        if (!searchTerm) {
+           return appointments;
+        }
+         return appointments.filter(appointment =>
+          appointment.doctor.username.toLowerCase().includes(searchTerm) || 
+          appointment.id.toString().includes(searchTerm)
+        );  
+      })
+    );
+  }
+
+  updatePaginatedList() {
+    this.filteredAppointments$.subscribe((appointments: any[]) => {
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      this.paginatedList$ = appointments.slice(startIndex, endIndex);
     });
   }
 
-  submitForm(): void {
-    if (this.itemForm.valid) {
-      const formValue = this.itemForm.value;
+  goToPage(page: number) {
+    this.currentPage = page;
+    this.updatePaginatedList();
+  }
 
-      const details = {
-        patientId: formValue.id,
-        doctorId: formValue.doctorId,
-        time: this.datePipe.transform(formValue.time, 'yyyy-MM-ddTHH:mm:ss')
-      };
-
-      this.httpService.ScheduleAppointmentByReceptionist(details).subscribe({
-        next: (res) => {
-          console.log('Appointment scheduled', res);
-          this.loadAppointments(); // Refresh list
-        },
-        error: (err) => console.error('Error scheduling appointment', err)
-      });
-    } else {
-      console.warn('Form is invalid');
-    }
+  get totalPages(): number {
+    let totalItems = 0;
+    this.filteredAppointments$.subscribe((appointments: any[]) => {
+      totalItems = appointments.length;
+    });
+    return Math.ceil(totalItems / this.itemsPerPage);
   }
 }
