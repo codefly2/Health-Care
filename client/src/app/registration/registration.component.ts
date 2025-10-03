@@ -1,87 +1,97 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { catchError, map, Observable, of } from 'rxjs';
+import { HttpService } from '../../services/http.service';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-  itemForm!: FormGroup;
-  message: string = '';
-  errorMessage: string = '';
 
-  private baseUrl = 'http://localhost:5000/api'; // ✅ your Spring Boot backend
+  itemForm: FormGroup;
+  formModel: any = { role: null, email: '', password: '', username: '' };
+  showMessage: boolean = false;
+  responseMessage: any;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {}
-
-  ngOnInit(): void {
-    this.itemForm = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      role: ['', Validators.required],
-      specialty: [''],
-      availability: ['']
+  constructor(public router: Router, private bookService: HttpService, private formBuilder: FormBuilder) {
+    this.itemForm = this.formBuilder.group({
+      email: [this.formModel.email, [Validators.required, Validators.email]],
+      password: [this.formModel.password, [Validators.required,Validators.pattern('(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&])[A-Za-z0-9!@#$%^&]{6,}')]],
+      role: [this.formModel.role, [Validators.required]],
+      username: [this.formModel.username, ],
+      specialty: [this.formModel.specialty],
+      availability: [this.formModel.availability],
     });
-
+  }
+  // [Validators.required, this.nameValidator()]
+  ngOnInit(): void {
     this.onRoleChange();
   }
 
-  onRoleChange(): void {
+  nameValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      return this.bookService.usernameExists(control.value).pipe(
+        map(isTaken => {
+          if (isTaken) {
+            // console.log("Hii I'm Trueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+            return { negativeValue: true };
+          } else {
+            // console.log("Hii I'm Falseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+            return null;
+          }
+        }),
+        catchError(() => of(null))
+      );
+    };
+  }
+
+
+  onRoleChange() {
     this.itemForm.get('role')?.valueChanges.subscribe(role => {
-      const specialtyControl = this.itemForm.get('specialty');
-      const availabilityControl = this.itemForm.get('availability');
-
       if (role === 'DOCTOR') {
-        specialtyControl?.setValidators([Validators.required]);
-        availabilityControl?.setValidators([Validators.required]);
+        this.itemForm.get('specialty')?.setValidators([Validators.required]);
+        this.itemForm.get('availability')?.setValidators([Validators.required]);
       } else {
-        specialtyControl?.clearValidators();
-        availabilityControl?.clearValidators();
+        this.itemForm.get('specialty')?.clearValidators();
+        this.itemForm.get('availability')?.clearValidators();
       }
-
-      specialtyControl?.updateValueAndValidity();
-      availabilityControl?.updateValueAndValidity();
+      this.itemForm.get('specialty')?.updateValueAndValidity();
+      this.itemForm.get('availability')?.updateValueAndValidity();
     });
   }
 
-  onSubmit(): void {
-    if (this.itemForm.invalid) {
-      this.errorMessage = 'Please fill all required fields';
-      return;
-    }
-
-    const formData = this.itemForm.value;
-    let endpoint = '';
-
-    switch (formData.role) {
-      case 'PATIENT':
-        endpoint = `${this.baseUrl}/patient/register`;
-        break;
-      case 'DOCTOR':
-        endpoint = `${this.baseUrl}/doctors/register`;
-        break;
-      case 'RECEPTIONIST':
-        endpoint = `${this.baseUrl}/receptionist/register`;
-        break;
-      default:
-        this.errorMessage = 'Invalid role selected';
-        return;
-    }
-
-    this.http.post(endpoint, formData).subscribe({
-      next: (res) => {
-        this.message = `${formData.role} registered successfully!`;
-        this.errorMessage = '';
+  onRegister() {
+    // debugger;
+    if (this.itemForm.valid) {
+      this.showMessage = false;
+      if( this.itemForm.controls["role"].value=="PATIENT")
+      this.bookService.registerPatient(this.itemForm.value).subscribe(data => {
+        this.showMessage = true;
+        this.responseMessage = "You are successfully Registered";
         this.itemForm.reset();
-      },
-      error: (err) => {
-        console.error(err);
-        this.errorMessage = 'Registration failed. Please try again.';
-        this.message = '';
-      }
-    });
+      }, error => {
+        // Handle error
+      });
+      if( this.itemForm.controls["role"].value=="DOCTOR")
+        this.bookService.registerDoctors(this.itemForm.value).subscribe(data => {
+          this.showMessage = true;
+          this.responseMessage = "You are successfully Registered";
+          this.itemForm.reset();
+        }, error => {
+          // Handle error
+        });
+        if( this.itemForm.controls["role"].value=="RECEPTIONIST")
+          this.bookService.registerReceptionist(this.itemForm.value).subscribe(data => {
+            this.showMessage = true;
+            this.responseMessage = "You are successfully Registered";
+            this.itemForm.reset();
+          }, error => {
+            // Handle error
+          });
+    } else {
+      this.itemForm.markAllAsTouched();
+    }
   }
 }

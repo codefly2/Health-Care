@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<testsuite name="Chrome Headless 131.0.0.0 (Linux x86_64)" package="" timestamp="2025-10-01T05:00:58" id="0" hostname="ip-172-31-47-158" tests="36" errors="0" failures="5" time="0.285">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/131.0.0.0 Safari/537.36"/>
+  </properties>
+  <testcase name="DoctorAppointmentComponent should create" time="0.065" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).DoctorAppointmentComponent">
+    <failure type="">TypeError: Cannot read properties of undefined (reading 'subscribe')
+    at DoctorAppointmentComponent.get totalPages [as totalPages] (src/app/doctor-appointment/doctor-appointment.component.ts:65:32)
+    at templateFn (ng:///DoctorAppointmentComponent.js:144:84)
+    at executeTemplate (node_modules/@angular/core/fesm2020/core.mjs:12126:9)
+    at refreshView (node_modules/@angular/core/fesm2020/core.mjs:12011:13)
+    at refreshComponent (node_modules/@angular/core/fesm2020/core.mjs:13085:13)
+    at refreshChildComponents (node_modules/@angular/core/fesm2020/core.mjs:11801:9)
+    at refreshView (node_modules/@angular/core/fesm2020/core.mjs:12061:13)
+    at detectChangesInternal (node_modules/@angular/core/fesm2020/core.mjs:13229:9)
+    at RootViewRef.detectChanges (node_modules/@angular/core/fesm2020/core.mjs:13741:9)
+    at ComponentFixture._tick (node_modules/@angular/core/fesm2020/testing.mjs:140:32)
+</failure>
+  </testcase>
+  <testcase name="DoctorAvailabilityComponent should create" time="0.02" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).DoctorAvailabilityComponent"/>
+  <testcase name="HttpService should be created" time="0.003" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should register a patient" time="0.003" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should register a doctor" time="0.002" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should register a receptionist" time="0.002" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should retrieve doctors" time="0.001" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should schedule an appointment" time="0.001" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should schedule an appointment by receptionist" time="0.002" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should reschedule an appointment" time="0.002" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should get all appointments" time="0.001" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should get appointments by doctor" time="0.002" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should get appointments by patient" time="0.001" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should update doctor availability" time="0.001" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).HttpService"/>
+  <testcase name="HttpService should login user" time="0.001" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).HttpService"/>
+  <testcase name="LoginComponent should have invalid form if username and password are empty" time="0.021" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).LoginComponent"/>
+  <testcase name="LoginComponent should have invalid form if username or password is empty" time="0.016" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).LoginComponent"/>
+  <testcase name="LoginComponent should have valid form if username and password are provided" time="0.008" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).LoginComponent"/>
+  <testcase name="PatientAppointmentComponent should create" time="0.016" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).PatientAppointmentComponent">
+    <failure type="">TypeError: Cannot read properties of undefined (reading 'subscribe')
+    at PatientAppointmentComponent.get totalPages [as totalPages] (src/app/patient-appointment/patient-appointment.component.ts:65:32)
+    at templateFn (ng:///PatientAppointmentComponent.js:146:84)
+    at executeTemplate (node_modules/@angular/core/fesm2020/core.mjs:12126:9)
+    at refreshView (node_modules/@angular/core/fesm2020/core.mjs:12011:13)
+    at refreshComponent (node_modules/@angular/core/fesm2020/core.mjs:13085:13)
+    at refreshChildComponents (node_modules/@angular/core/fesm2020/core.mjs:11801:9)
+    at refreshView (node_modules/@angular/core/fesm2020/core.mjs:12061:13)
+    at detectChangesInternal (node_modules/@angular/core/fesm2020/core.mjs:13229:9)
+    at RootViewRef.detectChanges (node_modules/@angular/core/fesm2020/core.mjs:13741:9)
+    at ComponentFixture._tick (node_modules/@angular/core/fesm2020/testing.mjs:140:32)
+</failure>
+  </testcase>
+  <testcase name="ReceptionistAppointmentsComponent should create" time="0.016" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).ReceptionistAppointmentsComponent">
+    <failure type="">TypeError: Cannot read properties of undefined (reading 'subscribe')
+    at ReceptionistAppointmentsComponent.get totalPages [as totalPages] (src/app/receptionist-appointments/receptionist-appointments.component.ts:100:32)
+    at templateFn (ng:///ReceptionistAppointmentsComponent.js:247:83)
+    at executeTemplate (node_modules/@angular/core/fesm2020/core.mjs:12126:9)
+    at refreshView (node_modules/@angular/core/fesm2020/core.mjs:12011:13)
+    at refreshComponent (node_modules/@angular/core/fesm2020/core.mjs:13085:13)
+    at refreshChildComponents (node_modules/@angular/core/fesm2020/core.mjs:11801:9)
+    at refreshView (node_modules/@angular/core/fesm2020/core.mjs:12061:13)
+    at detectChangesInternal (node_modules/@angular/core/fesm2020/core.mjs:13229:9)
+    at RootViewRef.detectChanges (node_modules/@angular/core/fesm2020/core.mjs:13741:9)
+    at ComponentFixture._tick (node_modules/@angular/core/fesm2020/testing.mjs:140:32)
+</failure>
+  </testcase>
+  <testcase name="ReceptionistAppointmentsComponent should have an invalid form when empty" time="0.005" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).ReceptionistAppointmentsComponent">
+    <failure type="">TypeError: Cannot read properties of undefined (reading 'subscribe')
+    at ReceptionistAppointmentsComponent.get totalPages [as totalPages] (src/app/receptionist-appointments/receptionist-appointments.component.ts:100:32)
+    at templateFn (ng:///ReceptionistAppointmentsComponent.js:247:83)
+    at executeTemplate (node_modules/@angular/core/fesm2020/core.mjs:12126:9)
+    at refreshView (node_modules/@angular/core/fesm2020/core.mjs:12011:13)
+    at refreshComponent (node_modules/@angular/core/fesm2020/core.mjs:13085:13)
+    at refreshChildComponents (node_modules/@angular/core/fesm2020/core.mjs:11801:9)
+    at refreshView (node_modules/@angular/core/fesm2020/core.mjs:12061:13)
+    at detectChangesInternal (node_modules/@angular/core/fesm2020/core.mjs:13229:9)
+    at RootViewRef.detectChanges (node_modules/@angular/core/fesm2020/core.mjs:13741:9)
+    at ComponentFixture._tick (node_modules/@angular/core/fesm2020/testing.mjs:140:32)
+</failure>
+  </testcase>
+  <testcase name="ReceptionistAppointmentsComponent should validate form when id and time are provided" time="0.005" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).ReceptionistAppointmentsComponent">
+    <failure type="">TypeError: Cannot read properties of undefined (reading 'subscribe')
+    at ReceptionistAppointmentsComponent.get totalPages [as totalPages] (src/app/receptionist-appointments/receptionist-appointments.component.ts:100:32)
+    at templateFn (ng:///ReceptionistAppointmentsComponent.js:247:83)
+    at executeTemplate (node_modules/@angular/core/fesm2020/core.mjs:12126:9)
+    at refreshView (node_modules/@angular/core/fesm2020/core.mjs:12011:13)
+    at refreshComponent (node_modules/@angular/core/fesm2020/core.mjs:13085:13)
+    at refreshChildComponents (node_modules/@angular/core/fesm2020/core.mjs:11801:9)
+    at refreshView (node_modules/@angular/core/fesm2020/core.mjs:12061:13)
+    at detectChangesInternal (node_modules/@angular/core/fesm2020/core.mjs:13229:9)
+    at RootViewRef.detectChanges (node_modules/@angular/core/fesm2020/core.mjs:13741:9)
+    at ComponentFixture._tick (node_modules/@angular/core/fesm2020/testing.mjs:140:32)
+</failure>
+  </testcase>
+  <testcase name="ReceptionistScheduleAppointmentsComponent should create" time="0.01" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).ReceptionistScheduleAppointmentsComponent"/>
+  <testcase name="ReceptionistScheduleAppointmentsComponent should have an invalid form when empty" time="0.004" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).ReceptionistScheduleAppointmentsComponent"/>
+  <testcase name="ReceptionistScheduleAppointmentsComponent should validate form when all fields are provided" time="0.006" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).ReceptionistScheduleAppointmentsComponent"/>
+  <testcase name="RegistrationComponent should have invalid form if any field is empty" time="0.023" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).RegistrationComponent"/>
+  <testcase name="RegistrationComponent should have invalid form if email is invalid" time="0.007" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).RegistrationComponent"/>
+  <testcase name="RegistrationComponent should have valid form if all fields are filled correctly" time="0.008" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).RegistrationComponent"/>
+  <testcase name="RegistrationComponent should set specialty and availability validators when role is DOCTOR" time="0.006" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).RegistrationComponent"/>
+  <testcase name="RegistrationComponent should clear specialty and availability validators when role is not DOCTOR" time="0.008" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).RegistrationComponent"/>
+  <testcase name="ScheduleAppointmentComponent should create" time="0.007" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).ScheduleAppointmentComponent"/>
+  <testcase name="ScheduleAppointmentComponent should have an invalid form when empty" time="0.002" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).ScheduleAppointmentComponent"/>
+  <testcase name="ScheduleAppointmentComponent should validate patientId as required" time="0.003" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).ScheduleAppointmentComponent"/>
+  <testcase name="ScheduleAppointmentComponent should validate doctorId as required" time="0.003" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).ScheduleAppointmentComponent"/>
+  <testcase name="ScheduleAppointmentComponent should validate time as required" time="0.002" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).ScheduleAppointmentComponent"/>
+  <testcase name="ScheduleAppointmentComponent should have a valid form when all fields are filled" time="0.002" classname="Chrome_Headless_131_0_0_0_(Linux_x86_64).ScheduleAppointmentComponent"/>
+  <system-out>
+    <![CDATA[Chrome Headless 131.0.0.0 (Linux x86_64) WARN: '
+  It looks like you're using ngModel on the same form field as formControlName.
+  Support for using the ngModel input property and ngModelChange event with
+  reactive form directives has been deprecated in Angular v6 and will be removed
+  in a future version of Angular.
+
+  For more information on this, see our API docs here:
+  https://angular.io/api/forms/FormControlName#use-with-ngmodel
+  '
+
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>

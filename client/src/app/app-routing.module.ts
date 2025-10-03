@@ -24,6 +24,8 @@ const routes: Routes = [
   { path: 'doctor-availability', component: DoctorAvailabilityComponent },
   { path: 'receptionist-appointments', component: ReceptionistAppointmentsComponent },
   { path: 'receptionist-schedule-appointments', component: ReceptionistScheduleAppointmentsComponent },
+  
+  
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: '/dashboard', pathMatch: 'full' },
 ];

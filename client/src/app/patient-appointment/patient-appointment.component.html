@@ -1,10 +1,12 @@
-
-
-
 <div class="card mt-4">
     <div class="card-header">
         <h4>Appointments</h4>
     </div>
+
+    <div class="input-group search-bar">
+        <input type="text" placeholder="Search appointments" (input)="searchAppointments($event)" />
+    </div>
+
     <div class="card-body">
         <table class="table table-boarderd">
             <thead>
@@ -13,12 +15,12 @@
                 <th>Status</th>
                 <th>Doctor</th>
                 <th>Patient</th>
-               
+                <th>QR Code</th>
             </thead>
-            <tbody *ngFor="let val of appointmentList">
-                <tr >
+            <tbody>
+                <tr *ngFor="let val of paginatedList$">
                     <td>{{val.id}}</td>
-                    <td>{{val.appointmentTime | date:'dd-MMM-yyyy hh:mm:a'}}</td>
+                    <td>{{val.appointmentTime | date:'dd-MMM-yyyy hh:mm:a':'UTC'}}</td>
                     <td>{{val.status}}</td>
                     <td><strong>{{val.doctor.username}}</strong><br>
                         <small>{{val.doctor.email}}</small>
@@ -26,9 +28,46 @@
                     <td><strong>{{val.patient.username}}</strong><br>
                         <small>{{val.patient.email}}</small>
                     </td>
-                  
+                    <td> 
+                        <img *ngIf="qrCodes[val.id]"
+                             [src] = "'data:image/png;base64,' + qrCodes[val.id]"
+                             alt="QR Code" width="60" height="60"
+                             (click) = "openQr(qrCodes[val.id])"/>
+                    </td>
                 </tr>
             </tbody>
         </table>
+
+        <!-- Pagination Controls -->
+        <ul class="pagination">
+            <li [class.disabled]="currentPage === 1" (click)="goToPage(1)">
+                <a href="javascript:void(0)">First</a>
+            </li>
+            <li [class.disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+                <a href="javascript:void(0)">Previous</a>
+            </li>
+
+            <!-- Dynamic Page Numbers -->
+            <li *ngFor="let page of [].constructor(totalPages); let i = index"
+                [class.active]="i + 1 === currentPage" (click)="goToPage(i + 1)">
+                <a href="javascript:void(0)">{{i + 1}}</a>
+            </li>
+
+            <li [class.disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+                <a href="javascript:void(0)">Next</a>
+            </li>
+            <li [class.disabled]="currentPage === totalPages" (click)="goToPage(totalPages)">
+                <a href="javascript:void(0)">Last</a>
+            </li>
+        </ul>
     </div>
 </div>
+<div *ngIf="selectedQr" class="qr-popup">
+    <div class="qr-overlay" (click)="selectedQr=null"></div>
+    <div class="qr-content">
+        <img [src]="'data:image/png;base64,'+selectedQr" alt="QR"/>
+        <button (click)="selectedQr = null" class="btn btn-danger">Close</button>
+    </div>
+</div>
+
+

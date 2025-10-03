@@ -1,55 +1,69 @@
 package com.wecp.healthcare_appointment_management_system.controller;
-
 import com.wecp.healthcare_appointment_management_system.dto.LoginRequest;
 import com.wecp.healthcare_appointment_management_system.dto.LoginResponse;
+import com.wecp.healthcare_appointment_management_system.entity.Doctor;
+import com.wecp.healthcare_appointment_management_system.entity.Patient;
+import com.wecp.healthcare_appointment_management_system.entity.Receptionist;
 import com.wecp.healthcare_appointment_management_system.entity.User;
 import com.wecp.healthcare_appointment_management_system.jwt.JwtUtil;
-import com.wecp.healthcare_appointment_management_system.repository.UserRepository;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import com.wecp.healthcare_appointment_management_system.service.UserService;
 
+import com.wecp.healthcare_appointment_management_system.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+// import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 @RestController
-@RequestMapping("/api/user")
 public class RegisterAndLoginController {
 
-    private final UserRepository userRepository;
-    private final JwtUtil jwtUtil;
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserService userService;
 
-    public RegisterAndLoginController(UserRepository userRepository,
-                                      JwtUtil jwtUtil,
-                                      PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.jwtUtil = jwtUtil;
-        this.passwordEncoder = passwordEncoder;
+    private AuthenticationManager authenticationManager;
+
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @PostMapping("/api/patient/register")
+    public ResponseEntity<Patient> registerPatient(@RequestBody Patient patient) {
+        Patient registeredPatient = (Patient) userService.registerUser(patient);
+        return new ResponseEntity<>(registeredPatient, HttpStatus.CREATED);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return ResponseEntity.ok(userRepository.save(user));
+    @PostMapping("/api/doctors/register")
+    public ResponseEntity<Doctor> registerDoctor(@RequestBody Doctor doctor) {
+        Doctor registeredDoctor = (Doctor) userService.registerUser(doctor);
+        return new ResponseEntity<>(registeredDoctor, HttpStatus.CREATED);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest req) {
-        User user = userRepository.findByUsername(req.getUsername())
-                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
+    @PostMapping("/api/receptionist/register")
+    public ResponseEntity<Receptionist> registerReceptionist(@RequestBody Receptionist receptionist) {
+        Receptionist registeredReceptionist = (Receptionist) userService.registerUser(receptionist);
+        return new ResponseEntity<>(registeredReceptionist, HttpStatus.CREATED);
+    }
 
-        if (!passwordEncoder.matches(req.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid credentials");
+    @PostMapping("/api/user/login")
+    public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest) {
+        User user = userService.loginUser(loginRequest.getUsername(), loginRequest.getPassword());
+        if (user != null) {
+
+            String tokens= jwtUtil.generateToken(loginRequest.getUsername());
+            
+            LoginResponse response = new LoginResponse(user.getId(),tokens, user.getUsername(), user.getEmail(), user.getRole());
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-
-        String token = jwtUtil.generateToken(user.getUsername(), user.getRole());
-
-        LoginResponse response = new LoginResponse(
-                user.getId(),
-                token,
-                user.getUsername(),
-                user.getEmail(),
-                user.getRole()
-        );
-
-        return ResponseEntity.ok(response);
     }
+    
+
 }
