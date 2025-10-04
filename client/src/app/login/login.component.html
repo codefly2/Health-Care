@@ -1,4 +1,4 @@
-<div class="vh-100 d-flex justify-content-center align-items-center">
+<!-- <div class="vh-100 d-flex justify-content-center align-items-center">
     <div class="container">
       <div class="row d-flex justify-content-center">
         <div class="col-12 col-md-8 col-lg-6">
@@ -46,3 +46,162 @@
       </div>
     </div>
   </div>
+ -->
+
+
+<!-- Eco Wellness Login - hospital themed, full-bleed, flush under navbar -->
+<div class="eco-login-page" role="main" aria-label="Login page" style="--nav-height: 56px;">
+  <!-- Hospital-themed Animated Background -->
+  <div class="hospital-background" aria-hidden="true">
+    <div class="bg-plus plus-1"></div>
+    <div class="bg-plus plus-2"></div>
+    <div class="bg-plus plus-3"></div>
+    <div class="bg-plus plus-4"></div>
+    <div class="bg-plus plus-5"></div>
+  </div>
+
+  <div class="login-container">
+    <div class="wellness-card">
+      <div class="organic-border"></div>
+
+      <!-- Header with new ECG heartbeat logo -->
+      <div class="mindful-header">
+        <div class="med-logo" aria-hidden="true">
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" role="img" aria-label="ECG Heartbeat">
+            <!-- outer ring -->
+            <circle cx="28" cy="28" r="26" stroke="currentColor" stroke-width="2" opacity="0.7"/>
+            <!-- ECG heartbeat line -->
+            <path
+              d="M10 28h8l3-6 5 14 4-8h10"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <!-- pulse dot -->
+            <circle cx="43" cy="28" r="2" fill="currentColor" opacity="0.9"/>
+          </svg>
+          <div class="logo-glow"></div>
+        </div>
+        <h1>Healthcare Appointment Management System</h1>
+        <p>Sign in to continue</p>
+      </div>
+
+      <!-- Reactive Form -->
+      <form class="harmony-form" [formGroup]="itemForm" (ngSubmit)="onLogin()" novalidate>
+        <!-- Username -->
+        <div
+          class="organic-field"
+          [ngClass]="{
+            error: itemForm.controls['username'].invalid &&
+                   (itemForm.controls['username'].dirty || itemForm.controls['username'].touched)
+          }"
+        >
+          <div class="field-nature"></div>
+
+          <input
+            type="text"
+            id="username"
+            name="username"
+            formControlName="username"
+            placeholder=" "
+            autocomplete="username"
+            [attr.aria-invalid]="itemForm.controls['username'].invalid &&
+                                 (itemForm.controls['username'].dirty || itemForm.controls['username'].touched)"
+            [attr.aria-describedby]="'usernameError'"
+          />
+          <label for="username">Username</label>
+
+          <div class="growth-indicator">
+            <div class="leaf-sprout"></div>
+          </div>
+
+          <span
+            class="gentle-error"
+            id="usernameError"
+            aria-live="polite"
+            *ngIf="itemForm.controls['username'].invalid &&
+                   (itemForm.controls['username'].dirty || itemForm.controls['username'].touched)"
+          >
+            Please Enter username.
+          </span>
+        </div>
+
+        <!-- Password -->
+        <div
+          class="organic-field"
+          [ngClass]="{
+            error: itemForm.controls['password'].invalid &&
+                   (itemForm.controls['password'].dirty || itemForm.controls['password'].touched)
+          }"
+        >
+          <div class="field-nature"></div>
+
+          <input
+            #passwordInput
+            type="password"
+            id="password"
+            name="password"
+            formControlName="password"
+            [(ngModel)]="formModel.password"
+            placeholder=" "
+            autocomplete="current-password"
+            [attr.aria-invalid]="itemForm.controls['password'].invalid &&
+                                 (itemForm.controls['password'].dirty || itemForm.controls['password'].touched)"
+            [attr.aria-describedby]="'passwordError'"
+          />
+          <label for="password">Password</label>
+
+          <!-- Password visibility toggle (template-only) -->
+          <button
+            #passwordToggle
+            type="button"
+            class="nature-toggle"
+            aria-label="Toggle password visibility"
+            (click)="passwordInput.type = (passwordInput.type === 'password' ? 'text' : 'password'); passwordToggle.classList.toggle('toggle-visible')"
+          >
+            <svg class="eye-visible" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 4c-4 0-7 3-8 6 1 3 4 6 8 6s7-3 8-6c-1-3-4-6-8-6zm0 10a4 4 0 110-8 4 4 0 010 8zm0-6a2 2 0 100 4 2 2 0 000-4z" fill="currentColor"/>
+            </svg>
+            <svg class="eye-hidden" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M3 3l14 14M8.5 8.5a2 2 0 002.83 2.83m-.83-4.83a4 4 0 014 4M10 6C6 6 3 9 2 12c.5 1.5-2-3.5-4-4.5M10 14c4 0 7-3 8-6-.5-1.5-2-3.5-4-4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <span
+            class="gentle-error"
+            id="passwordError"
+            aria-live="polite"
+            *ngIf="itemForm.controls['password'].invalid &&
+                   (itemForm.controls['password'].dirty || itemForm.controls['password'].touched)"
+          >
+            Please Enter password.
+          </span>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="harmony-button">
+          <div class="button-earth"></div>
+          <span class="button-text">Login</span>
+          <div class="button-growth">
+            <div class="growing-circle circle-1"></div>
+            <div class="growing-circle circle-2"></div>
+            <div class="growing-circle circle-3"></div>
+          </div>
+          <div class="button-aura"></div>
+        </button>
+      </form>
+
+      <!-- Server error from API -->
+      <div *ngIf="showError" class="server-error-alert" role="alert" aria-live="assertive">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Signup link -->
+      <div class="nurture-signup">
+        <span>Don’t have an account? </span>
+        <a (click)="registration()" class="growth-link">Register</a>
+      </div>
+    </div>
+  </div>
+</div>

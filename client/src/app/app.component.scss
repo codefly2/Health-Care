@@ -1,0 +1,129 @@
+:root {
+  --brand-green: #4caf50;
+  --brand-green-2: #66bb6a;
+  --nav-h: 56px;       /* navbar height; adjust if yours differs */
+  --red: #ff5252;
+  --red-dark: #ff3b3b;
+}
+
+/* Navbar Theme */
+.eco-navbar {
+  min-height: var(--nav-h);
+  display: flex;
+  align-items: center;
+
+  /* Glass gradient background */
+  background: linear-gradient(135deg, rgba(8, 43, 28, 0.92), rgba(14, 66, 43, 0.92));
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  border-bottom: 1px solid rgba(76, 175, 80, 0.25);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+  z-index: 1030;
+
+  .brand-med {
+    display: flex;
+    align-items: center;
+    color: #e8f5e9;
+    font-weight: 700;
+    text-decoration: none;
+
+    .brand-logo svg {
+      color: var(--brand-green);
+      filter: drop-shadow(0 2px 6px rgba(76, 175, 80, 0.4));
+    }
+
+    .brand-text {
+      margin-left: 6px;
+      font-size: 1.05rem;
+      color: #eaf7ed;
+    }
+  }
+
+  /* Nav links: WHITE underline on hover/active (like "Register") */
+  .navbar-nav .nav-link {
+    color: #e1f2e5;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    position: relative;
+    transition: color 0.25s ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #ffffff;      /* WHITE underline */
+      transition: width 0.25s ease;
+      border-radius: 2px;
+    }
+
+    &:hover {
+      color: #ffffff;
+    }
+
+    &:hover::after,
+    &.active::after {
+      width: 100%;
+    }
+
+    &.active {
+      color: #ffffff;
+    }
+  }
+
+  /* Red Logout button: rightmost, white text */
+  .btn-logout-red {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 82, 82, 0.7);
+    background: linear-gradient(135deg, var(--red), var(--red-dark));
+    color: #ffffff !important;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    text-decoration: none;
+    box-shadow: 0 6px 14px rgba(255, 82, 82, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 18px rgba(255, 82, 82, 0.45);
+      filter: saturate(1.05);
+      text-decoration: none;
+      color: #ffffff !important;
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 6px 14px rgba(255, 82, 82, 0.35);
+    }
+  }
+}
+
+/* Hide Login link when on /login or /registration (no TS changes) */
+.navbar-nav .nav-item.on-auth .login-link {
+  display: none !important;
+}
+
+/* Fix content blocked by fixed navbar */
+.app-shell-content.container {
+  padding-top: calc(var(--nav-h) + 20px); /* ensures content clears navbar */
+  margin-top: 0 !important;               /* neutralize any Bootstrap mt-* */
+}
+
+/* Small screens */
+@media (max-width: 576px) {
+  .navbar-nav .nav-link::after {
+    left: 0;
+  }
+}
+
+/* Brighter toggler icon for navbar-dark */
+.navbar-dark .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
