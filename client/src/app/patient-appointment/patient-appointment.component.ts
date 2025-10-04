@@ -17,6 +17,11 @@ export class PatientAppointmentComponent implements OnInit {
   qrCodes: any = {};
   selectedQr: string | null = null;
 
+  chatbotOpen = false;
+  chatMessages: { sender: string, text: string }[] = [];
+  userMessage: string = '';
+
+
   constructor(public httpService: HttpService) {}
 
   ngOnInit(): void {
@@ -79,4 +84,21 @@ export class PatientAppointmentComponent implements OnInit {
   openQr(qr:string){
     this.selectedQr = qr;
   }
+
+  //chatbot
+  toggleChatbot() {
+    this.chatbotOpen = !this.chatbotOpen;
+  }
+
+  sendMessage() {
+    if (!this.userMessage.trim()) return;
+    this.chatMessages.push({ sender: 'You', text: this.userMessage });
+
+    this.httpService.chatWithAI(this.userMessage).subscribe((res) => {
+      this.chatMessages.push({ sender: 'Bot', text: res.reply });
+    });
+
+    this.userMessage = '';
+  }
+
 }

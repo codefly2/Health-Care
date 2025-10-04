@@ -41,6 +41,9 @@
         <li *ngIf="!IsLoggin" class="nav-item">
           <a class="nav-link" [routerLink]="['/login']">Login</a>
         </li>
+        <li *ngIf="!IsLoggin" class="nav-item">
+          <a class="nav-link" [routerLink]="['/registration']">Registration</a>
+        </li>
         <li *ngIf="IsLoggin" class="nav-item">
           <a class="nav-link" (click)="logout()" [routerLink]="['/login']">Logout</a>
         </li>

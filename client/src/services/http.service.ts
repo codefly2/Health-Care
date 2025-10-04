@@ -125,4 +125,12 @@ export class HttpService {
     let headers = new HttpHeaders().set('Authorization',`Bearer ${authToken}`);
     return this.http.get(this.serverName + `/api/patient/appointment/${appointmentId}/qr`, {headers,responseType:'text'});
   }
+  chatWithAI(message: string): Observable<any> {
+    const authToken = this.authService.getToken();  
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    headers = headers.set('Authorization', `Bearer ${authToken}`);
+    return this.http.post(this.serverName + '/api/chat', { message }, { headers });
+  }
+
 }

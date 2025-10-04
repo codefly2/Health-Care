@@ -71,3 +71,20 @@
 </div>
 
 
+
+<!-- Floating Chatbot Icon -->
+<div class="chatbot-icon" (click)="toggleChatbot()">💊</div>
+
+<!-- Chatbot Popup -->
+<div class="chatbot-popup" *ngIf="chatbotOpen">
+  <div class="chat-header">Health Assistant</div>
+  <div class="chat-body">
+    <div *ngFor="let msg of chatMessages" [ngClass]="{'user-msg': msg.sender === 'You', 'bot-msg': msg.sender === 'Bot'}">
+      <strong>{{msg.sender}}:</strong> {{msg.text}}
+    </div>
+  </div>
+  <div class="chat-input">
+    <input [(ngModel)]="userMessage" placeholder="Ask about fever, back pain..." />
+    <button (click)="sendMessage()">Send</button>
+  </div>
+</div>
