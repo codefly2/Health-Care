@@ -84,11 +84,27 @@ export class HttpService {
   }
 
   Login(details:any):Observable<any> {
-    
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     return this.http.post(this.serverName+'/api/user/login',details,{headers:headers});
   }
+
+
+  loginSendOtp(payload: { username: string; password: string }): Observable<any> {
+    return this.http.post(`${this.serverName}/api/user/login`, payload);
+  }
+
+  verifyOtp(payload: { username: string; otp: string }): Observable<any> {
+    return this.http.post(`${this.serverName}/api/user/verify-otp`, payload);
+  }
+
+  resendOtp(payload: { username: string }): Observable<any> {
+    return this.http.post(`${this.serverName}/api/user/resend-otp`, payload);
+  }
+
+
+
+
   registerPatient(details:any):Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
