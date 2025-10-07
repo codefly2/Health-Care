@@ -1,111 +1,10 @@
-<!-- <div class="vh-100 d-flex justify-content-center align-items-center">
-    <div class="container">
-      <div class="row d-flex justify-content-center">
-        <div class="col-12 col-md-8 col-lg-6">
-          <div class="border border-3 border-primary"></div>
-          <div class="card bg-white">
-            <div class="card-body p-5">
-  
-              <form class="mb-3 mt-md-4" [formGroup]="itemForm" (ngSubmit)="onRegister()">
-                <h2 class="fw-bold mb-2 text-uppercase text-center">Healthcare Appointment Management System</h2>
-                <p class="mb-5">Please enter your details here</p>
-                
-                <div class="mb-3">
-                  <label for="username" class="form-label">Username</label>
-                  <input type="text" name="username" formControlName="username" class="form-control" id="username" placeholder="Username">
-                  <div *ngIf="itemForm.get('username')?.invalid && (itemForm.get('username')?.dirty || itemForm.get('username')?.touched)" class="ng-dirty">
-                    <span class="text-danger">Please Enter Username.</span>
-                  </div>
-                </div>
-  
-                <div class="mb-3">
-                  <label for="email" class="form-label">Email address</label>
-                  <input type="email" name="email" formControlName="email" class="form-control" id="email" placeholder="name@example.com">
-                  <div *ngIf="itemForm.get('email')?.invalid && (itemForm.get('email')?.dirty || itemForm.get('email')?.touched)" class="ng-dirty">
-                    <span class="text-danger">Please Enter email.</span>
-                    <span *ngIf="itemForm.get('email')?.errors?.['email']">Not a valid Email</span>
-                  </div>
-                </div>
-  
-                <div class="mb-3">
-                  <label for="password" class="form-label">Password</label>
-                  <input type="password" name="password" formControlName="password" class="form-control" id="password" placeholder="*******">
-                  <div *ngIf="itemForm.get('password')?.invalid && (itemForm.get('password')?.dirty || itemForm.get('password')?.touched)" class="ng-dirty">
-                    <span class="text-danger">Please Enter password.</span>
-                  </div>
-                </div>
-  
-                <div class="mb-3">
-                  <label for="role" class="form-label">Role</label>
-                  <select class="form-control" formControlName="role">
-                    <option value="null">Choose Role</option>
-                    <option value="PATIENT">PATIENT</option>
-                    <option value="DOCTOR">DOCTOR</option>
-                    <option value="RECEPTIONIST">RECEPTIONIST</option>
-                  </select>
-                  <div *ngIf="itemForm.get('role')?.invalid && (itemForm.get('role')?.dirty || itemForm.get('role')?.touched)" class="ng-dirty">
-                    <span class="text-danger">Please choose a role.</span>
-                  </div>
-                </div>
-  
-                <div class="mb-3" *ngIf="itemForm.get('role')?.value === 'DOCTOR'">
-                  <label for="availability" class="form-label">Availability</label>
-                  <select class="form-control" formControlName="availability">
-                    <option value="null">Choose Availability</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>            
-                  </select>
-                  <div *ngIf="itemForm.get('availability')?.invalid && (itemForm.get('availability')?.dirty || itemForm.get('availability')?.touched)" class="ng-dirty">
-                    <span class="text-danger">Please Enter Availability.</span>
-                  </div>
-                </div>
-  
-                <div class="mb-3" *ngIf="itemForm.get('role')?.value === 'DOCTOR'">
-                  <label for="specialty" class="form-label">Specialty</label>
-                  <input type="text" name="specialty" formControlName="specialty" class="form-control" id="specialty" placeholder="Specialty">
-                  <div *ngIf="itemForm.get('specialty')?.invalid && (itemForm.get('specialty')?.dirty || itemForm.get('specialty')?.touched)" class="ng-dirty">
-                    <span class="text-danger">Please Enter Specialty.</span>
-                  </div>
-                </div>
-  
-                <div class="d-grid">
-                  <button class="btn btn-outline-dark" type="submit">Submit</button>
-                </div>
-              </form>
-  
-              <div>
-                <p class="mb-0 text-center"> <a [routerLink]="['/login']" class="text-primary fw-bold">Go to Login</a></p>
-              </div>
-  
-              <div *ngIf="showMessage" class="alert alert-success mt-4" role="alert">
-                {{ responseMessage }}
-              </div>
-  
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
+<main class="login-page">
+  <section class="login-form-section">
+    <div class="background-animation-layer"></div>
 
-<!-- Hospital-Themed Registration - full-bleed and flush under navbar -->
-<div class="eco-register-page" role="main" aria-label="Registration page" style="--nav-height: 56px;">
-  <!-- Background: subtle animated hospital plus (+) symbols -->
-  <div class="hospital-background" aria-hidden="true">
-    <div class="bg-plus plus-1"></div>
-    <div class="bg-plus plus-2"></div>
-    <div class="bg-plus plus-3"></div>
-    <div class="bg-plus plus-4"></div>
-    <div class="bg-plus plus-5"></div>
-  </div>
-
-  <div class="register-container">
-    <div class="wellness-card">
-      <div class="organic-border"></div>
-
-      <!-- Header with ECG heartbeat logo (matches login page) -->
-      <div class="mindful-header">
-        <div class="med-logo" aria-hidden="true">
+    <div class="login-card">
+      <div class="header-section">
+        <div class="logo">
           <svg width="56" height="56" viewBox="0 0 56 56" fill="none" role="img" aria-label="ECG Heartbeat">
             <circle cx="28" cy="28" r="26" stroke="currentColor" stroke-width="2" opacity="0.7"/>
             <path
@@ -117,255 +16,213 @@
             />
             <circle cx="43" cy="28" r="2" fill="currentColor" opacity="0.9"/>
           </svg>
-          <div class="logo-glow"></div>
         </div>
-        <h1>Create your account</h1>
-        <p>Please enter your details below</p>
+        <h1>Create Your Account</h1>
+        <p>Join the Healthcare Appointment Management System</p>
       </div>
 
-      <!-- Reactive Form -->
-      <form class="harmony-form" [formGroup]="itemForm" (ngSubmit)="onRegister()" novalidate>
-        <!-- Username -->
-        <div
-          class="organic-field"
-          [ngClass]="{
-            error: itemForm.get('username')?.invalid && (itemForm.get('username')?.dirty || itemForm.get('username')?.touched)
-          }"
-        >
-          <div class="field-nature"></div>
-
+      <form [formGroup]="itemForm" (ngSubmit)="onRegister()" class="login-form" novalidate>
+        <!-- Username Field -->
+        <div class="form-field"
+             [ngClass]="{'has-error': itemForm.get('username')?.invalid && (itemForm.get('username')?.dirty || itemForm.get('username')?.touched)}">
           <input
             type="text"
             id="username"
-            name="username"
             formControlName="username"
             placeholder=" "
             autocomplete="username"
+            aria-required="true"
             [attr.aria-invalid]="itemForm.get('username')?.invalid && (itemForm.get('username')?.dirty || itemForm.get('username')?.touched)"
-            [attr.aria-describedby]="'usernameError'"
+            aria-describedby="usernameError"
           />
           <label for="username">Username</label>
-
-          <div class="growth-indicator"><div class="leaf-sprout"></div></div>
-
-          <span
-            class="gentle-error"
-            id="usernameError"
-            aria-live="polite"
-            *ngIf="itemForm.get('username')?.invalid && (itemForm.get('username')?.dirty || itemForm.get('username')?.touched)"
-          >
-            Please Enter Username.
+          <div class="field-underline"></div>
+          <span *ngIf="itemForm.get('username')?.invalid && (itemForm.get('username')?.dirty || itemForm.get('username')?.touched)"
+                class="error-message" id="usernameError" aria-live="polite">
+            <ng-container *ngIf="itemForm.get('username')?.errors?.['required']">Username is required.</ng-container>
+            <ng-container *ngIf="itemForm.get('username')?.errors?.['usernameTaken']">This username is already taken.</ng-container>
           </span>
         </div>
 
-        <!-- Email -->
-        <div
-          class="organic-field"
-          [ngClass]="{
-            error: itemForm.get('email')?.invalid && (itemForm.get('email')?.dirty || itemForm.get('email')?.touched)
-          }"
-        >
-          <div class="field-nature"></div>
-
+        <!-- Email Field -->
+        <div class="form-field"
+             [ngClass]="{'has-error': itemForm.get('email')?.invalid && (itemForm.get('email')?.dirty || itemForm.get('email')?.touched)}">
           <input
             type="email"
             id="email"
-            name="email"
             formControlName="email"
             placeholder=" "
             autocomplete="email"
+            aria-required="true"
             [attr.aria-invalid]="itemForm.get('email')?.invalid && (itemForm.get('email')?.dirty || itemForm.get('email')?.touched)"
-            [attr.aria-describedby]="'emailError'"
+            aria-describedby="emailError"
           />
           <label for="email">Email address</label>
-
-          <div class="growth-indicator"><div class="leaf-sprout"></div></div>
-
-          <span
-            class="gentle-error"
-            id="emailError"
-            aria-live="polite"
-            *ngIf="itemForm.get('email')?.invalid && (itemForm.get('email')?.dirty || itemForm.get('email')?.touched)"
-          >
-            <ng-container *ngIf="itemForm.get('email')?.errors?.['required']">Please Enter email.</ng-container>
-            <ng-container *ngIf="itemForm.get('email')?.errors?.['email']">Not a valid Email.</ng-container>
+          <div class="field-underline"></div>
+          <span *ngIf="itemForm.get('email')?.invalid && (itemForm.get('email')?.dirty || itemForm.get('email')?.touched)"
+                class="error-message" id="emailError" aria-live="polite">
+            <ng-container *ngIf="itemForm.get('email')?.errors?.['required']">Email is required.</ng-container>
+            <ng-container *ngIf="itemForm.get('email')?.errors?.['email']">Please enter a valid email address.</ng-container>
           </span>
         </div>
 
-        <!-- Password -->
-        <div
-          class="organic-field"
-          [ngClass]="{
-            error: itemForm.get('password')?.invalid && (itemForm.get('password')?.dirty || itemForm.get('password')?.touched)
-          }"
-        >
-          <div class="field-nature"></div>
-
+        <!-- Password Field -->
+        <div class="form-field"
+             [ngClass]="{'has-error': itemForm.get('password')?.invalid && (itemForm.get('password')?.dirty || itemForm.get('password')?.touched)}">
           <input
             #passwordInput
             type="password"
             id="password"
-            name="password"
             formControlName="password"
             placeholder=" "
             autocomplete="new-password"
+            aria-required="true"
             [attr.aria-invalid]="itemForm.get('password')?.invalid && (itemForm.get('password')?.dirty || itemForm.get('password')?.touched)"
-            [attr.aria-describedby]="'passwordError'"
+            aria-describedby="passwordError"
+            (focus)="onPasswordFocus()"  
+            (blur)="onPasswordBlur()"    
           />
           <label for="password">Password</label>
-
-          <!-- Toggle (template-only) -->
+          <div class="field-underline"></div>
+          <!-- Password Visibility Toggle -->
           <button
             #passwordToggle
             type="button"
-            class="nature-toggle"
+            class="password-toggle"
             aria-label="Toggle password visibility"
-            (click)="passwordInput.type = (passwordInput.type === 'password' ? 'text' : 'password'); passwordToggle.classList.toggle('toggle-visible')"
+            (click)="togglePasswordVisibility()"
           >
-            <svg class="eye-visible" width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M10 4c-4 0-7 3-8 6 1 3 4 6 8 6s7-3 8-6c-1-3-4-6-8-6zm0 10a4 4 0 110-8 4 4 0 010 8zm0-6a2 2 0 100 4 2 2 0 000-4z" fill="currentColor"/>
+            <svg class="icon-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
             </svg>
-            <svg class="eye-hidden" width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M3 3l14 14M8.5 8.5a2 2 0 002.83 2.83m-.83-4.83a4 4 0 014 4M10 6C6 6 3 9 2 12c.5 1.5-2-3.5-4-4.5M10 14c4 0 7-3 8-6-.5-1.5-2-3.5-4-4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg class="icon-eye-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.91 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24M1 1l23 23"></path>
             </svg>
           </button>
-
-          <span
-            class="gentle-error"
-            id="passwordError"
-            aria-live="polite"
-            *ngIf="itemForm.get('password')?.invalid && (itemForm.get('password')?.dirty || itemForm.get('password')?.touched)"
-          >
-            Please Enter password.
+          <!-- Password Checklist - only show if passwordFieldActive is true -->
+          <ul class="password-checklist" *ngIf="passwordFieldActive">
+            <li [class.valid]="passwordValidations.minLength">
+              <span class="icon">{{ passwordValidations.minLength ? '✔' : '✖' }}</span>
+              Minimum 6 characters
+            </li>
+            <li [class.valid]="passwordValidations.hasUpperCase">
+              <span class="icon">{{ passwordValidations.hasUpperCase ? '✔' : '✖' }}</span>
+              At least one uppercase letter
+            </li>
+            <li [class.valid]="passwordValidations.hasLowerCase">
+              <span class="icon">{{ passwordValidations.hasLowerCase ? '✔' : '✖' }}</span>
+              At least one lowercase letter
+            </li>
+            <li [class.valid]="passwordValidations.hasNumeric">
+              <span class="icon">{{ passwordValidations.hasNumeric ? '✔' : '✖' }}</span>
+              At least one number
+            </li>
+            <li [class.valid]="passwordValidations.hasSpecialChar">
+              <span class="icon">{{ passwordValidations.hasSpecialChar ? '✔' : '✖' }}</span>
+              At least one special character (!#$%^&)
+            </li>
+          </ul>
+           <span *ngIf="itemForm.get('password')?.invalid && (itemForm.get('password')?.dirty || itemForm.get('password')?.touched)"
+                class="error-message" id="passwordError" aria-live="polite">
+                <!-- This general error message will appear when checklist is hidden or overall validation fails -->
+                Please meet all password requirements.
           </span>
         </div>
 
-        <!-- Role -->
-        <div
-          class="organic-field"
-          [ngClass]="{
-            error: itemForm.get('role')?.invalid && (itemForm.get('role')?.dirty || itemForm.get('role')?.touched)
-          }"
-        >
-          <div class="field-nature"></div>
-
+        <!-- Role Dropdown -->
+        <div class="form-field"
+             [ngClass]="{'has-error': itemForm.get('role')?.invalid && (itemForm.get('role')?.dirty || itemForm.get('role')?.touched)}">
           <select
             id="role"
             formControlName="role"
-            name="role"
-            class="organic-select"
+            class="form-select"
             [class.filled]="itemForm.get('role')?.value && itemForm.get('role')?.value !== 'null'"
+            aria-required="true"
             [attr.aria-invalid]="itemForm.get('role')?.invalid && (itemForm.get('role')?.dirty || itemForm.get('role')?.touched)"
-            [attr.aria-describedby]="'roleError'"
+            aria-describedby="roleError"
           >
-            <!-- <option value="null" disabled selected>Choose Role</option> -->
             <option value="PATIENT">PATIENT</option>
             <option value="DOCTOR">DOCTOR</option>
             <option value="RECEPTIONIST">RECEPTIONIST</option>
           </select>
           <label for="role">Role</label>
-
-          <span
-            class="gentle-error"
-            id="roleError"
-            aria-live="polite"
-            *ngIf="itemForm.get('role')?.invalid && (itemForm.get('role')?.dirty || itemForm.get('role')?.touched)"
-          >
-            Please choose a role.
-          </span>
-        </div>
-
-        <!-- Availability (Doctor only) -->
-        <div
-          class="organic-field"
-          *ngIf="itemForm.get('role')?.value === 'DOCTOR'"
-          [ngClass]="{
-            error: itemForm.get('availability')?.invalid && (itemForm.get('availability')?.dirty || itemForm.get('availability')?.touched)
-          }"
-        >
-          <div class="field-nature"></div>
-
-          <select
-            id="availability"
-            formControlName="availability"
-            class="organic-select"
-            [class.filled]="itemForm.get('availability')?.value && itemForm.get('availability')?.value !== 'null'"
-            [attr.aria-invalid]="itemForm.get('availability')?.invalid && (itemForm.get('availability')?.dirty || itemForm.get('availability')?.touched)"
-            [attr.aria-describedby]="'availabilityError'"
-          >
-            <!-- <option value="null" disabled selected>Choose Availability</option> -->
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-          </select>
-          <label for="availability">Availability</label>
-
-          <span
-            class="gentle-error"
-            id="availabilityError"
-            aria-live="polite"
-            *ngIf="itemForm.get('availability')?.invalid && (itemForm.get('availability')?.dirty || itemForm.get('availability')?.touched)"
-          >
-            Please Enter Availability.
+          <div class="field-underline"></div>
+          <span *ngIf="itemForm.get('role')?.invalid && (itemForm.get('role')?.dirty || itemForm.get('role')?.touched)"
+                class="error-message" id="roleError" aria-live="polite">
+            Please select a role.
           </span>
         </div>
 
         <!-- Specialty (Doctor only) -->
-        <div
-          class="organic-field"
-          *ngIf="itemForm.get('role')?.value === 'DOCTOR'"
-          [ngClass]="{
-            error: itemForm.get('specialty')?.invalid && (itemForm.get('specialty')?.dirty || itemForm.get('specialty')?.touched)
-          }"
-        >
-          <div class="field-nature"></div>
-
+        <div class="form-field"
+             *ngIf="itemForm.get('role')?.value === 'DOCTOR'"
+             [ngClass]="{'has-error': itemForm.get('specialty')?.invalid && (itemForm.get('specialty')?.dirty || itemForm.get('specialty')?.touched)}">
           <input
             type="text"
             id="specialty"
-            name="specialty"
             formControlName="specialty"
             placeholder=" "
             autocomplete="organization-title"
+            aria-required="true"
             [attr.aria-invalid]="itemForm.get('specialty')?.invalid && (itemForm.get('specialty')?.dirty || itemForm.get('specialty')?.touched)"
-            [attr.aria-describedby]="'specialtyError'"
+            aria-describedby="specialtyError"
           />
           <label for="specialty">Specialty</label>
-
-          <div class="growth-indicator"><div class="leaf-sprout"></div></div>
-
-          <span
-            class="gentle-error"
-            id="specialtyError"
-            aria-live="polite"
-            *ngIf="itemForm.get('specialty')?.invalid && (itemForm.get('specialty')?.dirty || itemForm.get('specialty')?.touched)"
-          >
-            Please Enter Specialty.
+          <div class="field-underline"></div>
+          <span *ngIf="itemForm.get('specialty')?.invalid && (itemForm.get('specialty')?.dirty || itemForm.get('specialty')?.touched)"
+                class="error-message" id="specialtyError" aria-live="polite">
+            Specialty is required for doctors.
           </span>
         </div>
 
-        <!-- Submit -->
-        <button type="submit" class="harmony-button">
-          <div class="button-earth"></div>
-          <span class="button-text">Submit</span>
-          <div class="button-growth">
-            <div class="growing-circle circle-1"></div>
-            <div class="growing-circle circle-2"></div>
-            <div class="growing-circle circle-3"></div>
-          </div>
-          <div class="button-aura"></div>
+        <!-- Availability (Doctor only) -->
+        <div class="form-field"
+             *ngIf="itemForm.get('role')?.value === 'DOCTOR'"
+             [ngClass]="{'has-error': itemForm.get('availability')?.invalid && (itemForm.get('availability')?.dirty || itemForm.get('availability')?.touched)}">
+          <select
+            id="availability"
+            formControlName="availability"
+            class="form-select"
+            [class.filled]="itemForm.get('availability')?.value && itemForm.get('availability')?.value !== 'null'"
+            aria-required="true"
+            [attr.aria-invalid]="itemForm.get('availability')?.invalid && (itemForm.get('availability')?.dirty || itemForm.get('availability')?.touched)"
+            aria-describedby="availabilityError"
+          >
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+          <label for="availability">Availability</label>
+          <div class="field-underline"></div>
+          <span *ngIf="itemForm.get('availability')?.invalid && (itemForm.get('availability')?.dirty || itemForm.get('availability')?.touched)"
+                class="error-message" id="availabilityError" aria-live="polite">
+            Availability is required for doctors.
+          </span>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="login-button" [disabled]="itemForm.invalid || isLoading">
+          <span *ngIf="!isLoading">Register</span>
+          <div *ngIf="isLoading" class="loader" aria-hidden="true"></div>
         </button>
       </form>
 
-      <!-- Success message -->
+      <!-- Server Success/Error Messages -->
       <div *ngIf="showMessage" class="server-success-alert" role="status" aria-live="polite">
         {{ responseMessage }}
       </div>
+      <div *ngIf="showError" class="server-error" role="alert" aria-live="assertive">
+        {{ errorMessage }}
+      </div>
 
-      <!-- Go to Login -->
-      <div class="nurture-signup">
+      <div class="signup-link-section">
         <span>Already have an account? </span>
-        <a [routerLink]="['/login']" class="growth-link">Go to Login</a>
+        <a [routerLink]="['/login']" class="register-link">Go to Login</a>
       </div>
     </div>
-  </div>
-</div>
+  </section>
+
+  <section class="login-image-section">
+    <div class="image-overlay"></div>
+  </section>
+</main>

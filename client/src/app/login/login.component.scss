@@ -1,393 +1,355 @@
-/* Eco Wellness Login - hospital themed (+ symbols), full-bleed, flush under navbar */
-.eco-login-page {
-  --nav-height: 56px; /* override inline if needed */
+/* Basic Reset & Variables */
+// Define Sass variables for colors that need Sass functions
+$primary-sass-color: #007bff; // Example: A professional blue
+$accent-sass-color: #28a745; // Example: Green for success/focus
+$error-sass-color: #dc3545; // Red for errors
 
-  /* Full-bleed: escape parent .container mx-5 and fill viewport width */
-  inline-size: 100vw;
-  margin-inline: calc(50% - 50vw);
-  max-inline-size: 100vw;
+:root {
+  // CSS Custom Properties (can be dynamically changed by JS at runtime)
+  --primary-color: #{$primary-sass-color}; // Use Sass interpolation
+  --secondary-color: #6c757d; /* Example: Grey for secondary text */
+  --accent-color: #{$accent-sass-color};
+  --background-dark: #2c3e50; /* Darker background for contrast */
+  --background-light: #ffffff;
+  --border-color: #ced4da;
+  --error-color: #{$error-sass-color};
+  --text-color: #343a40;
+  --font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
 
-  /* Fixed to viewport under navbar—no top gap */
-  position: fixed;
-  top: var(--nav-height);
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  color: var(--text-color);
+  background-color: #f0f2f5; /* Light background for the whole page */
+  overflow: hidden; /* Prevent scroll on animated backgrounds */
+}
+
+/* Main Layout */
+.login-page {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden; /* Ensures animations stay within bounds */
+}
+
+.login-form-section,
+.login-image-section {
+  flex: 1; /* Both take equal space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden; /* For background animations */
+}
+
+/* Form Section */
+.login-form-section {
+  background-color: var(--background-light);
+}
+
+/* Dynamic background animation for the form section */
+.background-animation-layer {
+  position: absolute;
+  top: 0;
   left: 0;
-  right: 0;
+  width: 100%;
+  height: 100%;
+  // Use Sass variables here or static colors
+  background: radial-gradient(circle at top left, rgba($primary-sass-color, 0.05), transparent 70%),
+              radial-gradient(circle at bottom right, rgba($accent-sass-color, 0.05), transparent 70%);
+  animation: bgPulse 20s infinite alternate;
+  z-index: 0; /* Behind the card */
+}
+
+@keyframes bgPulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.1); opacity: 1; }
+}
+
+.login-card {
+  background: var(--background-light);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: var(--card-shadow);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  position: relative; /* Above animation layer */
+  z-index: 1;
+}
+
+.header-section {
+  margin-bottom: 30px;
+}
+
+.logo {
+  margin-bottom: 20px;
+}
+
+.logo svg {
+  color: var(--primary-color); // This is fine, just referencing the CSS variable
+  animation: heartbeat 1.5s infinite ease-in-out;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.05); }
+  50% { transform: scale(0.95); }
+  70% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+
+.header-section h1 {
+  font-size: 1.8rem;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.header-section p {
+  font-size: 1rem;
+  color: var(--secondary-color);
+}
+
+/* Form Fields */
+.form-field {
+  position: relative;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.form-field input {
+  width: 100%;
+  padding: 12px 10px;
+  border: none;
+  border-bottom: 2px solid var(--border-color);
+  background: transparent;
+  font-size: 1rem;
+  color: var(--text-color);
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.form-field input:focus {
+  border-color: var(--primary-color);
+}
+
+.form-field input:focus + label,
+.form-field input:not(:placeholder-shown) + label {
+  transform: translateY(-25px) scale(0.8);
+  color: var(--primary-color);
+}
+
+.form-field label {
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  color: var(--secondary-color);
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  transform-origin: left top;
+}
+
+.form-field .field-underline {
+  position: absolute;
   bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
 
-  /* Base look */
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
-  background: linear-gradient(135deg, #a8e6cf 0%, #dcedc8 50%, #f8f8f8 100%);
-  padding: clamp(12px, 3.5vw, 24px);
-  line-height: 1.6;
+.form-field input:focus ~ .field-underline {
+  width: 100%;
+}
 
-  overflow-x: clip; /* prevent horizontal scroll from effects */
-  overflow-y: auto;
+.error-message {
+  color: var(--error-color);
+  font-size: 0.85rem;
+  margin-top: 5px;
+  display: block;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
 
-  /* Safe-area (iOS)*/
-  padding-top: calc(env(safe-area-inset-top) + clamp(8px, 2vw, 16px));
-  padding-left: calc(env(safe-area-inset-left) + clamp(12px, 3.5vw, 24px));
-  padding-right: calc(env(safe-area-inset-right) + clamp(12px, 3.5vw, 24px));
+.form-field.has-error .error-message {
+  opacity: 1;
+  height: auto; /* Adjust based on content */
+  margin-top: 8px;
+}
 
-  /* Hospital-themed background symbols */
-  .hospital-background {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
+.form-field.has-error input {
+  border-color: var(--error-color);
+}
+
+
+/* Password Toggle */
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--secondary-color);
+  padding: 5px;
+  transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+  color: var(--primary-color);
+}
+
+.password-toggle .icon-eye {
+  display: block;
+}
+.password-toggle .icon-eye-off {
+  display: none;
+}
+.password-toggle.visible .icon-eye {
+  display: none;
+}
+.password-toggle.visible .icon-eye-off {
+  display: block;
+}
+
+
+/* Login Button */
+.login-button {
+  background-color: grey;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-button:hover {
+  // USE SASS VARIABLE HERE
+  background-color: darken($primary-sass-color, 10%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+}
+
+.login-button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.login-button:disabled {
+  background-color: var(--secondary-color);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Loader for button */
+.loader {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #fff;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+/* Server Error */
+.server-error {
+  background-color: #f8d7da; /* Light red */
+  color: var(--error-color);
+  border: 1px solid var(--error-color);
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Signup Link */
+.signup-link-section {
+  margin-top: 25px;
+  font-size: 0.95rem;
+  color: var(--secondary-color);
+}
+
+.register-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.register-link:hover {
+  // USE SASS VARIABLE HERE
+  color: darken($primary-sass-color, 10%);
+  text-decoration: underline;
+}
+
+/* Image Section */
+.login-image-section {
+  background: url('../../assets/img/1.jpg') no-repeat center center; /* Combined properties */
+  background-size: cover; /* This is the key to preventing "zooming in" if the image is too large */
+  position: relative;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1); /* Subtle dark overlay */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .login-page {
+    flex-direction: column;
   }
 
-  .bg-plus {
-    position: absolute;
-    width: 22px;
-    height: 22px;
-    opacity: 0.28;
-    filter: drop-shadow(0 2px 4px rgba(76, 175, 80, 0.15));
-    animation: floatPlus 9s ease-in-out infinite;
-
-    /* Draw a plus using two rounded rectangles */
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      background: linear-gradient(135deg, #4caf50, #66bb6a);
-      border-radius: 4px;
-    }
-    &::before { width: 100%; height: 28%; top: 36%; left: 0; } /* horizontal */
-    &::after { width: 28%; height: 100%; left: 36%; top: 0; } /* vertical */
+  .login-form-section {
+    order: 2; /* Form below image on small screens */
+    padding: 30px 0; /* Add some vertical padding */
   }
 
-  .plus-1 { top: 14%; left: 8%; animation-delay: 0s; transform: rotate(0deg); }
-  .plus-2 { top: 62%; left: 86%; animation-delay: 1.8s; transform: rotate(15deg); }
-  .plus-3 { top: 78%; left: 12%; animation-delay: 3.6s; transform: rotate(-20deg); }
-  .plus-4 { top: 30%; left: 74%; animation-delay: 5.4s; transform: rotate(10deg); }
-  .plus-5 { top: 44%; left: 40%; animation-delay: 2.7s; transform: rotate(-12deg); opacity: 0.22; }
-
-  @keyframes floatPlus {
-    0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); opacity: inherit; }
-    50% { transform: translateY(-16px) rotate(calc(var(--rot, 0deg) + 8deg)); opacity: 0.38; }
+  .login-image-section {
+    order: 1; /* Image on top */
+    height: 250px; /* Fixed height for image on small screens */
+    flex: none; /* Don't let it grow too much */
   }
 
-  /* Container & card */
-  .login-container {
+  .login-card {
+    box-shadow: none; /* Remove shadow on small screens */
     width: 100%;
-    max-width: min(420px, 92vw);
-    margin-inline: auto;
-    position: relative;
-    z-index: 1;
-
-    display: grid;
-    align-items: center;
-    justify-items: center;
-    min-height: 100%;
-  }
-
-  .wellness-card {
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(76, 175, 80, 0.18);
-    border-radius: 20px;
-    padding: 22px 16px;
-    box-shadow: 0 10px 22px rgba(76, 175, 80, 0.14);
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-  }
-
-  .organic-border {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, #4caf50, #8bc34a, #cddc39, #8bc34a, #4caf50);
-    background-size: 200% 100%;
-    animation: organicFlow 4s ease-in-out infinite;
-    border-radius: 20px 20px 0 0;
-  }
-  @keyframes organicFlow { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-
-  /* Header with new logo */
-  .mindful-header {
-    text-align: center;
-    margin-bottom: 14px;
-
-    .med-logo {
-      position: relative;
-      width: 56px;
-      height: 56px;
-      margin: 0 auto 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #4caf50;
-
-      svg { position: relative; z-index: 2; animation: logoBreath 4s ease-in-out infinite; }
-      .logo-glow {
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle, rgba(76, 175, 80, 0.18) 0%, transparent 70%);
-        border-radius: 50%;
-        animation: logoGlow 3s ease-in-out infinite;
-      }
-    }
-
-    h1 {
-      color: #2e7d32;
-      font-size: 1.18rem;
-      font-weight: 600;
-      margin-bottom: 4px;
-      letter-spacing: -0.01em;
-    }
-    p {
-      color: #66bb6a;
-      font-size: 12px;
-    }
-  }
-  @keyframes logoBreath { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
-  @keyframes logoGlow  { 0%, 100% { transform: scale(1); opacity: 0.55; } 50% { transform: scale(1.16); opacity: 0.75; } }
-
-  /* Organic Fields */
-  .organic-field {
-    position: relative;
-    margin-bottom: 14px;
-
-    .field-nature {
-      position: absolute;
-      inset: 0;
-      background: rgba(76, 175, 80, 0.06);
-      border: 1.2px solid rgba(76, 175, 80, 0.22);
-      border-radius: 14px;
-      transition: all 0.25s ease;
-    }
-
-    input {
-      width: 100%;
-      background: transparent;
-      border: none;
-      padding: 12px 46px 12px 14px;
-      color: #2e7d32;
-      font-size: 14px;
-      outline: none;
-      position: relative;
-      z-index: 2;
-      font-family: inherit;
-
-      &::placeholder { color: transparent; }
-
-      &:focus + label,
-      &:not(:placeholder-shown) + label {
-        top: 0;
-        font-size: 11px;
-        font-weight: 500;
-        color: #4caf50;
-        transform: translateY(-50%);
-      }
-
-      &:focus ~ .field-nature {
-        border-color: #4caf50;
-        background: rgba(76, 175, 80, 0.1);
-        box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.18);
-      }
-    }
-
-    label {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #81c784;
-      font-size: 14px;
-      pointer-events: none;
-      transition: all 0.25s ease;
-      z-index: 3;
-      background: rgba(255, 255, 255, 0.92);
-      padding: 0 6px;
-    }
-
-    &:focus-within .field-nature { animation: gentleBreath 3s ease-in-out infinite; }
-  }
-  @keyframes gentleBreath { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.01); } }
-
-  .growth-indicator {
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 6px;
-    height: 6px;
-    z-index: 4;
-
-    .leaf-sprout {
-      width: 100%;
-      height: 100%;
-      background: #4caf50;
-      border-radius: 0 100% 0 100%;
-      opacity: 0;
-      transform: scale(0) rotate(45deg);
-      animation: sproutGrow 0.45s ease-out forwards;
-    }
-  }
-  .organic-field input:focus ~ .growth-indicator .leaf-sprout,
-  .organic-field input:valid ~ .growth-indicator .leaf-sprout { opacity: 1; transform: scale(1) rotate(45deg); }
-  @keyframes sproutGrow { 0% { opacity: 0; transform: scale(0) rotate(45deg); } 100% { opacity: 1; transform: scale(1) rotate(45deg); } }
-
-  /* Password toggle */
-  .organic-field:has(.nature-toggle) input { padding-right: 46px; }
-  .nature-toggle {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #81c784;
-    padding: 6px;
-    border-radius: 10px;
-    transition: all 0.25s ease;
-    z-index: 4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    &:hover { color: #4caf50; background: rgba(76, 175, 80, 0.1); }
-    .eye-hidden { display: none; }
-    &.toggle-visible .eye-visible { display: none; }
-    &.toggle-visible .eye-hidden { display: block; }
-  }
-
-  /* Submit button */
-  .harmony-button {
-    width: 100%;
-    background: transparent;
-    color: #ffffff;
-    border: none;
-    border-radius: 14px;
-    padding: 0;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 600;
-    position: relative;
-    margin-top: 6px;
-    overflow: hidden;
-    min-height: 42px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .button-earth {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, #4caf50, #66bb6a, #8bc34a);
-      border-radius: 14px;
-      transition: all 0.25s ease;
-    }
-    &:hover .button-earth {
-      background: linear-gradient(135deg, #388e3c, #4caf50, #66bb6a);
-      transform: scale(1.02);
-    }
-    &:active .button-earth { transform: scale(0.98); }
-
-    .button-text { position: relative; z-index: 2; transition: opacity 0.25s ease; }
-    .button-growth {
-      position: absolute;
-      z-index: 2;
-      opacity: 0;
-      transition: opacity 0.25s ease;
-      display: flex;
-      gap: 5px;
-
-      .growing-circle {
-        width: 6px;
-        height: 6px;
-        background: #ffffff;
-        border-radius: 50%;
-        animation: organicGrow 1.4s ease-in-out infinite;
-      }
-      .circle-2 { animation-delay: 0.18s; }
-      .circle-3 { animation-delay: 0.36s; }
-    }
-    &.loading .button-text { opacity: 0; }
-    &.loading .button-growth { opacity: 1; }
-
-    .button-aura {
-      position: absolute;
-      top: -2px; left: -2px; right: -2px; bottom: -2px;
-      background: linear-gradient(135deg, #4caf50, #8bc34a);
-      border-radius: 16px;
-      opacity: 0;
-      filter: blur(10px);
-      transition: opacity 0.25s ease;
-      z-index: -1;
-    }
-    &:hover .button-aura { opacity: 0.55; }
-  }
-  @keyframes organicGrow { 0%, 80%, 100% { transform: scale(0.8); opacity: 0.6; } 40% { transform: scale(1.2); opacity: 1; } }
-
-  /* Errors */
-  .gentle-error {
-    color: #ff7043;
-    font-size: 12px;
-    font-weight: 500;
-    margin-top: 6px;
-    opacity: 0;
-    transform: translateY(-4px);
-    transition: all 0.25s ease;
-    position: relative;
-    z-index: 5;
-
-    &.show { opacity: 1; transform: translateY(0); }
-  }
-  .organic-field.error .field-nature { border-color: #ff7043; background: rgba(255, 112, 67, 0.1); }
-  .organic-field.error label { color: #ff5722; }
-
-  .server-error-alert {
-    margin-top: 8px;
-    background: rgba(255, 82, 82, 0.08);
-    border: 1px solid rgba(255, 82, 82, 0.4);
-    color: #b71c1c;
-    padding: 10px 12px;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 500;
-  }
-
-  /* Signup link (added) */
-  .nurture-signup {
-    text-align: center;
-    font-size: 13px;
-    color: #66bb6a;
-    margin-top: 10px;
-
-    .growth-link {
-      color: #4caf50;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.25s ease;
-      position: relative;
-
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: linear-gradient(90deg, #4caf50, #8bc34a);
-        transition: width 0.25s ease;
-      }
-
-      &:hover::after { width: 100%; }
-      &:hover { color: #2e7d32; }
-    }
-  }
-
-  /* Responsive */
-  @media (max-width: 480px) {
-    .login-container { max-width: 94vw; }
-    .wellness-card { padding: 20px 14px; border-radius: 18px; }
-    .mindful-header h1 { font-size: 1.08rem; }
-    .med-logo { width: 52px; height: 52px; }
-    .bg-plus { width: 18px; height: 18px; opacity: 0.24; }
+    border-radius: 0;
+    max-width: 100%;
+    padding: 25px;
   }
 }

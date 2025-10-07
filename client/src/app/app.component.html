@@ -1,132 +1,72 @@
-<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <a class="navbar-brand" href="#">HAM System </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="roleName === 'PATIENT'" [routerLink]="['/patient-appointment']">Patient Appointment</a>
-        </li>
-        
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="roleName === 'PATIENT'" [routerLink]="['/schedule-appointment']">Schedule Appointment</a>
-        </li>
-  
-      
-  
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="roleName === 'DOCTOR'" [routerLink]="['/doctor-appointment']">Doctor Appointment</a>
-        </li>
-  
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="roleName === 'DOCTOR'" [routerLink]="['/doctor-availability']">Doctor Availability</a>
-        </li>
+<!-- ✅ Move <nav> outside of <body>, Angular components don’t use <body> tags -->
 
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="roleName === 'RECEPTIONIST'" [routerLink]="['/receptionist-appointments']">All Appointments</a>
-        </li>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+  <a class="navbar-brand" href="#">HAM System</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="roleName === 'RECEPTIONIST'" [routerLink]="['/receptionist-schedule-appointments']">Schedule Appointments</a>
-        </li>
-       
-      </ul>
-     
-   
-      <ul class="navbar-nav">
-        <li *ngIf="!IsLoggin" class="nav-item">
-          <a class="nav-link" [routerLink]="['/login']">Login</a>
-        </li>
-        <li *ngIf="IsLoggin" class="nav-item">
-          <a class="nav-link" (click)="logout()" [routerLink]="['/login']">Logout</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-  
-  <body  >
-    <div class="container mt-4 mx-5">
-      <router-outlet>    
-      </router-outlet>
-    </div>
-  
-  </body> -->
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <!-- Left-side links -->
+    <ul class="navbar-nav me-auto">
+      <!-- Patient Links -->
+      <li class="nav-item" *ngIf="roleName === 'PATIENT'">
+        <a class="nav-link" [routerLink]="['/patient-appointment']">Patient Appointment</a>
+      </li>
+      <li class="nav-item" *ngIf="roleName === 'PATIENT'">
+        <a class="nav-link" [routerLink]="['/schedule-appointment']">Schedule Appointment</a>
+      </li>
 
-  <nav class="navbar navbar-expand-lg navbar-light medigrids-navbar fixed-top">
-    <div class="container-fluid px-3">
-      <!-- Brand -->
-      <a class="navbar-brand d-flex align-items-center brand-med" [routerLink]="['/']">
-        <span class="brand-logo mr-2" aria-hidden="true">
-          <svg width="26" height="26" viewBox="0 0 56 56" fill="none" role="img" aria-label="HAM System">
-            <circle cx="28" cy="28" r="26" stroke="currentColor" stroke-width="2" opacity="0.75"/>
-            <path d="M10 28h8l3-6 5 14 4-8h10"
-                  stroke="currentColor" stroke-width="2.2"
-                  stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="43" cy="28" r="2" fill="currentColor" opacity="0.95"/>
-          </svg>
-        </span>
-        <span class="brand-text">HAM System</span>
-      </a>
-  
-      <!-- Toggler -->
-      <button class="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarNav"
-              aria-controls="navbarNav"
-              aria-expanded="false"
-              aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-  
-      <!-- Collapsible nav content -->
-      <div class="collapse navbar-collapse w-100" id="navbarNav">
-        <!-- LEFT: Role-based navigation -->
-        <ul class="navbar-nav me-auto mr-auto">
-          <li class="nav-item" *ngIf="roleName === 'PATIENT'">
-            <a class="nav-link" [routerLink]="['/patient-appointment']" routerLinkActive="active">Patient Appointment</a>
-          </li>
-          <li class="nav-item" *ngIf="roleName === 'PATIENT'">
-            <a class="nav-link" [routerLink]="['/schedule-appointment']" routerLinkActive="active">Schedule Appointment</a>
-          </li>
-          <li class="nav-item" *ngIf="roleName === 'DOCTOR'">
-            <a class="nav-link" [routerLink]="['/doctor-appointment']" routerLinkActive="active">Doctor Appointment</a>
-          </li>
-          <li class="nav-item" *ngIf="roleName === 'DOCTOR'">
-            <a class="nav-link" [routerLink]="['/doctor-availability']" routerLinkActive="active">Doctor Availability</a>
-          </li>
-          <li class="nav-item" *ngIf="roleName === 'RECEPTIONIST'">
-            <a class="nav-link" [routerLink]="['/receptionist-appointments']" routerLinkActive="active">All Appointments</a>
-          </li>
-          <li class="nav-item" *ngIf="roleName === 'RECEPTIONIST'">
-            <a class="nav-link" [routerLink]="['/receptionist-schedule-appointments']" routerLinkActive="active">Schedule Appointments</a>
-          </li>
-        </ul>
-  
-        <!-- RIGHT: Login / Logout (forced to the far right) -->
-        <ul class="navbar-nav align-items-center ms-auto ml-auto">
-          <li class="nav-item"
-              *ngIf="!IsLoggin"
-              routerLinkActive="on-auth"
-              [routerLinkActiveOptions]="{ exact: true }">
-            <a class="d-none" [routerLink]="['/registration']"></a>
-            <a class="nav-link login-link" [routerLink]="['/login']">Login</a>
-          </li>
-  
-          <li class="nav-item" *ngIf="IsLoggin">
-            <a class="btn-logout-red"
-               (click)="logout()" [routerLink]="['/login']"
-               title="Logout">
-              Logout
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  
-  <!-- App Content -->
-  <div class="app-shell-content container">
-    <router-outlet></router-outlet>
+      <!-- Doctor Links -->
+      <li class="nav-item" *ngIf="roleName === 'DOCTOR'">
+        <a class="nav-link" [routerLink]="['/doctor-appointment']">Doctor Appointment</a>
+      </li>
+      <li class="nav-item" *ngIf="roleName === 'DOCTOR'">
+        <a class="nav-link" [routerLink]="['/doctor-availability']">Doctor Availability</a>
+      </li>
+
+      <!-- Receptionist Links -->
+      <li class="nav-item" *ngIf="roleName === 'RECEPTIONIST'">
+        <a class="nav-link" [routerLink]="['/receptionist-appointments']">All Appointments</a>
+      </li>
+      <li class="nav-item" *ngIf="roleName === 'RECEPTIONIST'">
+        <a class="nav-link" [routerLink]="['/receptionist-schedule-appointments']">Schedule Appointments</a>
+      </li>
+    </ul>
+
+    <!-- Right-side buttons -->
+    <ul class="navbar-nav ms-auto">
+      <li *ngIf="!IsLoggin" class="nav-item">
+        <a class="nav-link" [routerLink]="['/login']">Login</a>
+      </li>
+      <li *ngIf="IsLoggin" class="nav-item">
+        <a class="nav-link" (click)="logout()">Logout</a>
+      </li>
+    </ul>
   </div>
+</nav>
+
+<!-- Curtain drop (top-down) -->
+<!-- <div
+  *ngIf="showSlideIn"
+  class="slide-in"
+  [@slideInAnim]="slideInState">
+</div>
+
+Curtain lift (bottom-up)
+<div
+  *ngIf="showSlideOut"
+  class="slide-out"
+  [@slideOutAnim]="slideOutState">
+</div> -->
+
+<!-- Routed content -->
+<!-- <router-outlet (activate)="onRouteActivate()"></router-outlet> -->
+<router-outlet ></router-outlet>
