@@ -10,11 +10,20 @@ import { DoctorAppointmentComponent } from './doctor-appointment/doctor-appointm
 import { DoctorAvailabilityComponent } from './doctor-availability/doctor-availability.component';
 import { ReceptionistAppointmentsComponent } from './receptionist-appointments/receptionist-appointments.component';
 import { ReceptionistScheduleAppointmentsComponent } from './receptionist-schedule-appointments/receptionist-schedule-appointments.component';
+import { LandingPageComponent } from './landing/landing';
 
 
 
 
 const routes: Routes = [
+
+
+
+
+
+
+  { path: 'landing', component: LandingPageComponent },
+  { path: '', redirectTo:'/landing', pathMatch:'full' },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'dashboard', component: DashbaordComponent }, 
@@ -26,8 +35,8 @@ const routes: Routes = [
   { path: 'receptionist-schedule-appointments', component: ReceptionistScheduleAppointmentsComponent },
   
   
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: '**', redirectTo: '/dashboard', pathMatch: 'full' },
+  // { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  // { path: '**', redirectTo: '/dashboard', pathMatch: 'full' },
 ];
 
 @NgModule({
