@@ -1,0 +1,111 @@
+/* Custom CSS for transparent navbar */
+.navbar-transparent {
+    background-color: transparent !important;
+    box-shadow: none !important; /* Remove shadow */
+    transition: background-color 0.3s ease-in-out; /* Smooth transition for background if you later add a solid background on scroll */
+}
+
+/* Style for navbar links when the navbar is transparent */
+.navbar-transparent .navbar-nav .nav-link {
+    color: white !important; /* Make links white initially */
+    transition: color 0.3s ease-in-out;
+}
+
+/* Hover effect for navbar links */
+.navbar-transparent .navbar-nav .nav-link:hover,
+.navbar-transparent .navbar-nav .nav-link.active {
+    color: #00bcd4 !important; /* Change to your desired green-blue color on hover */
+}
+
+/* For the brand text */
+.navbar-transparent .navbar-brand h1 {
+    color: white !important;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar-transparent .navbar-brand h1:hover {
+    color: #00bcd4 !important;
+}
+
+/* If you want the navbar to become solid white on scroll (common pattern) */
+/* You would need JavaScript to add/remove a class like 'navbar-scrolled' */
+
+.navbar-scrolled {
+    background-color: white !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.navbar-scrolled .navbar-nav .nav-link {
+    color: #212529 !important; // Dark text when navbar is white
+}
+
+.navbar-scrolled .navbar-nav .nav-link:hover,
+.navbar-scrolled .navbar-nav .nav-link.active {
+    color: #00bcd4 !important;
+}
+
+.navbar-scrolled .navbar-brand h1 {
+    color: #212529 !important;
+}
+
+.navbar-scrolled .navbar-brand h1:hover {
+    color: #00bcd4 !important;
+}
+
+.btn-outline-light {
+  transition: background 0.4s cubic-bezier(0.25, 0.1, 0.25, 1), color 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.btn-dark {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-dark:hover {
+  transform: scale(1.08);
+}
+.typed-cursor {
+  display: inline-block;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.hero-header {
+  min-height: 900px; // or your desired height
+  height: 400px;
+  display: flex;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+}
+.service-item {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.service-item:hover {
+  transform: scale(1.06);
+  box-shadow: 0 8px 32px rgba(44, 62, 80, 0.15);
+  z-index: 2;
+}
+.appointment-gradient {
+  background: linear-gradient(135deg, #e3f0ff 0%, #4fd1c5 50%, #38b2ac 100%);
+}
+.blah{
+   background: linear-gradient(135deg, #e3f0ff 0%, #b3d8ff 100%);
+}
+.text-greenblue {
+  color: #4fd1c5 !important; // Example: light teal (greenish-blue)
+}
+.btn-greenblue {
+  background-color: #4fd1c5 !important;
+  color: #fff !important;
+  border: none;
+  transition: background 0.3s cubic-bezier(0.22, 1, 0.36, 1), transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-greenblue:hover {
+  background-color: #38b2ac !important;
+  transform: scale(1.04);
+}

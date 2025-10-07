@@ -83,12 +83,45 @@ export class HttpService {
     return this.http.get(this.serverName+`/api/patient/doctors`,{headers:headers});
   }
 
+<<<<<<< HEAD
   Login(details:any):Observable<any> {
     
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     return this.http.post(this.serverName+'/api/user/login',details,{headers:headers});
   }
+=======
+  // --- OTP RELATED METHODS ---
+
+  // Modified Login method to reflect OTP flow.
+  // This method should trigger OTP generation if 2FA is enabled.
+  Login(details:any):Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    // Assuming your backend's login endpoint handles sending OTP
+    // and returns a response indicating if OTP was sent.
+    return this.http.post(this.serverName+'/api/user/login',details,{headers:headers});
+  }
+
+  // New method to verify the OTP entered by the user
+  VerifyOtp(otpData: { username: string; otp: string }): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    // Assuming your backend has an endpoint like '/api/user/verify-otp'
+    return this.http.post(this.serverName+'/api/user/verify-otp', otpData, {headers:headers});
+  }
+
+  // New method to request a new OTP be sent
+  ResendOtp(requestData: { username: string }): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    // Assuming your backend has an endpoint like '/api/user/resend-otp'
+    return this.http.post(this.serverName+'/api/user/resend-otp', requestData, {headers:headers});
+  }
+
+  // --- END OTP RELATED METHODS ---
+
+>>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90
   registerPatient(details:any):Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
@@ -111,15 +144,25 @@ export class HttpService {
     return this.http.get<boolean>(this.serverName + '/api/user/exists', { headers: headers, params: { username } });
   }
 
+<<<<<<< HEAD
   deleteAppointment(val:any):void{
+=======
+  deleteAppointment(val:any):Observable<any>{ // Changed to return Observable<any> for consistency with other methods
+>>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90
     console.log("Helloooo"+val);
     const authToken = this.authService.getToken();  
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     headers = headers.set('Authorization', `Bearer ${authToken}`);   
+<<<<<<< HEAD
     this.http.delete(this.serverName+'/api/appointment/delete?appointmentId='+val,{headers:headers});
   }
 
 
 
+=======
+    return this.http.delete(this.serverName+'/api/appointment/delete?appointmentId='+val,{headers:headers});
+  }
+
+>>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90
 }

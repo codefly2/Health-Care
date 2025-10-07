@@ -1,3 +1,360 @@
+<<<<<<< HEAD
 a{
     cursor: pointer;
+=======
+/* Basic Reset & Variables */
+// Define Sass variables for colors that need Sass functions
+$primary-sass-color: #007bff; // Example: A professional blue
+$accent-sass-color: #28a745; // Example: Green for success/focus
+$error-sass-color: #dc3545; // Red for errors
+
+:root {
+  // CSS Custom Properties (can be dynamically changed by JS at runtime)
+  --primary-color: #{$primary-sass-color}; // Use Sass interpolation
+  --secondary-color: #6c757d; /* Example: Grey for secondary text */
+  --accent-color: #{$accent-sass-color};
+  --background-dark: #2c3e50; /* Darker background for contrast */
+  --background-light: #ffffff;
+  --border-color: #ced4da;
+  --error-color: #{$error-sass-color};
+  --text-color: #343a40;
+  --font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  color: var(--text-color);
+  background-color: #f0f2f5; /* Light background for the whole page */
+  overflow: hidden; /* Prevent scroll on animated backgrounds */
+}
+
+/* Main Layout */
+.login-page {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden; /* Ensures animations stay within bounds */
+}
+
+.login-form-section,
+.login-image-section {
+  flex: 1; /* Both take equal space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden; /* For background animations */
+}
+
+/* Form Section */
+.login-form-section {
+  background-color: var(--background-light);
+}
+
+/* Dynamic background animation for the form section */
+.background-animation-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  // Use Sass variables here or static colors
+  background: radial-gradient(circle at top left, rgba($primary-sass-color, 0.05), transparent 70%),
+              radial-gradient(circle at bottom right, rgba($accent-sass-color, 0.05), transparent 70%);
+  animation: bgPulse 20s infinite alternate;
+  z-index: 0; /* Behind the card */
+}
+
+@keyframes bgPulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.1); opacity: 1; }
+}
+
+.login-card {
+  background: var(--background-light);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: var(--card-shadow);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  position: relative; /* Above animation layer */
+  z-index: 1;
+}
+
+.header-section {
+  margin-bottom: 30px;
+}
+
+.logo {
+  margin-bottom: 20px;
+}
+
+.logo svg {
+  color: var(--primary-color); // This is fine, just referencing the CSS variable
+  animation: heartbeat 1.5s infinite ease-in-out;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.05); }
+  50% { transform: scale(0.95); }
+  70% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+
+.header-section h1 {
+  font-size: 1.8rem;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.header-section p {
+  font-size: 1rem;
+  color: var(--secondary-color);
+}
+
+/* Form Fields */
+.form-field {
+  position: relative;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.form-field input {
+  width: 100%;
+  padding: 12px 10px;
+  border: none;
+  border-bottom: 2px solid var(--border-color);
+  background: transparent;
+  font-size: 1rem;
+  color: var(--text-color);
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.form-field input:focus {
+  border-color: var(--primary-color);
+}
+
+.form-field input:focus + label,
+.form-field input:not(:placeholder-shown) + label {
+  transform: translateY(-25px) scale(0.8);
+  color: var(--primary-color);
+}
+
+.form-field label {
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  color: var(--secondary-color);
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  transform-origin: left top;
+}
+
+.form-field .field-underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.form-field input:focus ~ .field-underline {
+  width: 100%;
+}
+
+.error-message {
+  color: var(--error-color);
+  font-size: 0.85rem;
+  margin-top: 5px;
+  display: block;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.form-field.has-error .error-message {
+  opacity: 1;
+  height: auto; /* Adjust based on content */
+  margin-top: 8px;
+}
+
+.form-field.has-error input {
+  border-color: var(--error-color);
+}
+
+
+/* Password Toggle */
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--secondary-color);
+  padding: 5px;
+  transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+  color: var(--primary-color);
+}
+
+.password-toggle .icon-eye {
+  display: block;
+}
+.password-toggle .icon-eye-off {
+  display: none;
+}
+.password-toggle.visible .icon-eye {
+  display: none;
+}
+.password-toggle.visible .icon-eye-off {
+  display: block;
+}
+
+
+/* Login Button */
+.login-button {
+  background-color: grey;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-button:hover {
+  // USE SASS VARIABLE HERE
+  background-color: darken($primary-sass-color, 10%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+}
+
+.login-button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.login-button:disabled {
+  background-color: var(--secondary-color);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Loader for button */
+.loader {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #fff;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+/* Server Error */
+.server-error {
+  background-color: #f8d7da; /* Light red */
+  color: var(--error-color);
+  border: 1px solid var(--error-color);
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Signup Link */
+.signup-link-section {
+  margin-top: 25px;
+  font-size: 0.95rem;
+  color: var(--secondary-color);
+}
+
+.register-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.register-link:hover {
+  // USE SASS VARIABLE HERE
+  color: darken($primary-sass-color, 10%);
+  text-decoration: underline;
+}
+
+/* Image Section */
+.login-image-section {
+  background: url('../../assets/img/1.jpg') no-repeat center center; /* Combined properties */
+  background-size: cover; /* This is the key to preventing "zooming in" if the image is too large */
+  position: relative;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1); /* Subtle dark overlay */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .login-page {
+    flex-direction: column;
+  }
+
+  .login-form-section {
+    order: 2; /* Form below image on small screens */
+    padding: 30px 0; /* Add some vertical padding */
+  }
+
+  .login-image-section {
+    order: 1; /* Image on top */
+    height: 250px; /* Fixed height for image on small screens */
+    flex: none; /* Don't let it grow too much */
+  }
+
+  .login-card {
+    box-shadow: none; /* Remove shadow on small screens */
+    width: 100%;
+    border-radius: 0;
+    max-width: 100%;
+    padding: 25px;
+  }
+>>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90
 }

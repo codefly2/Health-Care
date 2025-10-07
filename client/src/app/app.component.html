@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
     <a class="navbar-brand" href="#">HAM System </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,3 +62,77 @@
   
   </body>
 
+=======
+<!-- ✅ Move <nav> outside of <body>, Angular components don’t use <body> tags -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+  <a class="navbar-brand" href="#">HAM System</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <!-- Left-side links -->
+    <ul class="navbar-nav me-auto">
+      <!-- Patient Links -->
+      <li class="nav-item" *ngIf="roleName === 'PATIENT'">
+        <a class="nav-link" [routerLink]="['/patient-appointment']">Patient Appointment</a>
+      </li>
+      <li class="nav-item" *ngIf="roleName === 'PATIENT'">
+        <a class="nav-link" [routerLink]="['/schedule-appointment']">Schedule Appointment</a>
+      </li>
+
+      <!-- Doctor Links -->
+      <li class="nav-item" *ngIf="roleName === 'DOCTOR'">
+        <a class="nav-link" [routerLink]="['/doctor-appointment']">Doctor Appointment</a>
+      </li>
+      <li class="nav-item" *ngIf="roleName === 'DOCTOR'">
+        <a class="nav-link" [routerLink]="['/doctor-availability']">Doctor Availability</a>
+      </li>
+
+      <!-- Receptionist Links -->
+      <li class="nav-item" *ngIf="roleName === 'RECEPTIONIST'">
+        <a class="nav-link" [routerLink]="['/receptionist-appointments']">All Appointments</a>
+      </li>
+      <li class="nav-item" *ngIf="roleName === 'RECEPTIONIST'">
+        <a class="nav-link" [routerLink]="['/receptionist-schedule-appointments']">Schedule Appointments</a>
+      </li>
+    </ul>
+
+    <!-- Right-side buttons -->
+    <ul class="navbar-nav ms-auto">
+      <li *ngIf="!IsLoggin" class="nav-item">
+        <a class="nav-link" [routerLink]="['/login']">Login</a>
+      </li>
+      <li *ngIf="IsLoggin" class="nav-item">
+        <a class="nav-link" (click)="logout()">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Curtain drop (top-down) -->
+<!-- <div
+  *ngIf="showSlideIn"
+  class="slide-in"
+  [@slideInAnim]="slideInState">
+</div>
+
+Curtain lift (bottom-up)
+<div
+  *ngIf="showSlideOut"
+  class="slide-out"
+  [@slideOutAnim]="slideOutState">
+</div> -->
+
+<!-- Routed content -->
+<!-- <router-outlet (activate)="onRouteActivate()"></router-outlet> -->
+<router-outlet ></router-outlet>
+>>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90

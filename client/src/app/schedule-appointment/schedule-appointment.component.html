@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div *ngIf="isAdded" class="card">
   <div class="card-header">
       <h4>Add Appointment</h4>
@@ -57,5 +58,120 @@
               </tr>
           </tbody>
       </table>
+=======
+<div class="container mt-5">
+  <!-- Add Appointment Card -->
+  <div *ngIf="isAdded" class="card shadow-sm mb-4 appointment-form-card">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Add New Appointment</h4>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+        <input type="hidden" formControlName="patientId" />
+        <input type="hidden" formControlName="doctorId" />
+
+        <div class="mb-3">
+          <label for="time" class="form-label appointment-label"
+            >Appointment Time</label
+          >
+          <input
+            type="datetime-local"
+            formControlName="time"
+            [(ngModel)]="formModel.time"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                itemForm.controls['time'].invalid &&
+                (itemForm.controls['time'].dirty ||
+                  itemForm.controls['time'].touched)
+            }"
+            id="time"
+          />
+          <div
+            *ngIf="
+              itemForm.controls['time'].invalid &&
+              (itemForm.controls['time'].dirty ||
+                itemForm.controls['time'].touched)
+            "
+            class="invalid-feedback"
+          >
+            Please choose an appointment time.
+          </div>
+        </div>
+
+        <div class="d-grid gap-2">
+          <button
+            class="btn btn-success appointment-submit-btn"
+            type="submit"
+            [disabled]="itemForm.invalid"
+          >
+            Schedule Appointment
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Response Message -->
+  <div *ngIf="responseMessage" class="alert alert-success mt-4" role="alert">
+    {{ responseMessage }}
+  </div>
+
+  <!-- Doctors List Card -->
+  <div class="card shadow-sm doctors-list-card mt-4">
+    <div class="card-header bg-info text-white">
+      <h4 class="mb-0">Available Doctors</h4>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="bg-light">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Specialty</th>
+              <th scope="col">Availability</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let val of doctorList" class="doctor-row">
+              <td>{{ val.id }}</td>
+              <td>{{ val.username }}</td>
+              <td>{{ val.specialty }}</td>
+              <td>
+                <span
+                  [class]="
+                    val.availability === 'Yes'
+                      ? 'badge bg-success'
+                      : 'badge bg-danger'
+                  "
+                  >{{ val.availability }}</span
+                >
+              </td>
+              <td>
+                <button
+                  *ngIf="val.availability === 'Yes'"
+                  type="button"
+                  (click)="addAppointment(val)"
+                  class="btn btn-sm btn-outline-primary"
+                >
+                  <i class="bi bi-calendar-plus me-1"></i> Book
+                </button>
+                <span *ngIf="val.availability === 'No'" class="text-muted"
+                  >Not Available</span
+                >
+              </td>
+            </tr>
+            <tr *ngIf="doctorList?.length === 0">
+              <td colspan="5" class="text-center text-muted py-3">
+                No doctors found.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+>>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90
   </div>
 </div>

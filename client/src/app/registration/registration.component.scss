@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .form-container {
     position: relative;
     width: 40%;
@@ -55,3 +56,401 @@ input {
 a {
     text-decoration: underline;
 }
+=======
+/* Basic Reset & Variables */
+// Define Sass variables for colors that need Sass functions
+$primary-sass-color: #007bff; // Example: A professional blue
+$accent-sass-color: #28a745; // Example: Green for success/focus
+$error-sass-color: #dc3545; // Red for errors
+$valid-color: #28a745; // Green for valid checklist items
+
+:root {
+  // CSS Custom Properties (can be dynamically changed by JS at runtime)
+  --primary-color: #{$primary-sass-color};
+  --secondary-color: #6c757d;
+  --accent-color: #{$accent-sass-color};
+  --background-dark: #2c3e50;
+  --background-light: #ffffff;
+  --border-color: #ced4da;
+  --error-color: #{$error-sass-color};
+  --text-color: #343a40;
+  --font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --valid-color: #{$valid-color}; /* Added for checklist */
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  color: var(--text-color);
+  background-color: #f0f2f5;
+  overflow: hidden;
+}
+
+/* Main Layout */
+.login-page {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.login-form-section,
+.login-image-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Form Section */
+.login-form-section {
+  background-color: var(--background-light);
+}
+
+.background-animation-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at top left, rgba($primary-sass-color, 0.05), transparent 70%),
+              radial-gradient(circle at bottom right, rgba($accent-sass-color, 0.05), transparent 70%);
+  animation: bgPulse 20s infinite alternate;
+  z-index: 0;
+}
+
+@keyframes bgPulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.1); opacity: 1; }
+}
+
+.login-card {
+  background: var(--background-light);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: var(--card-shadow);
+  text-align: center;
+  max-width: 450px;
+  width: 90%;
+  position: relative;
+  z-index: 1;
+}
+
+.header-section {
+  margin-bottom: 30px;
+}
+
+.logo {
+  margin-bottom: 20px;
+}
+
+.logo svg {
+  color: var(--primary-color);
+  animation: heartbeat 1.5s infinite ease-in-out;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.05); }
+  50% { transform: scale(0.95); }
+  70% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.header-section h1 {
+  font-size: 1.8rem;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.header-section p {
+  font-size: 1rem;
+  color: var(--secondary-color);
+}
+
+/* Form Fields */
+.login-form {
+  // Styles for the form itself if needed
+}
+
+.form-field {
+  position: relative;
+  margin-bottom: 30px; /* Adjust margin to fit checklist */
+  text-align: left;
+}
+
+.form-field input,
+.form-field .form-select {
+  width: 100%;
+  padding: 12px 10px;
+  border: none;
+  border-bottom: 2px solid var(--border-color);
+  background: transparent;
+  font-size: 1rem;
+  color: var(--text-color);
+  outline: none;
+  transition: border-color 0.3s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.form-field input:focus,
+.form-field .form-select:focus {
+  border-color: var(--primary-color);
+}
+
+.form-field input:focus + label,
+.form-field input:not(:placeholder-shown) + label,
+.form-field .form-select.filled + label,
+.form-field .form-select:focus + label {
+  transform: translateY(-25px) scale(0.8);
+  color: var(--primary-color);
+}
+
+.form-field label {
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  color: var(--secondary-color);
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  transform-origin: left top;
+}
+
+.form-field .field-underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.form-field input:focus ~ .field-underline,
+.form-field .form-select:focus ~ .field-underline {
+  width: 100%;
+}
+
+/* Custom dropdown arrow for select */
+.form-field .form-select {
+  padding-right: 30px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 18px;
+}
+
+
+.error-message {
+  color: var(--error-color);
+  font-size: 0.85rem;
+  margin-top: 5px;
+  display: block;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.form-field.has-error .error-message {
+  opacity: 1;
+  height: auto;
+  margin-top: 8px;
+}
+
+.form-field.has-error input,
+.form-field.has-error .form-select {
+  border-color: var(--error-color);
+}
+
+
+/* Password Toggle */
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 12px; /* Adjusted to align with label/input */
+  transform: translateY(0);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--secondary-color);
+  padding: 5px;
+  transition: color 0.3s ease;
+  z-index: 2;
+}
+
+.password-toggle:hover {
+  color: var(--primary-color);
+}
+
+.password-toggle .icon-eye {
+  display: block;
+}
+.password-toggle .icon-eye-off {
+  display: none;
+}
+.password-toggle.visible .icon-eye {
+  display: none;
+}
+.password-toggle.visible .icon-eye-off {
+  display: block;
+}
+
+/* Password Checklist Styles */
+.password-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0; /* Adjust margin as needed */
+  font-size: 0.8rem;
+  color: var(--secondary-color);
+}
+
+.password-checklist li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+  transition: color 0.3s ease;
+}
+
+.password-checklist li .icon {
+  margin-right: 8px;
+  font-weight: bold;
+  font-size: 0.9em;
+  width: 15px; /* Fixed width for consistent alignment */
+  text-align: center;
+  color: var(--error-color); /* Default to red cross */
+}
+
+.password-checklist li.valid {
+  color: var(--text-color); /* Darker text for valid items */
+}
+
+.password-checklist li.valid .icon {
+  color: var(--valid-color); /* Green tick */
+}
+
+
+/* Submit Button */
+.login-button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-button:hover {
+  background-color: darken($primary-sass-color, 10%);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+}
+
+.login-button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.login-button:disabled {
+  background-color: var(--secondary-color);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Loader for button */
+.loader {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #fff;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+/* Server Success/Error */
+.server-success-alert {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #28a745;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.server-error {
+  background-color: #f8d7da;
+  color: var(--error-color);
+  border: 1px solid var(--error-color);
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Login Link */
+.signup-link-section {
+  margin-top: 25px;
+  font-size: 0.95rem;
+  color: var(--secondary-color);
+}
+
+.register-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.register-link:hover {
+  color: darken($primary-sass-color, 10%);
+  text-decoration: underline;
+}
+
+/* Image Section */
+.login-image-section {
+  background: url('../../assets/img/2.jpg') no-repeat center center;
+  background-size: cover;
+  position: relative;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Adjustments */
+>>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90
