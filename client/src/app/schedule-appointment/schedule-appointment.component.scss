@@ -1,0 +1,148 @@
+/* General Body & Container Styling */
+body {
+  background-color: #f8f9fa; /* Light background for the page */
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.container {
+  max-width: 960px; /* Max width for content */
+}
+
+/* Card Styling */
+.card {
+  border: none;
+  border-radius: 0.75rem; /* More rounded corners */
+  overflow: hidden; /* Ensures header background covers corners */
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08); /* Softer shadow */
+}
+
+.card-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: none; /* Remove default border */
+  font-weight: 600;
+  h4 {
+    margin-bottom: 0;
+    font-size: 1.5rem;
+  }
+  &.bg-primary {
+    background-color: #007bff !important; /* Blue for Add Appointment */
+  }
+  &.bg-info {
+    background-color: #17a2b8 !important; /* Teal for Doctors List */
+  }
+  color: white; /* Text color for headers */
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+/* Form Styling */
+.appointment-form-card {
+  .form-label {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 0.5rem;
+  }
+  .form-control {
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-color: #ced4da;
+    transition: all 0.2s ease-in-out;
+    &:focus {
+      border-color: #80bdff;
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+  }
+  .is-invalid {
+    border-color: #dc3545;
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+  }
+  .invalid-feedback {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+  .appointment-submit-btn {
+    background-color: #28a745; /* Green submit button */
+    border-color: #28a745;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease-in-out;
+    &:hover:not(:disabled) {
+      background-color: #218838;
+      border-color: #1e7e34;
+      transform: translateY(-2px);
+    }
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
+}
+
+/* Doctors List Table Styling */
+.doctors-list-card {
+  .table {
+    border-collapse: separate; /* Required for border-radius on cells */
+    border-spacing: 0; /* Remove default spacing */
+    thead th {
+      background-color: #e9ecef; /* Light background for header */
+      border-bottom: 2px solid #dee2e6;
+      padding: 1rem 1.5rem;
+      font-weight: 600;
+      color: #343a40;
+      text-align: left;
+    }
+    tbody tr {
+      transition: background-color 0.2s ease-in-out;
+      &:hover {
+        background-color: #f1f1f1; /* Light hover effect */
+      }
+    }
+    td {
+      padding: 1rem 1.5rem;
+      vertical-align: middle;
+      border-top: 1px solid #e9ecef;
+    }
+    .badge {
+      font-size: 0.85em;
+      padding: 0.4em 0.7em;
+      border-radius: 0.35rem;
+      font-weight: 600;
+    }
+    .btn-outline-primary {
+      color: #007bff;
+      border-color: #007bff;
+      &:hover {
+        background-color: #007bff;
+        color: white;
+      }
+    }
+  }
+  .table-responsive {
+    border-radius: 0.75rem; /* Apply radius to the wrapper to clip table */
+    overflow: hidden;
+  }
+}
+
+/* Utility for spacing (if not using Bootstrap's own classes extensively) */
+.mt-5 {
+  margin-top: 3rem !important;
+}
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+.mt-4 {
+  margin-top: 1.5rem !important;
+}
+.py-3 {
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+}
+.me-1 {
+  margin-right: 0.25rem !important;
+}

@@ -1,6 +1,6 @@
 import { ApplicationInitStatus, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -17,6 +17,10 @@ import { DoctorAppointmentComponent } from './doctor-appointment/doctor-appointm
 import { DoctorAvailabilityComponent } from './doctor-availability/doctor-availability.component';
 import { ReceptionistAppointmentsComponent } from './receptionist-appointments/receptionist-appointments.component';
 import { ReceptionistScheduleAppointmentsComponent } from './receptionist-schedule-appointments/receptionist-schedule-appointments.component';
+import { LandingComponent } from './landing/landing.component';
+import { AboutComponent } from './about/about.component';
+import { NgChartsModule } from 'ng2-charts';
+
 
 
 
@@ -32,16 +36,21 @@ import { ReceptionistScheduleAppointmentsComponent } from './receptionist-schedu
     DoctorAvailabilityComponent,
     DoctorAppointmentComponent,
     ReceptionistAppointmentsComponent,
-    ReceptionistScheduleAppointmentsComponent
+    ReceptionistScheduleAppointmentsComponent,
+    LandingComponent,
+    AboutComponent,
+
 
     
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgChartsModule
   ],
   providers: [HttpService, HttpClientModule],
   bootstrap: [AppComponent],

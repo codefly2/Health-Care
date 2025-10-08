@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface AppointmentRepository  extends JpaRepository<Appointment,Long> {
@@ -15,4 +16,10 @@ public interface AppointmentRepository  extends JpaRepository<Appointment,Long> 
 
     @Query("select a from Appointment a where a.doctor.id =:doctorId")
     public List<Appointment> getAppointmentsByDoctorId(Long doctorId);
+
+    long countByStatus(String status);
+    
+        @Query("SELECT NEW map(FUNCTION('DAYNAME', a.appointmentTime) as day, COUNT(a) as count) " +
+               "FROM Appointment a GROUP BY FUNCTION('DAYNAME', a.appointmentTime)")
+        List<Map<String, Object>> getWeeklySummary();
 }

@@ -1,4 +1,86 @@
-<div class="row text-center">
-<h1 class="text-capitalize">Healthcare Appointment Management System
-</h1>
+<div class="dashboard-container">
+  <h1>Healthcare Appointment Management System</h1>
+
+  <!-- LOADER -->
+  <div *ngIf="isLoading" class="loader">Loading...</div>
+
+  <!-- MAIN CONTENT -->
+  <div *ngIf="!isLoading">
+    <!-- STATS CARDS -->
+    <div class="cards">
+      <div class="card" *ngIf="roleName !== 'PATIENT'">
+        <h3>Total Doctors</h3>
+        <p>{{ dashboardData.totalDoctors || 0 }}</p>
+      </div>
+
+      <div class="card" *ngIf="roleName !== 'DOCTOR'">
+        <h3>Total Patients</h3>
+        <p>{{ dashboardData.totalPatients || 0 }}</p>
+      </div>
+
+      <div class="card">
+        <h3>Total Appointments</h3>
+        <p>{{ dashboardData.totalAppointments || 0 }}</p>
+      </div>
+
+      <div class="card" *ngIf="roleName === 'RECEPTIONIST'">
+        <h3>Pending Approvals</h3>
+        <p>{{ dashboardData.pendingAppointments || 0 }}</p>
+      </div>
+    </div>
+
+    <!-- CHARTS SECTION -->
+    <div class="charts">
+      <div class="chart" *ngIf="appointmentsChartData.labels?.length">
+        <h2>Weekly Appointments</h2>
+        <canvas
+          baseChart
+          [data]="appointmentsChartData"
+          [options]="chartOptions"
+          [type]="'bar'">
+        </canvas>
+      </div>
+
+      <div class="chart" *ngIf="roleName === 'RECEPTIONIST' && availabilityChartData.labels?.length">
+        <h2>Doctor Availability (Hours)</h2>
+        <canvas
+          baseChart
+          [data]="availabilityChartData"
+          [options]="chartOptions"
+          [type]="'bar'">
+        </canvas>
+      </div>
+    </div>
+
+    <!-- RECENT APPOINTMENTS TABLE -->
+    <div class="table-section" *ngIf="dashboardData.recentAppointments?.length">
+      <h2>Recent Appointments</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let appt of dashboardData.recentAppointments">
+            <td>{{ appt.patientName }}</td>
+            <td>{{ appt.doctorName }}</td>
+            <td>{{ appt.date }}</td>
+            <td>{{ appt.time }}</td>
+            <td>
+              <span [ngClass]="{
+                'status-completed': appt.status === 'Completed',
+                'status-pending': appt.status === 'Pending',
+                'status-cancelled': appt.status === 'Cancelled'
+              }">{{ appt.status }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
