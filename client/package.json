@@ -20,16 +20,10 @@
     "@ngrx/effects": "^14.2.0",
     "@ngrx/store": "^14.2.0",
     "@ngrx/store-devtools": "^14.2.0",
-<<<<<<< HEAD
-    "rxjs": "~7.5.0",
-    "bootstrap": "^5.2.3",
-    "jquery": "^3.7.0",
-=======
     "@studio-freight/lenis": "^1.0.42",
     "bootstrap": "^5.2.3",
     "jquery": "^3.7.0",
     "rxjs": "~7.5.0",
->>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
-import { AppModule } from './app/app.module';
-
-
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
-=======
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
@@ -33,4 +24,3 @@ platformBrowserDynamic().bootstrapModule(AppModule)
 // }
 
 // requestAnimationFrame(raf);
->>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90

@@ -1,28 +1,11 @@
 import { Component } from '@angular/core';
-<<<<<<< HEAD
-import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
-=======
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
->>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-<<<<<<< HEAD
-  styleUrls: ['./app.component.scss']
-})
-export class AppComponent {
-  IsLoggin:any=false;
-  roleName: string | null;
-  constructor(private authService: AuthService, private router:Router)
-  {
-   
-    this.IsLoggin=authService.getLoginStatus;
-    this.roleName=authService.getRole;
-=======
   styleUrls: ['./app.component.scss'],
   animations: [
     // Curtain drop (top → down)
@@ -63,22 +46,12 @@ export class AppComponent {
     this.IsLoggin = this.authService.getLoginStatus;
     this.roleName = this.authService.getRole;
 
->>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90
     if(this.IsLoggin==false)
     {
       this.router.navigateByUrl('/landing'); 
     
     }
   }
-<<<<<<< HEAD
-  logout()
-{
-  this.authService.logout();
-  window.location.reload();
-}
-
-}
-=======
 
   logout() {
     this.authService.logout();
@@ -111,4 +84,3 @@ export class AppComponent {
     }, 1100);
   }
 }
->>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90

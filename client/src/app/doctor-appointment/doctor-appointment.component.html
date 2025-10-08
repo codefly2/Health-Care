@@ -1,63 +1,3 @@
-<<<<<<< HEAD
-<div class="card mt-4">
-    <div class="card-header">
-        <h4>Appointments</h4>
-    </div>
-
-    <div>
-        <input type="text" placeholder="Search appointments" (input)="searchAppointments($event)" />
-    </div>
-
-    <div class="card-body">
-        <table class="table table-boarderd">
-            <thead>
-                <th>Appointment Id</th>
-                <th>Appointment Time</th>
-                <th>Status</th>
-                <th>Doctor</th>
-                <th>Patient</th>
-               
-            </thead>
-            <tbody *ngFor="let val of paginatedList$">
-                <tr >
-                    <td>{{val.id}}</td>
-                    <td>{{val.appointmentTime | date:'dd-MMM-yyyy hh:mm:a'}}</td>
-                    <td>{{val.status}}</td>
-                    <td><strong>{{val.doctor.username}}</strong><br>
-                        <small>{{val.doctor.email}}</small>
-                    </td>
-                    <td><strong>{{val.patient.username}}</strong><br>
-                        <small>{{val.patient.email}}</small>
-                    </td>
-                  
-                </tr>
-            </tbody>
-        </table>
-
-        <ul class="pagination">
-            <li [class.disabled]="currentPage === 1" (click)="goToPage(1)">
-                <a href="javascript:void(0)">First</a>
-            </li>
-            <li [class.disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
-                <a href="javascript:void(0)">Previous</a>
-            </li>
-
-            <!-- Dynamic Page Numbers -->
-            <li *ngFor="let page of [].constructor(totalPages); let i = index"
-                [class.active]="i + 1 === currentPage" (click)="goToPage(i + 1)">
-                <a href="javascript:void(0)">{{i + 1}}</a>
-            </li>
-
-            <li [class.disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
-                <a href="javascript:void(0)">Next</a>
-            </li>
-            <li [class.disabled]="currentPage === totalPages" (click)="goToPage(totalPages)">
-                <a href="javascript:void(0)">Last</a>
-            </li>
-        </ul>
-
-    </div>
-=======
 <div class="card appointment-card mt-4">
   <div class="card-header d-flex align-items-center justify-content-between flex-wrap gap-2">
     <h4 class="mb-0">Appointments</h4>
@@ -179,5 +119,4 @@
       </ul>
     </nav>
   </div>
->>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90
 </div>

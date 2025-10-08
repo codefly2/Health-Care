@@ -31,11 +31,7 @@ public class JwtUtil {
  
     public String generateToken(String username) {
         Date now = new Date();
-<<<<<<< HEAD
-        Date expiryDate = new Date(now.getTime() + expiration );
-=======
         Date expiryDate = new Date(now.getTime() + expiration *1000 );
->>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90
         User user = userRepository.findByUsername(username);
  
         Map<String, Object> claims = new HashMap<>();

@@ -1,34 +1,20 @@
-<<<<<<< HEAD
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { catchError, map, Observable, of } from 'rxjs';
-=======
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, of, Subscription } from 'rxjs';
->>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90
 import { HttpService } from '../../services/http.service';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-<<<<<<< HEAD
-})
-export class RegistrationComponent implements OnInit {
-=======
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
->>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90
 
   itemForm: FormGroup;
   formModel: any = { role: null, email: '', password: '', username: '' };
   showMessage: boolean = false;
   responseMessage: any;
-<<<<<<< HEAD
-=======
   isLoading: boolean = false;
   showError: boolean = false;
   errorMessage: string = '';
@@ -56,29 +42,17 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   private readonly NUMERIC_REGEX = /[0-9]/;
   private readonly SPECIAL_CHAR_REGEX = /[!@#$%^&]/;
 
->>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90
 
   constructor(public router: Router, private bookService: HttpService, private formBuilder: FormBuilder) {
     this.itemForm = this.formBuilder.group({
       email: [this.formModel.email, [Validators.required, Validators.email]],
-<<<<<<< HEAD
-      password: [this.formModel.password, [Validators.required,Validators.pattern('(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&])[A-Za-z0-9!@#$%^&]{6,}')]],
-      role: [this.formModel.role, [Validators.required]],
-      username: [this.formModel.username, ],
-=======
       password: [this.formModel.password, [Validators.required, Validators.pattern('(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&])[A-Za-z0-9!@#$%^&]{6,}')]],
       role: [this.formModel.role, [Validators.required]],
       username: [this.formModel.username, [Validators.required], [this.nameValidator()]],
->>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90
       specialty: [this.formModel.specialty],
       availability: [this.formModel.availability],
     });
   }
-<<<<<<< HEAD
-  // [Validators.required, this.nameValidator()]
-  ngOnInit(): void {
-    this.onRoleChange();
-=======
 
   ngOnInit(): void {
     this.onRoleChange();
@@ -125,20 +99,10 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.passwordValidations.hasLowerCase = this.LOWERCASE_REGEX.test(password);
     this.passwordValidations.hasNumeric = this.NUMERIC_REGEX.test(password);
     this.passwordValidations.hasSpecialChar = this.SPECIAL_CHAR_REGEX.test(password);
->>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90
   }
 
   nameValidator(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
-<<<<<<< HEAD
-      return this.bookService.usernameExists(control.value).pipe(
-        map(isTaken => {
-          if (isTaken) {
-            // console.log("Hii I'm Trueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-            return { negativeValue: true };
-          } else {
-            // console.log("Hii I'm Falseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-=======
       if (!control.value) {
         return of(null);
       }
@@ -147,7 +111,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           if (isTaken) {
             return { usernameTaken: true };
           } else {
->>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90
             return null;
           }
         }),
@@ -156,10 +119,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     };
   }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90
   onRoleChange() {
     this.itemForm.get('role')?.valueChanges.subscribe(role => {
       if (role === 'DOCTOR') {
@@ -174,36 +133,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     });
   }
 
-<<<<<<< HEAD
-  onRegister() {
-    // debugger;
-    if (this.itemForm.valid) {
-      this.showMessage = false;
-      if( this.itemForm.controls["role"].value=="PATIENT")
-      this.bookService.registerPatient(this.itemForm.value).subscribe(data => {
-        this.showMessage = true;
-        this.responseMessage = "You are successfully Registered";
-        this.itemForm.reset();
-      }, error => {
-        // Handle error
-      });
-      if( this.itemForm.controls["role"].value=="DOCTOR")
-        this.bookService.registerDoctors(this.itemForm.value).subscribe(data => {
-          this.showMessage = true;
-          this.responseMessage = "You are successfully Registered";
-          this.itemForm.reset();
-        }, error => {
-          // Handle error
-        });
-        if( this.itemForm.controls["role"].value=="RECEPTIONIST")
-          this.bookService.registerReceptionist(this.itemForm.value).subscribe(data => {
-            this.showMessage = true;
-            this.responseMessage = "You are successfully Registered";
-            this.itemForm.reset();
-          }, error => {
-            // Handle error
-          });
-=======
   togglePasswordVisibility(): void {
     if (this.passwordInput) {
       this.passwordInput.nativeElement.type =
@@ -257,7 +186,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
           console.error("Registration error:", error);
         }
       );
->>>>>>> 78a6236a2e1a53df252955f96c2d0007da8cbb90
     } else {
       this.itemForm.markAllAsTouched();
     }
