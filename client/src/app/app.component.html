@@ -1,60 +1,64 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <a class="navbar-brand" href="#">HAM System </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg shadow-sm sticky-top custom-navbar">
+  <div class="container-fluid px-4">
+    <!-- Brand -->
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <img src="assets/logo.png" alt="Logo" class="logo me-2" />
+      <span class="fw-bold">HAM System</span>
+    </a>
+
+    <!-- Toggle button for mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" 
+            aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="roleName === 'PATIENT'" [routerLink]="['/patient-appointment']">Patient Appointment</a>
+
+    <!-- Menu -->
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+      <!-- Left Nav -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!-- Patient -->
+        <li class="nav-item" *ngIf="roleName === 'PATIENT'">
+          <a class="nav-link" routerLink="/patient-appointment" routerLinkActive="active-link">Patient Appointment</a>
         </li>
-        
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="roleName === 'PATIENT'" [routerLink]="['/schedule-appointment']">Schedule Appointment</a>
-        </li>
-  
-        <!-- <li class="nav-item">
-          <a class="nav-link" *ngIf="roleName === 'PATIENT'" [routerLink]="['/schedule-appointment']">Schedule Appointment</a>
-        </li> -->
-  
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="roleName === 'DOCTOR'" [routerLink]="['/doctor-appointment']">Doctor Appointment</a>
-        </li>
-  
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="roleName === 'DOCTOR'" [routerLink]="['/doctor-availability']">Doctor Availability</a>
+        <li class="nav-item" *ngIf="roleName === 'PATIENT'">
+          <a class="nav-link" routerLink="/schedule-appointment" routerLinkActive="active-link">Schedule Appointment</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="roleName === 'RECEPTIONIST'" [routerLink]="['/receptionist-appointments']">All Appointments</a>
+        <!-- Doctor -->
+        <li class="nav-item" *ngIf="roleName === 'DOCTOR'">
+          <a class="nav-link" routerLink="/doctor-appointment" routerLinkActive="active-link">Doctor Appointment</a>
+        </li>
+        <li class="nav-item" *ngIf="roleName === 'DOCTOR'">
+          <a class="nav-link" routerLink="/doctor-availability" routerLinkActive="active-link">Doctor Availability</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="roleName === 'RECEPTIONIST'" [routerLink]="['/receptionist-schedule-appointments']">Schedule Appointments</a>
+        <!-- Receptionist -->
+        <li class="nav-item" *ngIf="roleName === 'RECEPTIONIST'">
+          <a class="nav-link" routerLink="/receptionist-appointments" routerLinkActive="active-link">All Appointments</a>
         </li>
-       
+        <li class="nav-item" *ngIf="roleName === 'RECEPTIONIST'">
+          <a class="nav-link" routerLink="/receptionist-schedule-appointments" routerLinkActive="active-link">Schedule Appointments</a>
+        </li>
       </ul>
-     
-   
-      <!-- Login/Logout buttons -->
-      <ul class="navbar-nav">
-        <li *ngIf="!IsLoggin" class="nav-item">
-          <a class="nav-link" [routerLink]="['/login']">Login</a>
+
+      <!-- Right side (login/logout) -->
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item" *ngIf="!IsLoggin">
+          <a class="btn btn-outline-light me-2" routerLink="/login">Login</a>
         </li>
-        <li *ngIf="!IsLoggin" class="nav-item">
-          <a class="nav-link" [routerLink]="['/registration']">Registration</a>
+        <li class="nav-item" *ngIf="!IsLoggin">
+          <a class="btn btn-primary" routerLink="/registration">Register</a>
         </li>
-        <li *ngIf="IsLoggin" class="nav-item">
-          <a class="nav-link" (click)="logout()" [routerLink]="['/login']">Logout</a>
+        <li class="nav-item" *ngIf="IsLoggin">
+          <button class="btn btn-danger" (click)="logout()">Logout</button>
         </li>
       </ul>
     </div>
-  </nav>
-  
-  <body  >
-    <div class="container mt-4 mx-5">
-      <router-outlet>    
-      </router-outlet>
-    </div>
-  
-  </body>
+  </div>
+</nav>
+
+<!-- Routed Content -->
+<div class="container-fluid page-container py-4">
+  <router-outlet></router-outlet>
+</div>

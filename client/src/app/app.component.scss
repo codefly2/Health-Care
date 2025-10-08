@@ -1,0 +1,60 @@
+/* Navbar Custom */
+.custom-navbar {
+  background: linear-gradient(90deg, #eaedf1, #eef0f4);
+  transition: background 0.4s ease-in-out;
+}
+
+.custom-navbar .navbar-brand {
+  color: #241fcb;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  transition: transform 0.3s ease;
+}
+
+.custom-navbar .navbar-brand:hover {
+  transform: scale(1.05);
+  color: #e0e0e0;
+}
+
+.custom-navbar .nav-link {
+  color: #f8f9fa !important;
+  font-weight: 50;
+  margin-right: 0.75rem;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.custom-navbar .nav-link::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background: #f8f9fa;
+  width: 0;
+  transition: width 0.3s ease;
+  margin-top: 2px;
+}
+
+.custom-navbar .nav-link:hover::after,
+.custom-navbar .active-link::after {
+  width: 100%;
+}
+
+.custom-navbar .nav-link:hover {
+  color: #ffd369 !important;
+}
+
+.logo {
+  width: 30px;
+  height: 30px;
+}
+
+/* Page container */
+.page-container {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}

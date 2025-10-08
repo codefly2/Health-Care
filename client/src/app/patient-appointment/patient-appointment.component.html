@@ -1,190 +1,98 @@
-<!-- <div class="card mt-4">
-    <div class="card-header">
-        <h4>Appointments</h4>
-    </div>
-
-    <div class="input-group search-bar">
-        <input type="text" placeholder="Search appointments" (input)="searchAppointments($event)" />
-    </div>
-
-    <div class="card-body">
-        <table class="table table-boarderd">
-            <thead>
-                <th>Appointment Id</th>
-                <th>Appointment Time</th>
-                <th>Status</th>
-                <th>Doctor</th>
-                <th>Patient</th>
-                <th>QR Code</th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let val of paginatedList$">
-                    <td>{{val.id}}</td>
-                    <td>{{val.appointmentTime | date:'dd-MMM-yyyy hh:mm:a':'UTC'}}</td>
-                    <td>{{val.status}}</td>
-                    <td><strong>{{val.doctor.username}}</strong><br>
-                        <small>{{val.doctor.email}}</small>
-                    </td>
-                    <td><strong>{{val.patient.username}}</strong><br>
-                        <small>{{val.patient.email}}</small>
-                    </td>
-                    <td> 
-                        <img *ngIf="qrCodes[val.id]"
-                             [src] = "'data:image/png;base64,' + qrCodes[val.id]"
-                             alt="QR Code" width="60" height="60"
-                             (click) = "openQr(qrCodes[val.id])"/>
-                    </td>
-                </tr>
-            </tbody>
-        </table> -->
-
-        <!-- Pagination Controls -->
-        <!-- <ul class="pagination">
-            <li [class.disabled]="currentPage === 1" (click)="goToPage(1)">
-                <a href="javascript:void(0)">First</a>
-            </li>
-            <li [class.disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
-                <a href="javascript:void(0)">Previous</a>
-            </li> -->
-
-            <!-- Dynamic Page Numbers -->
-            <!-- <li *ngFor="let page of [].constructor(totalPages); let i = index"
-                [class.active]="i + 1 === currentPage" (click)="goToPage(i + 1)">
-                <a href="javascript:void(0)">{{i + 1}}</a>
-            </li>
-
-            <li [class.disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
-                <a href="javascript:void(0)">Next</a>
-            </li>
-            <li [class.disabled]="currentPage === totalPages" (click)="goToPage(totalPages)">
-                <a href="javascript:void(0)">Last</a>
-            </li>
-        </ul>
-    </div>
-</div>
-<div *ngIf="selectedQr" class="qr-popup">
-    <div class="qr-overlay" (click)="selectedQr=null"></div>
-    <div class="qr-content">
-        <img [src]="'data:image/png;base64,'+selectedQr" alt="QR"/>
-        <button (click)="selectedQr = null" class="btn btn-danger">Close</button>
-    </div>
-</div> -->
-
-
-
-<!-- Floating Chatbot Icon -->
-<!-- <div class="chatbot-icon" (click)="toggleChatbot()">💊</div> -->
-
-<!-- Chatbot Popup -->
-<!-- <div class="chatbot-popup" *ngIf="chatbotOpen">
-  <div class="chat-header">Health Assistant</div>
-  <div class="chat-body">
-    <div *ngFor="let msg of chatMessages" [ngClass]="{'user-msg': msg.sender === 'You', 'bot-msg': msg.sender === 'Bot'}">
-      <strong>{{msg.sender}}:</strong> {{msg.text}}
-    </div>
-  </div>
-  <div class="chat-input">
-    <input [(ngModel)]="userMessage" placeholder="Ask about fever, back pain..." />
-    <button (click)="sendMessage()">Send</button>
-  </div>
-</div> -->
-
-
-
-
-<div class="card mt-4">
+<div class="appointments-container">
+  <div class="card shadow header-card">
     <div class="card-header header-with-voice">
-        <h4>Appointments</h4>
+      <h3>📅 My Appointments</h3>
 
-        <!-- Voice booking control -->
-        <div class="voice-controls">
-          <button class="btn btn-voice" (click)="startVoiceBooking()" [class.listening]="listening">
-            <span *ngIf="!listening">🎤 Voice Book</span>
-            <span *ngIf="listening">🛑 Listening...</span>
-          </button>
-          <div class="voice-indicator">
-            <small class="transcript">{{ transcript }}</small>
-            <small class="feedback" *ngIf="feedbackMsg">{{ feedbackMsg }}</small>
-          </div>
+      <!-- Voice Booking -->
+      <div class="voice-controls">
+        <button class="btn-voice" (click)="startVoiceBooking()" [class.listening]="listening">
+          <span *ngIf="!listening">🎤 Voice Book</span>
+          <span *ngIf="listening">🛑 Listening...</span>
+        </button>
+        <div class="voice-indicator">
+          <small class="transcript">{{ transcript }}</small>
+          <small class="feedback" *ngIf="feedbackMsg">{{ feedbackMsg }}</small>
         </div>
+      </div>
     </div>
 
+    <!-- Search -->
     <div class="input-group search-bar">
-        <input type="text" placeholder="Search appointments" (input)="searchAppointments($event)" />
+      <input type="text" placeholder="🔍 Search by doctor or appointment ID" (input)="searchAppointments($event)" />
     </div>
+  </div>
 
-    <div class="card-body">
-        <table class="table table-boarderd">
-            <thead>
-                <th>Appointment Id</th>
-                <th>Appointment Time</th>
-                <th>Status</th>
-                <th>Doctor</th>
-                <th>Patient</th>
-                <th>QR Code</th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let val of paginatedList$">
-                    <td>{{val.id}}</td>
-                    <td>{{val.appointmentTime | date:'dd-MMM-yyyy hh:mm:a':'UTC'}}</td>
-                    <td>{{val.status}}</td>
-                    <td><strong>{{val.doctor.username}}</strong><br>
-                        <small>{{val.doctor.email}}</small>
-                    </td>
-                    <td><strong>{{val.patient.username}}</strong><br>
-                        <small>{{val.patient.email}}</small>
-                    </td>
-                    <td> 
-                        <img *ngIf="qrCodes[val.id]"
-                             [src] = "'data:image/png;base64,' + qrCodes[val.id]"
-                             alt="QR Code" width="60" height="60"
-                             (click) = "openQr(qrCodes[val.id])"/>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+  <!-- Appointment Cards -->
+  <div class="appointments-grid">
+    <div class="appointment-card" *ngFor="let val of paginatedList$" [@fadeIn]>
+      <div class="card-header">
+        <div class="profile-badge">
+          <img src="assets/doctor.png" alt="Doctor" />
+        </div>
+        <div>
+          <h5>Appointment #{{val.id}}</h5>
+          <span class="status" [ngClass]="val.status">{{val.status}}</span>
+        </div>
+      </div>
 
-        <!-- Pagination Controls -->
-        <ul class="pagination">
-            <li [class.disabled]="currentPage === 1" (click)="goToPage(1)">
-                <a href="javascript:void(0)">First</a>
-            </li>
-            <li [class.disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
-                <a href="javascript:void(0)">Previous</a>
-            </li>
+      <div class="card-body">
+        <p><strong>🕒 Time:</strong> {{val.appointmentTime | date:'dd-MMM-yyyy hh:mm a':'UTC'}}</p>
+        <p><strong>👨‍⚕️ Doctor:</strong> {{val.doctor.username}} <br>
+           <small>{{val.doctor.email}}</small></p>
+        <p><strong>🙍‍♂️ Patient:</strong> {{val.patient.username}} <br>
+           <small>{{val.patient.email}}</small></p>
+      </div>
 
-            <!-- Dynamic Page Numbers -->
-            <li *ngFor="let page of [].constructor(totalPages); let i = index"
-                [class.active]="i + 1 === currentPage" (click)="goToPage(i + 1)">
-                <a href="javascript:void(0)">{{i + 1}}</a>
-            </li>
-
-            <li [class.disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
-                <a href="javascript:void(0)">Next</a>
-            </li>
-            <li [class.disabled]="currentPage === totalPages" (click)="goToPage(totalPages)">
-                <a href="javascript:void(0)">Last</a>
-            </li>
-        </ul>
+      <div class="qr-section" *ngIf="qrCodes[val.id]">
+        <img [src]="'data:image/png;base64,'+qrCodes[val.id]" 
+             alt="QR Code" 
+             (click)="openQr(qrCodes[val.id])" />
+        <p>Click QR to enlarge</p>
+      </div>
     </div>
+  </div>
+
+  <!-- Pagination -->
+  <ul class="pagination">
+    <li [class.disabled]="currentPage === 1" (click)="goToPage(1)">
+      <a href="javascript:void(0)">« First</a>
+    </li>
+    <li [class.disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+      <a href="javascript:void(0)">‹ Prev</a>
+    </li>
+
+    <li *ngFor="let page of [].constructor(totalPages); let i = index"
+        [class.active]="i + 1 === currentPage"
+        (click)="goToPage(i + 1)">
+      <a href="javascript:void(0)">{{i + 1}}</a>
+    </li>
+
+    <li [class.disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+      <a href="javascript:void(0)">Next ›</a>
+    </li>
+    <li [class.disabled]="currentPage === totalPages" (click)="goToPage(totalPages)">
+      <a href="javascript:void(0)">Last »</a>
+    </li>
+  </ul>
 </div>
 
+<!-- QR Popup -->
 <div *ngIf="selectedQr" class="qr-popup">
-    <div class="qr-overlay" (click)="selectedQr=null"></div>
-    <div class="qr-content">
-        <img [src]="'data:image/png;base64,'+selectedQr" alt="QR"/>
-        <button (click)="selectedQr = null" class="btn btn-danger">Close</button>
-    </div>
+  <div class="qr-overlay" (click)="selectedQr=null"></div>
+  <div class="qr-content animate-popup">
+    <img [src]="'data:image/png;base64,'+selectedQr" alt="QR"/>
+    <button (click)="selectedQr = null" class="btn btn-danger">Close</button>
+  </div>
 </div>
 
-<!-- Floating Chatbot Icon -->
+<!-- Chatbot -->
 <div class="chatbot-icon" (click)="toggleChatbot()">💊</div>
 
-<!-- Chatbot Popup -->
-<div class="chatbot-popup" *ngIf="chatbotOpen">
-  <div class="chat-header">Health Assistant</div>
+<div class="chatbot-popup" *ngIf="chatbotOpen" [@slideUp]>
+  <div class="chat-header">🤖 Health Assistant</div>
   <div class="chat-body">
-    <div *ngFor="let msg of chatMessages" [ngClass]="{'user-msg': msg.sender === 'You', 'bot-msg': msg.sender === 'Bot'}">
+    <div *ngFor="let msg of chatMessages" 
+         [ngClass]="{'user-msg': msg.sender === 'You', 'bot-msg': msg.sender === 'Bot'}">
       <strong>{{msg.sender}}:</strong> {{msg.text}}
     </div>
   </div>

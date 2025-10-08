@@ -1,5 +1,8 @@
 import { ApplicationInitStatus, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import {RouterModule} from '@angular/router'
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,10 +41,12 @@ import { ReceptionistScheduleAppointmentsComponent } from './receptionist-schedu
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    RouterModule.forRoot([]),
   ],
   providers: [HttpService, HttpClientModule],
   bootstrap: [AppComponent],
