@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from '../../services/http.service';
 import { AuthService } from '../../services/auth.service';
-import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -13,13 +12,19 @@ import { finalize } from 'rxjs/operators';
 export class LoginComponent implements OnInit {
   itemForm: FormGroup;
   otpForm: FormGroup;
+
   showError = false;
   errorMessage = '';
+  isLoading = false;
+
   otpSent = false;
   usernameForOtp = '';
   resendDisabled = true;
   resendTimer = 30;
   private resendInterval: any;
+
+  @ViewChild('passwordInput') passwordInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('passwordToggle') passwordToggle!: ElementRef<HTMLButtonElement>;
 
   constructor(
     public router: Router,
@@ -39,59 +44,67 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onLogin() {
-    if (this.itemForm.valid) {
-      this.showError = false;
-      const payload = this.itemForm.value;
-      this.httpService.loginSendOtp(payload).subscribe({
-        next: (res: any) => {
-          if (res && res.message === 'OTP_SENT') {
-            this.otpSent = true;
-            this.usernameForOtp = res.username || this.itemForm.value.username;
-            this.startResendTimer(30); // disable resend for 30s
-          } else {
-            this.showError = true;
-            this.errorMessage = 'Login failed';
-          }
-        },
-        error: (err) => {
-          this.showError = true;
-          this.errorMessage = err?.error?.message || 'Login error';
-          console.error(err);
-        }
-      });
-    } else {
+  onLogin(): void {
+    if (this.itemForm.invalid) {
       this.itemForm.markAllAsTouched();
+      return;
     }
+
+    this.isLoading = true;
+    this.showError = false;
+
+    const payload = this.itemForm.value;
+    this.httpService.loginSendOtp(payload).subscribe({
+      next: (res: any) => {
+        this.isLoading = false;
+        if (res && res.message === 'OTP_SENT') {
+          this.otpSent = true;
+          this.usernameForOtp = res.username || this.itemForm.value.username;
+          this.startResendTimer(30);
+        } else {
+          this.showError = true;
+          this.errorMessage = 'Login failed';
+        }
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.showError = true;
+        this.errorMessage = err?.error?.message || 'Login error';
+        console.error(err);
+      }
+    });
   }
 
-  submitOtp() {
-    if (this.otpForm.valid && this.usernameForOtp) {
-      const payload = { username: this.usernameForOtp, otp: this.otpForm.value.otp };
-      this.httpService.verifyOtp(payload).subscribe({
-        next: (res: any) => {
-          // res is LoginResponse with token
-          if (res && res.token) {
-            this.authService.saveToken(res.token);
-            this.authService.saveUserId(String(res.userId));
-            this.authService.SetRole(res.role);
-            this.router.navigateByUrl('/dashboard').then(() => {
-              window.location.reload();
-            });
-          } else {
-            this.showError = true;
-            this.errorMessage = 'OTP verification failed';
-          }
-        },
-        error: (err) => {
-          this.showError = true;
-          this.errorMessage = err?.error?.message || 'OTP invalid or expired';
-          console.error(err);
-        }
-      });
-    } else {
+  submitOtp(): void {
+    if (this.otpForm.invalid || !this.usernameForOtp) {
       this.otpForm.markAllAsTouched();
+      return;
     }
+
+    this.isLoading = true;
+    const payload = { username: this.usernameForOtp, otp: this.otpForm.value.otp };
+    this.httpService.verifyOtp(payload).subscribe({
+      next: (res: any) => {
+        this.isLoading = false;
+        if (res && res.token) {
+          this.authService.saveToken(res.token);
+          this.authService.saveUserId(String(res.userId));
+          this.authService.SetRole(res.role);
+          this.router.navigateByUrl('/dashboard').then(() => {
+            window.location.reload();
+          });
+        } else {
+          this.showError = true;
+          this.errorMessage = 'OTP verification failed';
+        }
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.showError = true;
+        this.errorMessage = err?.error?.message || 'OTP invalid or expired';
+        console.error(err);
+      }
+    });
   }
 
   startResendTimer(seconds: number) {
@@ -117,7 +130,6 @@ export class LoginComponent implements OnInit {
       },
       error: (err) => {
         if (err.status === 429 || err.error?.message === 'RESEND_COOLDOWN') {
-          // server says cooldown not passed
           this.showError = true;
           this.errorMessage = 'You can resend only after 30 seconds';
         } else {
@@ -128,7 +140,22 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  registration() {
+  // Toggle password visibility
+  togglePasswordVisibility(): void {
+    if (this.passwordInput && this.passwordInput.nativeElement) {
+      const input = this.passwordInput.nativeElement;
+      const button = this.passwordToggle.nativeElement;
+      if (input.type === 'password') {
+        input.type = 'text';
+        button.classList.add('visible');
+      } else {
+        input.type = 'password';
+        button.classList.remove('visible');
+      }
+    }
+  }
+
+  registration(): void {
     this.router.navigateByUrl('/registration');
   }
 }

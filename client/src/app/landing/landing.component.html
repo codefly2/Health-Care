@@ -1,44 +1,4 @@
-<!-- Topbar Start -->
-    <!-- <div class="container-fluid py-2 border-bottom d-none d-lg-block">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 text-center text-lg-start mb-2 mb-lg-0">
-
-                </div>
-
-                
-            </div>
-        </div>
-    </div> -->
-    <!-- Topbar End -->
-
-
-<!-- Navbar Start -->
-<!-- <div class="container-fluid sticky-top navbar-transparent">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark py-3 py-lg-0">
-            <a routerLink='/landing' class="navbar-brand">
-                <h1 class="m-0 text-uppercase"><i class="fa fa-clinic-medical me-2"></i>HAM</h1>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav ms-auto py-0">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a routerLink="/about" class="nav-item nav-link">About</a> -->
-                    <!-- Removed commented out items for brevity, you can add them back -->
-                <!-- </div>
-            </div>
-        </nav>
-    </div>
-</div> -->
-<!-- Navbar End -->
-
-
-
-    <!-- Hero Start -->
-    <div class="container-fluid hero-header py-15 mb-5">
+<div class="container-fluid hero-header py-15 mb-5">
         <div class="container py-5">
             <div class="row justify-content-start">
                 <div class="col-lg-8 text-center text-lg-start">
@@ -69,9 +29,10 @@
                 <div class="col-lg-7">
                     <div class="mb-4">
                         <h5 class="d-inline-block text-greenblue text-uppercase border-bottom border-5">About Us</h5>
-                        <h1 class="display-4">Best Medical Care For Yourself and Your Family</h1>
+                        <h1 class="display-4">Feeling ill🤒....? No worries!! we are here to book your doctor appointment.</h1>
+
                     </div>
-                    <p>Tempor erat elitr at rebum at at clita aliquyam consetetur. Diam dolor diam ipsum et, tempor voluptua sit consetetur sit. Aliquyam diam amet diam et eos sadipscing labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor consetetur takimata eirmod, dolores takimata consetetur invidunt magna dolores aliquyam dolores dolore. Amet erat amet et magna</p>
+                    <p>Your doctor appointment booking system is a smart healthcare platform that allows patients to easily schedule appointments with doctors based on availability and specialty. It streamlines the booking process, provides real-time availability insights, and helps improve access to medical care through a user-friendly interface.</p>
                     <div class="row g-3 pt-3">
                         <div class="col-sm-3 col-6">
                             <div class="bg-light text-center rounded-circle py-4">
@@ -88,13 +49,13 @@
                         <div class="col-sm-3 col-6">
                             <div class="bg-light text-center rounded-circle py-4">
                                 <i class="fa fa-3x fa-microscope text-greenblue mb-3"></i>
-                                <h6 class="mb-0">Accurate<small class="d-block text-greenblue">Testing</small></h6>
+                                <h6 class="mb-0">Fast<small class="d-block text-greenblue">Booking</small></h6>
                             </div>
                         </div>
                         <div class="col-sm-3 col-6">
                             <div class="bg-light text-center rounded-circle py-4">
                                 <i class="fa fa-3x fa-ambulance text-greenblue mb-3"></i>
-                                <h6 class="mb-0">Free<small class="d-block text-greenblue">Ambulance</small></h6>
+                                <h6 class="mb-0">Voice<small class="d-block text-greenblue">Service</small></h6>
                             </div>
                         </div>
                     </div>
@@ -132,13 +93,14 @@
     <div class="row g-4">
       <!-- Service Card -->
       <div class="col-lg-4 col-md-6" *ngFor="let service of [
-        {icon:'fa-user-md', title:'Emergency Care', text:'Swift, reliable emergency response for any critical situation.'},
-        {icon:'fa-procedures', title:'Operation & Surgery', text:'Advanced surgical facilities with experienced specialists.'},
-        {icon:'fa-stethoscope', title:'Outdoor Checkup', text:'Quick consultations with minimal waiting times.'},
-        {icon:'fa-ambulance', title:'Ambulance Service', text:'24/7 on-call ambulance service with GPS tracking.'},
-        {icon:'fa-pills', title:'Medicine & Pharmacy', text:'Instant access to prescribed medicines and pharmacy support.'},
-        {icon:'fa-microscope', title:'Blood Testing', text:'Accurate and fast laboratory diagnostics for better insights.'}
+        {icon:'fa-user-md', title:'Healthy Start', text:'Tip: Begin your day with a glass of water and a short walk to boost circulation and energy.'},
+        {icon:'fa-procedures', title:'Heart Matters', text:'Tip: Eat more fiber-rich foods and reduce salt intake to support heart health.'},
+        {icon:'fa-stethoscope', title:'Mindful Minutes', text:'Tip: Take 5 minutes daily to practice deep breathing or meditation to reduce stress.'},
+        {icon:'fa-ambulance', title:'Immunity Boost', text:'Tip: Include citrus fruits, garlic, and yogurt in your diet to strengthen your immune system.'},
+        {icon:'fa-pills', title:'Stay Active', text:'Tip: Aim for at least 30 minutes of physical activity each day to maintain overall wellness.'},
+        {icon:'fa-microscope', title:'Sleep Smart', text:'Tip: Avoid screens 1 hour before bed and maintain a consistent sleep schedule for better rest.'}
       ]">
+
         <div class="service-card">
           <div class="service-inner">
             <!-- Front Side -->
@@ -239,7 +201,7 @@
       </div>
       <div class="col-lg-3 col-md-6 mb-4">
         <h2 class="counter" data-target="3200">0</h2>
-        <p>Successful Surgeries</p>
+        <p>Successful Cases</p>
       </div>
       <div class="col-lg-3 col-md-6 mb-4">
         <h2 class="counter" data-target="50">0</h2>
@@ -248,79 +210,6 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-<section id="pricing" class="py-5 bg-white">
-  <div class="container">
-    <div class="text-center mb-5">
-      <h5 class="text-greenblue text-uppercase border-bottom border-3 d-inline-block mb-3">
-        Pricing Plans
-      </h5>
-      <h2 class="fw-bold">Affordable Care Packages</h2>
-      <p class="text-muted mx-auto" style="max-width: 600px;">
-        Choose a plan that fits your healthcare needs — transparent pricing, no hidden charges.
-      </p>
-    </div>
-
-    <div class="row g-4 justify-content-center">
-      <!-- Basic Plan -->
-      <div class="col-lg-4 col-md-6">
-        <div class="pricing-card p-4 text-center rounded-4 shadow-sm h-100">
-          <h5 class="fw-bold mb-3">Basic</h5>
-          <div class="display-5 fw-bold text-greenblue mb-3">$19<span class="fs-6 text-muted">/month</span></div>
-          <ul class="list-unstyled text-muted mb-4">
-            <li>✔ 2 Free Appointments</li>
-            <li>✔ 24/7 Chat Support</li>
-            <li>✔ Basic Health Records</li>
-            <li>✖ AI Insights</li>
-          </ul>
-          <a href="#" class="btn btn-outline-greenblue rounded-pill px-4">Choose Plan</a>
-        </div>
-      </div>
-
-      <!-- Standard Plan -->
-      <div class="col-lg-4 col-md-6">
-        <div class="pricing-card p-4 text-center rounded-4 shadow-lg border-greenblue position-relative h-100 featured">
-          <span class="badge bg-greenblue position-absolute top-0 start-50 translate-middle-x mt-3 px-3 py-2">
-            Recommended
-          </span>
-          <h5 class="fw-bold mb-3 mt-4">Standard</h5>
-          <div class="display-5 fw-bold text-greenblue mb-3">$39<span class="fs-6 text-muted">/month</span></div>
-          <ul class="list-unstyled text-muted mb-4">
-            <li>✔ 5 Appointments</li>
-            <li>✔ Priority Booking</li>
-            <li>✔ Health Records & History</li>
-            <li>✔ AI Health Insights</li>
-          </ul>
-          <a href="#" class="btn btn-greenblue rounded-pill px-4">Choose Plan</a>
-        </div>
-      </div>
-
-      <!-- Premium Plan -->
-      <div class="col-lg-4 col-md-6">
-        <div class="pricing-card p-4 text-center rounded-4 shadow-sm h-100">
-          <h5 class="fw-bold mb-3">Premium</h5>
-          <div class="display-5 fw-bold text-greenblue mb-3">$59<span class="fs-6 text-muted">/month</span></div>
-          <ul class="list-unstyled text-muted mb-4">
-            <li>✔ Unlimited Appointments</li>
-            <li>✔ Doctor On Demand</li>
-            <li>✔ Full Analytics Dashboard</li>
-            <li>✔ AI-Powered Health Monitoring</li>
-          </ul>
-          <a href="#" class="btn btn-outline-greenblue rounded-pill px-4">Choose Plan</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
    <!-- Appointment Start -->
 <section class="appointment-section py-5">
@@ -356,6 +245,7 @@
                   <span class="input-group-text bg-light border-0"><i class="bi bi-building"></i></span>
                   <select class="form-select bg-light border-0" style="height: 55px;">
                     <option selected>Choose Department</option>
+                    <option>Genral</option>
                     <option>Cardiology</option>
                     <option>Neurology</option>
                     <option>Pediatrics</option>
@@ -416,320 +306,6 @@
     </div>
   </div>
 </section>
-<!-- Appointment End -->
-
-    <!-- Appointment End -->
-
-
-    <!-- Pricing Plan Start -->
-    <!-- <div class="container-fluid py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-                <h5 class="d-inline-block text-greenblue text-uppercase border-bottom border-5">Medical Packages</h5>
-                <h1 class="display-4">Awesome Medical Programs</h1>
-            </div>
-            <div class="owl-carousel price-carousel position-relative" style="padding: 0 45px 45px 45px;">
-                <div class="bg-light rounded text-center">
-                    <div class="position-relative">
-                        <img class="img-fluid rounded-top" src="assets/img/price-1.jpg" alt="">
-                        <div class="position-absolute w-100 h-100 top-50 start-50 translate-middle rounded-top d-flex flex-column align-items-center justify-content-center" style="background: rgba(29, 42, 77, .8);">
-                            <h3 class="text-white">Pregnancy Care</h3>
-                            <h1 class="display-4 text-white mb-0">
-                                <small class="align-top fw-normal" style="font-size: 22px; line-height: 45px;">$</small>49<small class="align-bottom fw-normal" style="font-size: 16px; line-height: 40px;">/ Year</small>
-                            </h1>
-                        </div>
-                    </div>
-                    <div class="text-center py-5">
-                        <p>Emergency Medical Treatment</p>
-                        <p>Highly Experienced Doctors</p>
-                        <p>Highest Success Rate</p>
-                        <p>Telephone Service</p>
-                        <a href="" class="btn btn-greenblue rounded-pill py-3 px-5 my-2">Apply Now</a>
-                    </div>
-                </div>
-                <div class="bg-light rounded text-center">
-                    <div class="position-relative">
-                        <img class="img-fluid rounded-top" src="assets/img/price-2.jpg" alt="">
-                        <div class="position-absolute w-100 h-100 top-50 start-50 translate-middle rounded-top d-flex flex-column align-items-center justify-content-center" style="background: rgba(29, 42, 77, .8);">
-                            <h3 class="text-white">Health Checkup</h3>
-                            <h1 class="display-4 text-white mb-0">
-                                <small class="align-top fw-normal" style="font-size: 22px; line-height: 45px;">$</small>99<small class="align-bottom fw-normal" style="font-size: 16px; line-height: 40px;">/ Year</small>
-                            </h1>
-                        </div>
-                    </div>
-                    <div class="text-center py-5">
-                        <p>Emergency Medical Treatment</p>
-                        <p>Highly Experienced Doctors</p>
-                        <p>Highest Success Rate</p>
-                        <p>Telephone Service</p>
-                        <a href="" class="btn btn-greenblue rounded-pill py-3 px-5 my-2">Apply Now</a>
-                    </div>
-                </div>
-                <div class="bg-light rounded text-center">
-                    <div class="position-relative">
-                        <img class="img-fluid rounded-top" src="assets/img/price-3.jpg" alt="">
-                        <div class="position-absolute w-100 h-100 top-50 start-50 translate-middle rounded-top d-flex flex-column align-items-center justify-content-center" style="background: rgba(29, 42, 77, .8);">
-                            <h3 class="text-white">Dental Care</h3>
-                            <h1 class="display-4 text-white mb-0">
-                                <small class="align-top fw-normal" style="font-size: 22px; line-height: 45px;">$</small>149<small class="align-bottom fw-normal" style="font-size: 16px; line-height: 40px;">/ Year</small>
-                            </h1>
-                        </div>
-                    </div>
-                    <div class="text-center py-5">
-                        <p>Emergency Medical Treatment</p>
-                        <p>Highly Experienced Doctors</p>
-                        <p>Highest Success Rate</p>
-                        <p>Telephone Service</p>
-                        <a href="" class="btn btn-greenblue rounded-pill py-3 px-5 my-2">Apply Now</a>
-                    </div>
-                </div>
-                <div class="bg-light rounded text-center">
-                    <div class="position-relative">
-                        <img class="img-fluid rounded-top" src="assets/img/price-4.jpg" alt="">
-                        <div class="position-absolute w-100 h-100 top-50 start-50 translate-middle rounded-top d-flex flex-column align-items-center justify-content-center" style="background: rgba(29, 42, 77, .8);">
-                            <h3 class="text-white">Operation & Surgery</h3>
-                            <h1 class="display-4 text-white mb-0">
-                                <small class="align-top fw-normal" style="font-size: 22px; line-height: 45px;">$</small>199<small class="align-bottom fw-normal" style="font-size: 16px; line-height: 40px;">/ Year</small>
-                            </h1>
-                        </div>
-                    </div>
-                    <div class="text-center py-5">
-                        <p>Emergency Medical Treatment</p>
-                        <p>Highly Experienced Doctors</p>
-                        <p>Highest Success Rate</p>
-                        <p>Telephone Service</p>
-                        <a href="" class="btn btn-greenblue rounded-pill py-3 px-5 my-2">Apply Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- Pricing Plan End -->
-
-
-    <!-- Team Start -->
-    <!-- <div class="container-fluid py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-                <h5 class="d-inline-block text-greenblue text-uppercase border-bottom border-5">Our Doctors</h5>
-                <h1 class="display-4">Qualified Healthcare Professionals</h1>
-            </div>
-            <div class="owl-carousel team-carousel position-relative">
-                <div class="team-item">
-                    <div class="row g-0 bg-light rounded overflow-hidden">
-                        <div class="col-12 col-sm-5 h-100">
-                            <img class="img-fluid h-100" src="assets/img/team-1.jpg" style="object-fit: cover;">
-                        </div>
-                        <div class="col-12 col-sm-7 h-100 d-flex flex-column">
-                            <div class="mt-auto p-4">
-                                <h3>Doctor Name</h3>
-                                <h6 class="fw-normal fst-italic text-greenblue mb-4">Cardiology Specialist</h6>
-                                <p class="m-0">Dolor lorem eos dolor duo eirmod sea. Dolor sit magna rebum clita rebum dolor</p>
-                            </div>
-                            <div class="d-flex mt-auto border-top p-4">
-                                <a class="btn btn-lg btn-greenblue btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-lg btn-greenblue btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-lg btn-greenblue btn-lg-square rounded-circle" href="#"><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="team-item">
-                    <div class="row g-0 bg-light rounded overflow-hidden">
-                        <div class="col-12 col-sm-5 h-100">
-                            <img class="img-fluid h-100" src="assets/img/team-2.jpg" style="object-fit: cover;">
-                        </div>
-                        <div class="col-12 col-sm-7 h-100 d-flex flex-column">
-                            <div class="mt-auto p-4">
-                                <h3>Doctor Name</h3>
-                                <h6 class="fw-normal fst-italic text-greenblue mb-4">Cardiology Specialist</h6>
-                                <p class="m-0">Dolor lorem eos dolor duo eirmod sea. Dolor sit magna rebum clita rebum dolor</p>
-                            </div>
-                            <div class="d-flex mt-auto border-top p-4">
-                                <a class="btn btn-lg btn-greenblue btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-lg btn-greenblue btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-lg btn-greenblue btn-lg-square rounded-circle" href="#"><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="team-item">
-                    <div class="row g-0 bg-light rounded overflow-hidden">
-                        <div class="col-12 col-sm-5 h-100">
-                            <img class="img-fluid h-100" src="assets/img/team-3.jpg" style="object-fit: cover;">
-                        </div>
-                        <div class="col-12 col-sm-7 h-100 d-flex flex-column">
-                            <div class="mt-auto p-4">
-                                <h3>Doctor Name</h3>
-                                <h6 class="fw-normal fst-italic text-greenblue mb-4">Cardiology Specialist</h6>
-                                <p class="m-0">Dolor lorem eos dolor duo eirmod sea. Dolor sit magna rebum clita rebum dolor</p>
-                            </div>
-                            <div class="d-flex mt-auto border-top p-4">
-                                <a class="btn btn-lg btn-greenblue btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-lg btn-greenblue btn-lg-square rounded-circle me-3" href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-lg btn-greenblue btn-lg-square rounded-circle" href="#"><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- Team End -->
-
-
-    <!-- Search Start -->
-    <!-- <div class="container-fluid bg-primary my-5 py-5">
-        <div class="container py-5">
-            <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-                <h5 class="d-inline-block text-white text-uppercase border-bottom border-5">Find A Doctor</h5>
-                <h1 class="display-4 mb-4">Find A Healthcare Professionals</h1>
-                <h5 class="text-white fw-normal">Duo ipsum erat stet dolor sea ut nonumy tempor. Tempor duo lorem eos sit sed ipsum takimata ipsum sit est. Ipsum ea voluptua ipsum sit justo</h5>
-            </div>
-            <div class="mx-auto" style="width: 100%; max-width: 600px;">
-                <div class="input-group">
-                    <select class="form-select border-primary w-25" style="height: 60px;">
-                        <option selected>Department</option>
-                        <option value="1">Department 1</option>
-                        <option value="2">Department 2</option>
-                        <option value="3">Department 3</option>
-                    </select>
-                    <input type="text" class="form-control border-primary w-50" placeholder="Keyword">
-                    <button class="btn btn-dark border-0 w-25">Search</button>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- Search End -->
-
-
-    <!-- Testimonial Start -->
-    <!-- <div class="container-fluid py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-                <h5 class="d-inline-block text-greenblue text-uppercase border-bottom border-5">Testimonial</h5>
-                <h1 class="display-4">Patients Say About Our Services</h1>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="owl-carousel testimonial-carousel">
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-5">
-                                <img class="img-fluid rounded-circle mx-auto" src="assets/img/testimonial-1.jpg" alt="">
-                                <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle" style="width: 60px; height: 60px;">
-                                    <i class="fa fa-quote-left fa-2x text-greenblue"></i>
-                                </div>
-                            </div>
-                            <p class="fs-4 fw-normal">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat. Erat dolor rebum sit ipsum.</p>
-                            <hr class="w-25 mx-auto">
-                            <h3>Patient Name</h3>
-                            <h6 class="fw-normal text-greenblue mb-3">Profession</h6>
-                        </div>
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-5">
-                                <img class="img-fluid rounded-circle mx-auto" src="assets/img/testimonial-2.jpg" alt="">
-                                <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle" style="width: 60px; height: 60px;">
-                                    <i class="fa fa-quote-left fa-2x text-greenblue"></i>
-                                </div>
-                            </div>
-                            <p class="fs-4 fw-normal">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat. Erat dolor rebum sit ipsum.</p>
-                            <hr class="w-25 mx-auto">
-                            <h3>Patient Name</h3>
-                            <h6 class="fw-normal text-greenblue mb-3">Profession</h6>
-                        </div>
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-5">
-                                <img class="img-fluid rounded-circle mx-auto" src="assets/img/testimonial-3.jpg" alt="">
-                                <div class="position-absolute top-100 start-50 translate-middle d-flex align-items-center justify-content-center bg-white rounded-circle" style="width: 60px; height: 60px;">
-                                    <i class="fa fa-quote-left fa-2x text-greenblue"></i>
-                                </div>
-                            </div>
-                            <p class="fs-4 fw-normal">Dolores sed duo clita tempor justo dolor et stet lorem kasd labore dolore lorem ipsum. At lorem lorem magna ut et, nonumy et labore et tempor diam tempor erat. Erat dolor rebum sit ipsum.</p>
-                            <hr class="w-25 mx-auto">
-                            <h3>Patient Name</h3>
-                            <h6 class="fw-normal text-greenblue mb-3">Profession</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- Testimonial End -->
-
-
-    <!-- Blog Start -->
-    <!-- <div class="container-fluid py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5" style="max-width: 500px;">
-                <h5 class="d-inline-block text-greenblue text-uppercase border-bottom border-5">Blog Post</h5>
-                <h1 class="display-4">Our Latest Medical Blog Posts</h1>
-            </div>
-            <div class="row g-5">
-                <div class="col-xl-4 col-lg-6">
-                    <div class="bg-light rounded overflow-hidden">
-                        <img class="img-fluid w-100" src="assets/img/blog-1.jpg" alt="">
-                        <div class="p-4">
-                            <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
-                            <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
-                                rebum clita rebum dolor stet amet justo</p>
-                        </div>
-                        <div class="d-flex justify-content-between border-top p-4">
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle me-2" src="assets/img/user.jpg" width="25" height="25" alt="">
-                                <small>John Doe</small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <small class="ms-3"><i class="far fa-eye text-greenblue me-1"></i>12345</small>
-                                <small class="ms-3"><i class="far fa-comment text-greenblue me-1"></i>123</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-6">
-                    <div class="bg-light rounded overflow-hidden">
-                        <img class="img-fluid w-100" src="assets/img/blog-2.jpg" alt="">
-                        <div class="p-4">
-                            <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
-                            <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
-                                rebum clita rebum dolor stet amet justo</p>
-                        </div>
-                        <div class="d-flex justify-content-between border-top p-4">
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle me-2" src="assets/img/user.jpg" width="25" height="25" alt="">
-                                <small>John Doe</small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <small class="ms-3"><i class="far fa-eye text-greenblue me-1"></i>12345</small>
-                                <small class="ms-3"><i class="far fa-comment text-greenblue me-1"></i>123</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-6">
-                    <div class="bg-light rounded overflow-hidden">
-                        <img class="img-fluid w-100" src="assets/img/blog-3.jpg" alt="">
-                        <div class="p-4">
-                            <a class="h3 d-block mb-3" href="">Dolor clita vero elitr sea stet dolor justo  diam</a>
-                            <p class="m-0">Dolor lorem eos dolor duo et eirmod sea. Dolor sit magna
-                                rebum clita rebum dolor stet amet justo</p>
-                        </div>
-                        <div class="d-flex justify-content-between border-top p-4">
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle me-2" src="assets/img/user.jpg" width="25" height="25" alt="">
-                                <small>John Doe</small>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <small class="ms-3"><i class="far fa-eye text-greenblue me-1"></i>12345</small>
-                                <small class="ms-3"><i class="far fa-comment text-greenblue me-1"></i>123</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- Blog End -->
-    
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light mt-5 py-5">
@@ -737,9 +313,9 @@
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
                     <h4 class="d-inline-block text-greenblue text-uppercase border-bottom border-5 border-secondary mb-4">Get In Touch</h4>
-                    <p class="mb-4">No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed dolor</p>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt text-greenblue me-3"></i>123 Street, New York, USA</p>
-                    <p class="mb-2"><i class="fa fa-envelope text-greenblue me-3"></i>info</p>
+                    <p class="mb-4"></p>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt text-greenblue me-3"></i>LTIMINDTREE, MAHAPE</p>
+                    <p class="mb-2"><i class="fa fa-envelope text-greenblue me-3"></i>ltim.com</p>
                     <p class="mb-0"><i class="fa fa-phone-alt text-greenblue me-3"></i>+012 345 67890</p>
                 </div>
                 <div class="col-lg-3 col-md-6">
