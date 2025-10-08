@@ -11,7 +11,8 @@ import { DoctorAvailabilityComponent } from './doctor-availability/doctor-availa
 import { ReceptionistAppointmentsComponent } from './receptionist-appointments/receptionist-appointments.component';
 import { ReceptionistScheduleAppointmentsComponent } from './receptionist-schedule-appointments/receptionist-schedule-appointments.component';
 
-
+import { LandingComponent } from './landing/landing.component';
+import { AboutComponent } from './about/about.component';
 
 
 const routes: Routes = [
@@ -24,8 +25,11 @@ const routes: Routes = [
   { path: 'doctor-availability', component: DoctorAvailabilityComponent },
   { path: 'receptionist-appointments', component: ReceptionistAppointmentsComponent },
   { path: 'receptionist-schedule-appointments', component: ReceptionistScheduleAppointmentsComponent },
-  
-  
+  { path: 'landing', component: LandingComponent },
+  { path: 'about', component: AboutComponent },
+
+
+
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: '/dashboard', pathMatch: 'full' },
 ];

@@ -1,64 +1,92 @@
-<nav class="navbar navbar-expand-lg shadow-sm sticky-top custom-navbar">
-  <div class="container-fluid px-4">
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+  <div class="container">
+
     <!-- Brand -->
-    <a class="navbar-brand d-flex align-items-center" href="#">
-      <img src="assets/logo.png" alt="Logo" class="logo me-2" />
-      <span class="fw-bold">HAM System</span>
+    <a class="navbar-brand d-flex align-items-center fw-bold" href="#">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="me-2" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="18" height="18" rx="3" fill="#fff" stroke="#0d6efd" stroke-width="2"/>
+        <rect x="9" y="9" width="6" height="6" rx="1" fill="#0d6efd"/>
+        <rect x="11" y="11" width="2" height="6" fill="#fff"/>
+        <rect x="11" y="7" width="2" height="2" fill="#0d6efd"/>
+        <rect x="7" y="11" width="2" height="2" fill="#0d6efd"/>
+        <rect x="15" y="11" width="2" height="2" fill="#0d6efd"/>
+      </svg>
+      HAM System
     </a>
 
-    <!-- Toggle button for mobile -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
-            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" 
-            aria-label="Toggle navigation">
+    <!-- Toggle button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Menu -->
-    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-      <!-- Left Nav -->
+    <!-- Navbar Links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Left side -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <!-- Patient -->
-        <li class="nav-item" *ngIf="roleName === 'PATIENT'">
-          <a class="nav-link" routerLink="/patient-appointment" routerLinkActive="active-link">Patient Appointment</a>
+        <li class="nav-item">
+          <a class="nav-link fw-medium" [routerLink]="['/landing']">Home</a>
         </li>
-        <li class="nav-item" *ngIf="roleName === 'PATIENT'">
-          <a class="nav-link" routerLink="/schedule-appointment" routerLinkActive="active-link">Schedule Appointment</a>
-        </li>
-
-        <!-- Doctor -->
-        <li class="nav-item" *ngIf="roleName === 'DOCTOR'">
-          <a class="nav-link" routerLink="/doctor-appointment" routerLinkActive="active-link">Doctor Appointment</a>
-        </li>
-        <li class="nav-item" *ngIf="roleName === 'DOCTOR'">
-          <a class="nav-link" routerLink="/doctor-availability" routerLinkActive="active-link">Doctor Availability</a>
+        <li class="nav-item">
+          <a class="nav-link fw-medium" [routerLink]="['/about']">About</a>
         </li>
 
-        <!-- Receptionist -->
+        <!-- Patient Links -->
+        <li class="nav-item" *ngIf="roleName === 'PATIENT'">
+          <a class="nav-link fw-medium" [routerLink]="['/patient-appointment']">Patient Appointment</a>
+        </li>
+        <li class="nav-item" *ngIf="roleName === 'PATIENT'">
+          <a class="nav-link fw-medium" [routerLink]="['/schedule-appointment']">Schedule Appointment</a>
+        </li>
+
+        <!-- Doctor Links -->
+        <li class="nav-item" *ngIf="roleName === 'DOCTOR'">
+          <a class="nav-link fw-medium" [routerLink]="['/doctor-appointment']">Doctor Appointment</a>
+        </li>
+        <li class="nav-item" *ngIf="roleName === 'DOCTOR'">
+          <a class="nav-link fw-medium" [routerLink]="['/doctor-availability']">Doctor Availability</a>
+        </li>
+
+        <!-- Receptionist Links -->
         <li class="nav-item" *ngIf="roleName === 'RECEPTIONIST'">
-          <a class="nav-link" routerLink="/receptionist-appointments" routerLinkActive="active-link">All Appointments</a>
+          <a class="nav-link fw-medium" [routerLink]="['/receptionist-appointments']">All Appointments</a>
         </li>
         <li class="nav-item" *ngIf="roleName === 'RECEPTIONIST'">
-          <a class="nav-link" routerLink="/receptionist-schedule-appointments" routerLinkActive="active-link">Schedule Appointments</a>
+          <a class="nav-link fw-medium" [routerLink]="['/receptionist-schedule-appointments']">Schedule Appointments</a>
         </li>
       </ul>
 
-      <!-- Right side (login/logout) -->
+      <!-- Right side -->
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item" *ngIf="!IsLoggin">
-          <a class="btn btn-outline-light me-2" routerLink="/login">Login</a>
+        <li *ngIf="!IsLoggin" class="nav-item">
+          <a class="nav-link" [routerLink]="['/login']">Login</a>
         </li>
-        <li class="nav-item" *ngIf="!IsLoggin">
-          <a class="btn btn-primary" routerLink="/registration">Register</a>
-        </li>
-        <li class="nav-item" *ngIf="IsLoggin">
-          <button class="btn btn-danger" (click)="logout()">Logout</button>
+        <li *ngIf="IsLoggin" class="nav-item">
+          <a class="nav-link" (click)="logout()">Logout</a>
         </li>
       </ul>
     </div>
+
   </div>
 </nav>
 
-<!-- Routed Content -->
-<div class="container-fluid page-container py-4">
-  <router-outlet></router-outlet>
+<!-- Curtain drop (top-down) -->
+<!-- <div
+  *ngIf="showSlideIn"
+  class="slide-in"
+  [@slideInAnim]="slideInState">
 </div>
+
+Curtain lift (bottom-up)
+<div
+  *ngIf="showSlideOut"
+  class="slide-out"
+  [@slideOutAnim]="slideOutState">
+</div> -->
+
+<!-- Routed content -->
+<!-- <router-outlet (activate)="onRouteActivate()"></router-outlet> -->
+<router-outlet ></router-outlet>

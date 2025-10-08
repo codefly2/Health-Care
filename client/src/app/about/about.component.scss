@@ -1,0 +1,30 @@
+.service-item {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.service-item:hover {
+  transform: scale(1.06);
+  box-shadow: 0 8px 32px rgba(44, 62, 80, 0.15);
+  z-index: 2;
+}
+.appointment-gradient {
+  background: linear-gradient(135deg, #e3f0ff 0%, #4fd1c5 50%, #38b2ac 100%);
+}
+.blah{
+   background: linear-gradient(135deg, #e3f0ff 0%, #b3d8ff 100%);
+}
+.text-greenblue {
+  color: #4fd1c5 !important; // Example: light teal (greenish-blue)
+}
+.btn-greenblue {
+  background-color: #4fd1c5 !important;
+  color: #fff !important;
+  border: none;
+  transition: background 0.3s cubic-bezier(0.22, 1, 0.36, 1), transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-greenblue:hover {
+  background-color: #38b2ac !important;
+  transform: scale(1.04);
+}

@@ -127,13 +127,12 @@ export class HttpService {
     return this.http.get<boolean>(this.serverName + '/api/user/exists', { headers: headers, params: { username } });
   }
 
-  deleteAppointment(val:any):void{
-    console.log("Helloooo"+val);
+  deleteAppointment(appointmentId:any){
     const authToken = this.authService.getToken();  
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     headers = headers.set('Authorization', `Bearer ${authToken}`);   
-    this.http.delete(this.serverName+'/api/appointment/delete?appointmentId='+val,{headers:headers});
+    return this.http.delete(this.serverName+'/api/appointment/delete?appointmentId='+appointmentId,{headers});
   }
 
   getAppointmentQr(appointmentId:any):Observable<any>{

@@ -1,60 +1,39 @@
-/* Navbar Custom */
-.custom-navbar {
-  background: linear-gradient(90deg, #eaedf1, #eef0f4);
-  transition: background 0.4s ease-in-out;
-}
-
-.custom-navbar .navbar-brand {
-  color: #241fcb;
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-  transition: transform 0.3s ease;
-}
-
-.custom-navbar .navbar-brand:hover {
-  transform: scale(1.05);
-  color: #e0e0e0;
-}
-
-.custom-navbar .nav-link {
-  color: #f8f9fa !important;
-  font-weight: 50;
-  margin-right: 0.75rem;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-.custom-navbar .nav-link::after {
-  content: "";
-  display: block;
-  height: 2px;
-  background: #f8f9fa;
-  width: 0;
-  transition: width 0.3s ease;
-  margin-top: 2px;
-}
-
-.custom-navbar .nav-link:hover::after,
-.custom-navbar .active-link::after {
+.slide-in,
+.slide-out {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #4fd1c5 0%, #38b2ac 100%);
+  z-index: 9999;
+  transform: scaleY(0);
+  transform-origin: top;
 }
 
-.custom-navbar .nav-link:hover {
-  color: #ffd369 !important;
+.slide-out {
+  transform-origin: bottom;
+}
+.navbar-nav .nav-link {
+    padding: 0.35rem 0.75rem; /* reduces vertical padding */
+    line-height: 1.2;         /* reduces line spacing */
+    font-size: 0.95rem;       /* slightly smaller text */
 }
 
-.logo {
-  width: 30px;
-  height: 30px;
+.navbar {
+    min-height: 50px;         /* keeps navbar compact */
 }
 
-/* Page container */
-.page-container {
-  animation: fadeIn 0.6s ease-in-out;
+.navbar .nav-link:hover {
+  color: #0d6efd;
+  background: rgba(13, 110, 253, 0.1);
+  border-radius: 5px;
 }
 
-/* Fade animation */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
+.navbar-brand {
+  font-size: 1.25rem;
+}
+
+.navbar-toggler {
+  border: none;
 }
