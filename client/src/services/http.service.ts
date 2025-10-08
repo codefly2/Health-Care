@@ -101,10 +101,6 @@ export class HttpService {
   resendOtp(payload: { username: string }): Observable<any> {
     return this.http.post(`${this.serverName}/api/user/resend-otp`, payload);
   }
-
-
-
-
   registerPatient(details:any):Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');

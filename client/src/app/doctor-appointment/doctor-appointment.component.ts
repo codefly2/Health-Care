@@ -68,3 +68,6 @@ export class DoctorAppointmentComponent implements OnInit {
     return Math.ceil(totalItems / this.itemsPerPage);
   }
 }
+
+
+

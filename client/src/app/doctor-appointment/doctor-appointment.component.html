@@ -1,59 +1,77 @@
-<div class="card mt-4">
-    <div class="card-header">
-        <h4>Appointments</h4>
+<div class="appointments-container">
+  <h3 class="section-title">🩺 Appointments</h3>
+
+  <!-- Search Bar (Centered & Compact) -->
+  <div class="searchbar-wrapper">
+    <div class="searchbar">
+      <i class="bi bi-search"></i>
+      <input
+        type="search"
+        placeholder="🔍 Search appointments..."
+        (input)="searchAppointments($event)"
+      />
     </div>
+  </div>
 
-    <div>
-        <input type="text" placeholder="Search appointments" (input)="searchAppointments($event)" />
+  <!-- Empty state -->
+  <div *ngIf="!paginatedList$ || paginatedList$.length === 0" class="empty-state">
+    <div class="empty-icon">📅</div>
+    <div class="empty-title">No appointments found</div>
+    <div class="empty-subtitle">Try adjusting your search or filters.</div>
+  </div>
+
+  <!-- Appointment Cards -->
+  <div class="appointments-grid" *ngIf="paginatedList$ && paginatedList$.length > 0">
+    <div class="appointment-card" *ngFor="let val of paginatedList$">
+      <div class="card-header">
+        <span class="appointment-id">🆔 #{{ val.id }}</span>
+        <span
+          class="status"
+          [ngClass]="{
+            'status-confirmed': (val.status || '').toLowerCase() === 'confirmed',
+            'status-pending': (val.status || '').toLowerCase() === 'pending',
+            'status-cancelled': (val.status || '').toLowerCase() === 'cancelled'
+          }"
+        >
+          {{ val.status }}
+        </span>
+      </div>
+
+      <div class="card-body">
+        <div class="appointment-detail">
+          <span class="label">📅 Date:</span>
+          <span>{{ val.appointmentTime | date: 'd MMM yyyy' }}</span>
+        </div>
+        <div class="appointment-detail">
+          <span class="label">⏰ Time:</span>
+          <span>{{ val.appointmentTime | date: 'hh:mm a' }}</span>
+        </div>
+        <div class="appointment-detail">
+          <span class="label">👨‍⚕️ Doctor:</span>
+          <span>{{ val.doctor?.username }} ({{ val.doctor?.email }})</span>
+        </div>
+        <div class="appointment-detail">
+          <span class="label">🧑‍🤝‍🧑 Patient:</span>
+          <span>{{ val.patient?.username }} ({{ val.patient?.email }})</span>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="card-body">
-        <table class="table table-boarderd">
-            <thead>
-                <th>Appointment Id</th>
-                <th>Appointment Time</th>
-                <th>Status</th>
-                <th>Doctor</th>
-                <th>Patient</th>
-               
-            </thead>
-            <tbody *ngFor="let val of paginatedList$">
-                <tr >
-                    <td>{{val.id}}</td>
-                    <td>{{val.appointmentTime | date:'dd-MMM-yyyy hh:mm:a'}}</td>
-                    <td>{{val.status}}</td>
-                    <td><strong>{{val.doctor.username}}</strong><br>
-                        <small>{{val.doctor.email}}</small>
-                    </td>
-                    <td><strong>{{val.patient.username}}</strong><br>
-                        <small>{{val.patient.email}}</small>
-                    </td>
-                  
-                </tr>
-            </tbody>
-        </table>
-
-        <ul class="pagination">
-            <li [class.disabled]="currentPage === 1" (click)="goToPage(1)">
-                <a href="javascript:void(0)">First</a>
-            </li>
-            <li [class.disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
-                <a href="javascript:void(0)">Previous</a>
-            </li>
-
-            <!-- Dynamic Page Numbers -->
-            <li *ngFor="let page of [].constructor(totalPages); let i = index"
-                [class.active]="i + 1 === currentPage" (click)="goToPage(i + 1)">
-                <a href="javascript:void(0)">{{i + 1}}</a>
-            </li>
-
-            <li [class.disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
-                <a href="javascript:void(0)">Next</a>
-            </li>
-            <li [class.disabled]="currentPage === totalPages" (click)="goToPage(totalPages)">
-                <a href="javascript:void(0)">Last</a>
-            </li>
-        </ul>
-
-    </div>
+  <!-- Pagination -->
+  <nav class="pagination-nav" *ngIf="totalPages > 1">
+    <ul class="pagination">
+      <li [class.disabled]="currentPage === 1" (click)="goToPage(1)">⏮ First</li>
+      <li [class.disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">◀ Prev</li>
+      <li
+        *ngFor="let page of [].constructor(totalPages); let i = index"
+        [class.active]="i + 1 === currentPage"
+        (click)="goToPage(i + 1)"
+      >
+        {{ i + 1 }}
+      </li>
+      <li [class.disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">Next ▶</li>
+      <li [class.disabled]="currentPage === totalPages" (click)="goToPage(totalPages)">Last ⏭</li>
+    </ul>
+  </nav>
 </div>
