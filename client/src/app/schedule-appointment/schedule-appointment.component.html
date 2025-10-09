@@ -1,90 +1,162 @@
 <div class="schedule-container">
+  <!-- Page Header with Animation -->
+  <div class="page-header">
+    <h1 class="main-title">
+      <span class="title-icon">📅</span>
+      Schedule Your Appointment
+    </h1>
+    <p class="subtitle">Book with our specialized doctors</p>
+  </div>
 
-  <!-- Charts Row -->
+  <!-- Charts Row with Staggered Animation -->
   <div class="charts-row">
-    <div class="chart-card small-chart">
-      <h3 class="section-title">Doctor Availability</h3>
-      <canvas id="doctorChart"></canvas>
+    <div class="chart-card small-chart slide-in-left">
+      <div class="chart-header">
+        <span class="chart-icon">👨‍⚕️</span>
+        <h3 class="section-title">Doctor Availability</h3>
+      </div>
+      <div class="chart-wrapper">
+        <canvas id="doctorChart"></canvas>
+      </div>
     </div>
-
-    <div class="chart-card small-chart">
-      <h3 class="section-title">Specialties Distribution</h3>
-      <canvas id="specialityChart"></canvas>
-    </div>
-  </div>
-
-  <!-- Doctors Table -->
-  <div class="card mt-6 fade-in">
-    <div class="card-header">
-      <h4>Available Doctors</h4>
-    </div>
-    <div class="card-body">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Specialty</th>
-            <th>Availability</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody *ngFor="let val of doctorList; let i = index">
-          <tr>
-            <td>{{ i+1 }}</td>
-            <td>{{ val.username }}</td>
-            <td>{{ val.specialty }}</td>
-            <td>
-              <span [ngClass]="{'available': val.availability === 'Yes', 'not-available': val.availability !== 'Yes'}">
-                {{ val.availability }}
-              </span>
-            </td>
-            <td>
-              <button *ngIf="val.availability === 'Yes'" 
-                      type="button" 
-                      (click)="addAppointment(val)" 
-                      class="btn btn-primary btn-animate">
-                Book Appointment
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="chart-card small-chart slide-in-right">
+      <div class="chart-header">
+        <span class="chart-icon">🏥</span>
+        <h3 class="section-title">Specialties Distribution</h3>
+      </div>
+      <div class="chart-wrapper">
+        <canvas id="specialityChart"></canvas>
+      </div>
     </div>
   </div>
 
-  <!-- Appointment Form -->
-  <div *ngIf="isAdded" class="card fade-in mt-6">
+  <!-- Doctors Table with Enhanced Design -->
+  <div class="card doctors-card fade-in-up">
     <div class="card-header">
-      <h4>Schedule Appointment</h4>
+      <div class="header-content">
+        <span class="header-icon">🩺</span>
+        <h4>Available Doctors</h4>
+      </div>
+      <div class="header-decoration"></div>
     </div>
     <div class="card-body">
-      <form class="mb-3 mt-md-4" [formGroup]="itemForm" (ngSubmit)="onSubmit()">
-        <div class="mb-3">
-          <label for="time" class="form-label">Appointment Time</label>
+      <div class="table-wrapper">
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>
+                <span class="th-content">
+                  <span class="th-icon">👤</span>
+                  Name
+                </span>
+              </th>
+              <th>
+                <span class="th-content">
+                  <span class="th-icon">🎯</span>
+                  Specialty
+                </span>
+              </th>
+              <th>
+                <span class="th-content">
+                  <span class="th-icon">✓</span>
+                  Availability
+                </span>
+              </th>
+              <th>
+                <span class="th-content">
+                  <span class="th-icon">⚡</span>
+                  Action
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let val of doctorList; let i = index" class="table-row-animate">
+              <td>
+                <span class="row-number">{{ i+1 }}</span>
+              </td>
+              <td>
+                <span class="doctor-name">{{ val.username }}</span>
+              </td>
+              <td>
+                <span class="specialty-badge">{{ val.specialty }}</span>
+              </td>
+              <td>
+                <span class="availability-status" [ngClass]="{'available': val.availability === 'true', 'not-available': val.availability !== 'true'}">
+                  <span class="status-dot"></span>
+                  {{ val.availability }}
+                </span>
+              </td>
+              <td>
+                <button *ngIf="val.availability === 'true'"
+                        type="button"
+                        (click)="addAppointment(val)"
+                        class="btn-book">
+                  <span class="btn-icon">📅</span>
+                  <span class="btn-text">Book Appointment</span>
+                  <span class="btn-shine"></span>
+                </button>
+                <span *ngIf="val.availability !== 'true'" class="unavailable-text">Not Available</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Appointment Form with Slide Animation -->
+  <div *ngIf="isAdded" class="card appointment-form-card slide-in-up">
+    <div class="card-header">
+      <div class="header-content">
+        <span class="header-icon">⏰</span>
+        <h4>Schedule Appointment</h4>
+      </div>
+      <div class="header-decoration"></div>
+    </div>
+    <div class="card-body">
+      <form class="appointment-form" [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="time" class="form-label">
+            <span class="label-icon">📆</span>
+            Select Appointment Date & Time
+          </label>
           <input type="hidden" formControlName="patientId">
           <input type="hidden" formControlName="doctorId">
-
-          <input type="datetime-local" 
-                 formControlName="time" 
-                 [(ngModel)]="formModel.time" 
-                 class="form-control stylish-input" 
-                 id="time" 
-                 placeholder="Choose appointment time">
-          
-          <div *ngIf="itemForm.controls['time'].invalid && (itemForm.controls['time'].dirty || itemForm.controls['time'].touched)" class="error-msg">
+          <div class="input-wrapper">
+            <input type="datetime-local"
+                   formControlName="time"
+                   [(ngModel)]="formModel.time"
+                   class="stylish-input"
+                   id="time"
+                   placeholder="Choose appointment time"
+                   [min]="minDateTime">
+            <span class="input-focus-border"></span>
+          </div>
+          <div *ngIf="itemForm.controls['time'].invalid && (itemForm.controls['time'].dirty || itemForm.controls['time'].touched)" 
+               class="error-msg">
+            <span class="error-icon">⚠️</span>
             <span>Please choose an appointment time.</span>
           </div>
         </div>
-
-        <button class="btn btn-outline-dark btn-animate" type="submit">Confirm Appointment</button>
+        <button class="btn-submit" type="submit">
+          <span class="btn-submit-text">Confirm Appointment</span>
+          <span class="btn-submit-icon">✓</span>
+          <span class="btn-submit-shine"></span>
+        </button>
       </form>
     </div>
   </div>
 
-  <!-- Success Message -->
-  <div *ngIf="responseMessage" class="alert alert-success success-bounce mt-4" role="alert">
-    {{ responseMessage }}
+  <!-- Success Message with Bounce Animation -->
+  <div *ngIf="responseMessage" class="success-alert">
+    <div class="success-icon-wrapper">
+      <span class="success-icon">✓</span>
+    </div>
+    <div class="success-content">
+      <h5 class="success-title">Success!</h5>
+      <p class="success-message">{{ responseMessage }}</p>
+    </div>
   </div>
-
 </div>

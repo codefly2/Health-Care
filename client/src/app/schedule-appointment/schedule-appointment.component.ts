@@ -18,6 +18,7 @@ export class ScheduleAppointmentComponent implements OnInit {
   isAdded: boolean=false;
   doctorChart: any;
   specialityChart: any;
+  minDateTime!: string;
 
   constructor(
     public httpService:HttpService,
@@ -33,6 +34,7 @@ export class ScheduleAppointmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPatients();
+    this.minDateTime = new Date().toISOString().slice(0, 16);
   }
 
   getPatients() {
@@ -42,53 +44,55 @@ export class ScheduleAppointmentComponent implements OnInit {
     })
   }
 
-
-
-renderChart() {
-  const available = this.doctorList.filter((d:any)=> d.availability === 'Yes').length;
-  const notAvailable = this.doctorList.length - available;
-
-  // Doctor Availability Chart
-  if(this.doctorChart) this.doctorChart.destroy();
-  this.doctorChart = new Chart('doctorChart', {
-    type: 'doughnut',
-    data: {
-      labels: ['Available', 'Not Available'],
-      datasets: [{
-        data: [available, notAvailable],
-        backgroundColor: ['#4f6ef7', '#f76e6e'],
-        borderWidth: 2,
-      }]
-    },
-    options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
-  });
-
-  // Speciality Distribution Chart
-  const specialityCounts: {[key:string]:number} = {};
-  this.doctorList.forEach((d:any)=>{
-    specialityCounts[d.specialty] = (specialityCounts[d.specialty] || 0) + 1;
-  });
-
-  const labels = Object.keys(specialityCounts);
-  const values = Object.values(specialityCounts);
-
-  const colors = ['#4f6ef7', '#5f95f7', '#f7a64f', '#4ff7ae', '#f76e6e', '#9b59b6'];
-
-  if(this.specialityChart) this.specialityChart.destroy();
-  this.specialityChart = new Chart('specialityChart', {
-    type: 'pie',
-    data: {
-      labels: labels,
-      datasets: [{
-        data: values,
-        backgroundColor: colors.slice(0, labels.length),
-        borderWidth: 2,
-      }]
-    },
-    options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
-  });
-}
-
+  renderChart() {
+    const available = this.doctorList.filter((d:any)=> d.availability === 'Yes').length;
+    const notAvailable = this.doctorList.length - available;
+    // Doctor Availability Chart (now a pie chart)
+    if(this.doctorChart) this.doctorChart.destroy();
+    this.doctorChart = new Chart('doctorChart', {
+      type: 'pie',
+      data: {
+        labels: ['Available', 'Not Available'],
+        datasets: [{
+          data: [available, notAvailable],
+          backgroundColor: ['#4f6ef7', '#f76e6e'],
+          borderWidth: 2,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'bottom' }
+        }
+      }
+    });
+    // Speciality Distribution Chart
+    const specialityCounts: {[key:string]:number} = {};
+    this.doctorList.forEach((d:any)=>{
+      specialityCounts[d.specialty] = (specialityCounts[d.specialty] || 0) + 1;
+    });
+    const labels = Object.keys(specialityCounts);
+    const values = Object.values(specialityCounts);
+    const colors = ['#4f6ef7', '#5f95f7', '#f7a64f', '#4ff7ae', '#f76e6e', '#9b59b6'];
+    if(this.specialityChart) this.specialityChart.destroy();
+    this.specialityChart = new Chart('specialityChart', {
+      type: 'pie',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: values,
+          backgroundColor: colors.slice(0, labels.length),
+          borderWidth: 2,
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'bottom' }
+        }
+      }
+    });
+  }
 
   addAppointment(val:any) {
     const userIdString = localStorage.getItem('userId');
@@ -101,7 +105,6 @@ renderChart() {
   onSubmit() {
     const formattedTime = this.datePipe.transform(this.itemForm.controls['time'].value, 'yyyy-MM-dd HH:mm:ss');
     this.itemForm.controls['time'].setValue(formattedTime);
-
     this.httpService.ScheduleAppointment(this.itemForm.value).subscribe(()=>{
       this.itemForm.reset();
       this.responseMessage="Appointment saved successfully";
