@@ -46,7 +46,7 @@ export class HttpService {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     headers = headers.set('Authorization', `Bearer ${authToken}`);   
-    return this.http.get(this.serverName+'/api/patient/appointments?patientId='+id,{headers:headers});
+    return this.http.get<any>(this.serverName+'/api/patient/appointments?patientId='+id,{headers:headers});
   
   }
   ScheduleAppointment( details:any):Observable<any> {  
@@ -143,5 +143,12 @@ export class HttpService {
     headers = headers.set('Authorization', `Bearer ${authToken}`);
     return this.http.post(this.serverName + '/api/chat', { message }, { headers });
   }
-
+  getReceptionistDashboardData(): Observable<any> {
+    const authToken = this.authService.getToken();  
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    headers = headers.set('Authorization', `Bearer ${authToken}`);
+ 
+    return this.http.get(this.serverName + '/api/receptionist/dashboard-data', { headers });
+  }
 }
