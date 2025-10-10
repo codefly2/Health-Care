@@ -265,7 +265,7 @@ body {
   font-size: 0.9em;
   width: 15px; /* Fixed width for consistent alignment */
   text-align: center;
-  color: var(--error-color); /* Default to red cross */
+ color: red !important; /* %E2%9D%8C cross */
 }
 
 .password-checklist li.valid {
@@ -273,13 +273,13 @@ body {
 }
 
 .password-checklist li.valid .icon {
-  color: var(--valid-color); /* Green tick */
+color: green !important; /* %E2%9C%85 tick */
 }
 
 
 /* Submit Button */
 .login-button {
-  background-color: var(--primary-color);
+  background-color: grey;
   color: white;
   padding: 12px 25px;
   border: none;
@@ -382,6 +382,7 @@ body {
   background: url('../../assets/img/2.jpg') no-repeat center center;
   background-size: cover;
   position: relative;
+  height: 100vh;
 }
 
 .image-overlay {

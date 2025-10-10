@@ -5,96 +5,87 @@
     <div class="login-card">
       <div class="header-section">
         <div class="logo">
-          <!-- Your existing ECG heartbeat SVG here -->
-          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" role="img" aria-label="ECG Heartbeat">
+          <!-- ECG SVG -->
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
             <circle cx="28" cy="28" r="26" stroke="currentColor" stroke-width="2" opacity="0.7"/>
-            <path
-              d="M10 28h8l3-6 5 14 4-8h10"
-              stroke="currentColor"
-              stroke-width="2.2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
+            <path d="M10 28h8l3-6 5 14 4-8h10" stroke="currentColor" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round"/>
             <circle cx="43" cy="28" r="2" fill="currentColor" opacity="0.9"/>
           </svg>
         </div>
         <h1>Healthcare Appointment Management System</h1>
-        <p>Sign in to continue</p>
+        <p *ngIf="!otpSent">Sign in to continue</p>
+        <p *ngIf="otpSent">Enter OTP sent to your registered mobile/email</p>
       </div>
 
-      <form [formGroup]="itemForm" (ngSubmit)="onLogin()" class="login-form">
-        <!-- Username Field -->
+      <!-- Username + Password Form -->
+      <form *ngIf="!otpSent" [formGroup]="itemForm" (ngSubmit)="onLogin()" class="login-form">
+        <!-- Username -->
         <div class="form-field"
              [ngClass]="{'has-error': itemForm.controls['username'].invalid && (itemForm.controls['username'].dirty || itemForm.controls['username'].touched)}">
-          <input
-            type="text"
-            id="username"
-            formControlName="username"
-            placeholder=" "
-            autocomplete="username"
-            aria-required="true"
-            [attr.aria-invalid]="itemForm.controls['username'].invalid && (itemForm.controls['username'].dirty || itemForm.controls['username'].touched)"
-            aria-describedby="usernameError"
-          />
+          <input type="text" id="username" formControlName="username" placeholder=" " autocomplete="username"/>
           <label for="username">Username</label>
           <div class="field-underline"></div>
           <span *ngIf="itemForm.controls['username'].invalid && (itemForm.controls['username'].dirty || itemForm.controls['username'].touched)"
-                class="error-message" id="usernameError" aria-live="polite">
-            Username is required.
-          </span>
+                class="error-message">Username is required.</span>
         </div>
 
-        <!-- Password Field -->
+        <!-- Password -->
         <div class="form-field"
              [ngClass]="{'has-error': itemForm.controls['password'].invalid && (itemForm.controls['password'].dirty || itemForm.controls['password'].touched)}">
-          <input
-            #passwordInput
-            type="password"
-            id="password"
-            formControlName="password"
-            placeholder=" "
-            autocomplete="current-password"
-            aria-required="true"
-            [attr.aria-invalid]="itemForm.controls['password'].invalid && (itemForm.controls['password'].dirty || itemForm.controls['password'].touched)"
-            aria-describedby="passwordError"
-          />
+          <input #passwordInput type="password" id="password" formControlName="password" placeholder=" " autocomplete="current-password"/>
           <label for="password">Password</label>
           <div class="field-underline"></div>
-          <!-- Password Visibility Toggle -->
-          <button
-            #passwordToggle
-            type="button"
-            class="password-toggle"
-            aria-label="Toggle password visibility"
-            (click)="togglePasswordVisibility()"
-          >
-            <!-- Eye Icon (visible when password is hidden) -->
-            <svg class="icon-eye" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <button #passwordToggle type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+            <svg class="icon-eye" width="20" height="20" viewBox="0 0 24 24">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
               <circle cx="12" cy="12" r="3"></circle>
             </svg>
-            <!-- Eye Off Icon (visible when password is shown) -->
-            <svg class="icon-eye-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.91 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24M1 1l23 23"></path>
+            <svg class="icon-eye-off" width="20" height="20" viewBox="0 0 24 24">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 
+                       18.45 0 0 1 5.06-5.94M9.91 4.24A9.12 
+                       9.12 0 0 1 12 4c7 0 11 8 
+                       11 8a18.5 18.5 0 0 1-2.16 
+                       3.19m-6.72-1.07a3 3 0 1 
+                       1-4.24-4.24M1 1l23 23"></path>
             </svg>
           </button>
           <span *ngIf="itemForm.controls['password'].invalid && (itemForm.controls['password'].dirty || itemForm.controls['password'].touched)"
-                class="error-message" id="passwordError" aria-live="polite">
-            Password is required.
-          </span>
+                class="error-message">Password is required.</span>
         </div>
 
         <button type="submit" class="login-button" [disabled]="itemForm.invalid || isLoading">
           <span *ngIf="!isLoading">Login</span>
-          <div *ngIf="isLoading" class="loader" aria-hidden="true"></div>
+          <div *ngIf="isLoading" class="loader"></div>
         </button>
       </form>
 
-      <div *ngIf="showError" class="server-error" role="alert" aria-live="assertive">
-        {{ errorMessage }}
-      </div>
+      <!-- OTP Form -->
+      <form *ngIf="otpSent" [formGroup]="otpForm" (ngSubmit)="submitOtp()" class="login-form">
+        <div class="form-field"
+             [ngClass]="{'has-error': otpForm.controls['otp'].invalid && (otpForm.controls['otp'].dirty || otpForm.controls['otp'].touched)}">
+          <input type="text" id="otp" formControlName="otp" placeholder=" " maxlength="6" autocomplete="one-time-code"/>
+          <label for="otp">Enter OTP</label>
+          <div class="field-underline"></div>
+          <span *ngIf="otpForm.controls['otp'].invalid && (otpForm.controls['otp'].dirty || otpForm.controls['otp'].touched)"
+                class="error-message">Valid 6-digit OTP required.</span>
+        </div>
 
-      <div class="signup-link-section">
+        <button type="submit" class="login-button" [disabled]="otpForm.invalid || isLoading">
+          <span *ngIf="!isLoading">Verify OTP</span>
+          <div *ngIf="isLoading" class="loader"></div>
+        </button>
+
+        <button type="button" class="resend-otp-button" (click)="resendOtp()" [disabled]="resendDisabled">
+          Resend OTP <span *ngIf="resendDisabled">({{resendTimer}}s)</span>
+        </button>
+      </form>
+
+      <!-- Server error -->
+      <div *ngIf="showError" class="server-error">{{ errorMessage }}</div>
+
+      <!-- Registration -->
+      <div *ngIf="!otpSent" class="signup-link-section">
         <span>Don’t have an account? </span>
         <a (click)="registration()" class="register-link">Register</a>
       </div>
@@ -102,7 +93,6 @@
   </section>
 
   <section class="login-image-section">
-    <!-- Image will be set as a background or img tag -->
     <div class="image-overlay"></div>
   </section>
 </main>

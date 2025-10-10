@@ -1,62 +1,195 @@
-.box ul.pagination {
-    position: relative; /* Changed from absolute to relative */
-    bottom: auto;
-    right: auto;
-    display: block;
-    width: 100%;
-    margin-top: 10px; /* Added some margin to space out the pagination */
+
+
+/* === Global Styling === */
+body {
+  background: #f3f8ff;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
 }
 
-.box .dvrecords {
-    display: block;
-    margin-bottom: 10px;
-    text-align: center; /* Center align the record and pagination controls */
+/* === Card Styles === */
+.card {
+  background: #fff;
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 102, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
 }
 
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 102, 255, 0.2);
+}
+
+.card-header {
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #007bff, #00a6ff);
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+/* === Form Styling === */
+.form-label {
+  font-weight: 500;
+  color: #004aad;
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #b8d4ff;
+  padding: 10px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+/* === Buttons === */
+.btn-submit {
+  background: linear-gradient(135deg, #007bff, #00aaff);
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  background: linear-gradient(135deg, #0056b3, #007bff);
+  transform: scale(1.05);
+}
+
+.btn-reschedule {
+  background: #007bff;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  padding: 6px 15px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.btn-reschedule:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* === Search Bar === */
+.search-bar {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.search-bar input {
+  width: 60%;
+  padding: 10px 15px;
+  border-radius: 30px;
+  border: 1px solid #b8d4ff;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+}
+
+/* === Table === */
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.custom-table th {
+  background: #e6f0ff;
+  color: #004aad;
+  text-align: left;
+  padding: 10px;
+  border-bottom: 2px solid #007bff;
+}
+
+.custom-table td {
+  padding: 10px;
+  border-bottom: 1px solid #dce6ff;
+  vertical-align: middle;
+}
+
+.custom-table tr:hover {
+  background-color: #f4f9ff;
+  transition: background-color 0.3s ease;
+}
+
+/* === Status Tag === */
+.status-tag {
+  background: #007bff20;
+  color: #007bff;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 12px;
+  text-transform: capitalize;
+}
+
+/* === Pagination === */
 .pagination {
-    display: flex;
-    justify-content: center;
-    padding-left: 0;
-    list-style: none;
-    border-radius: 0.25rem;
-    margin-top: 20px; /* Adds space above pagination */
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-left: 0;
 }
 
 .pagination li {
-    display: inline-block;
-    margin: 0 5px; /* Adds spacing between pagination items */
+  background: #f0f7ff;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.pagination li a {
-    color: #000; /* Blue color for links */
-    text-decoration: none;
-    padding: 5px 10px;
-    border: 1px solid #dee2e6; /* Border around each page link */
-    border-radius: 0.25rem;
-    background-color: #f8f9fa; /* Light background color */
-    transition: background-color 0.3s ease, color 0.3s ease;
+.pagination li:hover {
+  background: #007bff;
+  color: #fff;
 }
 
-.pagination li a:hover {
-    background-color: #000;
-    color: white; /* White text on hover */
+.pagination li.active {
+  background: #007bff;
+  color: white;
+  font-weight: 600;
 }
 
-.pagination li.active a {
-    background-color: #000; /* Active page background */
-    color: white;
-    border-color: #000;
+.pagination li.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-.pagination li.disabled a {
-    color: #6c757d; /* Gray color for disabled links */
-    background-color: #e9ecef;
-    border-color: #dee2e6;
-    cursor: not-allowed;
+/* === Animations === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.pagination li.disabled a:hover {
-    background-color: #e9ecef;
-    color: #6c757d;
-    border-color: #dee2e6;
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
+
+.animate-fadeIn {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.8s ease forwards;
+}
+

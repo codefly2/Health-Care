@@ -8,7 +8,7 @@ import com.wecp.healthcare_appointment_management_system.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import com.wecp.healthcare_appointment_management_system.util.QrCodeGenerator;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -55,5 +55,15 @@ public class AppointmentService {
   
       public List<Appointment> getAppointmentsByDoctorId(Long doctorId){
           return appointmentRepository.getAppointmentsByDoctorId(doctorId);
+      }
+
+      public String genrateAppointmentQr(Long appointmentId) throws Exception{
+        Appointment appointment = appointmentRepository.findById(appointmentId).orElse(null);
+        if(appointmentId == null){
+            throw new Exception("Appointment not found");
+        }
+        String qrContent = "Appointment ID: " + appointment.getId() + "\nPatient: " + appointment.getPatient().getUsername() + " (" + appointment.getPatient().getEmail() + ")" + "\nDoctor: " + appointment.getDoctor().getUsername() + " (" + appointment.getDoctor().getEmail() + ")" + "\nSpeciality: " + appointment.getDoctor().getSpecialty() + "\nAppointment Time: " + appointment.getAppointmentTime().toString() + "\nStatus: " + appointment.getStatus();
+        return QrCodeGenerator.genrateQrCodeImage(qrContent, 300, 300);
+        
       }
 }

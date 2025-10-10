@@ -55,3 +55,4 @@ Step 1: Click on the WeCP Projects Button.
 Step 2: Click on Test & Submit app button to test your code.You will receive a congratulations message upon successful completion of the task.
 Step 3: Click on start app to run the angular server.
 Step 4: Click on Open browser preview to view GUI.
+

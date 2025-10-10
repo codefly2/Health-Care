@@ -1,34 +1,102 @@
-<div *ngIf="responseMessage" class="alert alert-success mt-4" role="alert">
-    {{ responseMessage }}
-  </div>
-  <div  class="card">
-      <div class="card-header">
-          <h4>Update Availability</h4>
+
+<div class="availability-shell">
+  <header class="top">
+    <div class="title">
+      <h2>🩺 Doctor Dashboard</h2>
+      <p class="muted">Set availability and monitor your appointment stats in real-time.</p>
+    </div>
+
+    <form class="availability-form" [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+      <div class="field">
+        <label>Availability</label>
+        <div class="toggle">
+          <label class="switch">
+            <input type="checkbox" formControlName="availability" />
+            <span class="slider" aria-hidden="true"></span>
+          </label>
+        </div>
       </div>
-          <div class="card-body">
-              <form class="mb-3 mt-md-4" [formGroup]="itemForm" (ngSubmit)="onSubmit()">
-                
-                  <div class="mb-3">
-                    <label for="availability" class="form-label ">Availability</label>               
-                    <input type="hidden" formControlName="doctorId">
-                    <select class="form-control" formControlName="availability">
-                      <option value="null">Choose Availability</option>
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>            
-                    </select>
-                    <div *ngIf="itemForm.controls['availability'].invalid && (itemForm.controls['availability'].dirty || itemForm.controls['availability'].touched)"
-                    class="ng-dirty">
-                    <span *ngIf="itemForm.controls['availability'].errors">
-                      <span class="text-danger">Please Choose Availability .</span>
-                    </span>
-                  </div>
-                  </div>
-                 
-  
-                  <div class="col-md-2">
-                    <button class="btn btn-outline-dark" type="submit">Submit</button>
-                  </div>
-                </form>
+
+      <div class="field">
+        <button class="btn primary" type="submit" [disabled]="isSaving || itemForm.invalid">
+          {{ isSaving ? 'Saving…' : 'Save' }}
+        </button>
+      </div>
+
+      <div class="status-msg" *ngIf="responseMessage">{{ responseMessage }}</div>
+    </form>
+  </header>
+
+  <section class="stats-grid">
+    <div class="stat-card accent">
+      <div class="stat-emoji">📊</div>
+      <div class="stat-info">
+        <div class="stat-label">Total</div>
+        <div class="stat-value">{{ stats.total }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-emoji">✅</div>
+      <div class="stat-info">
+        <div class="stat-label">Confirmed</div>
+        <div class="stat-value">{{ stats.confirmed }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-emoji">⏳</div>
+      <div class="stat-info">
+        <div class="stat-label">Pending</div>
+        <div class="stat-value">{{ stats.pending }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-emoji">❌</div>
+      <div class="stat-info">
+        <div class="stat-label">Cancelled</div>
+        <div class="stat-value">{{ stats.cancelled }}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="charts-row">
+    <div class="chart-card">
+      <h4>Appointment Status</h4>
+      <div class="chart-wrap">
+        <canvas #statusChart></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h4>Upcoming (14 days)</h4>
+      <div class="chart-wrap">
+        <canvas #trendChart></canvas>
+      </div>
+    </div>
+  </section>
+
+  <section class="appointments-list">
+    <h3>Upcoming Appointments</h3>
+    <div class="cards-grid">
+      <div class="appt-card" *ngFor="let a of appointments">
+        <div class="top">
+          <div class="left">
+            <div class="id">🆔 #{{ a.id }}</div>
+            <div class="meta">{{ displayDate(a) }} · {{ displayTime(a) }}</div>
           </div>
-     
-  </div>
+          <div class="status-pill" [ngClass]="(a.status || '').toLowerCase()">
+            {{ a.status || 'pending' }}
+          </div>
+        </div>
+
+        <div class="body">
+          <div class="row">👨‍⚕️ <strong>{{ a.doctor?.username || '—' }}</strong></div>
+          <div class="row">🧑‍🤝‍🧑 <strong>{{ a.patient?.username || '—' }}</strong></div>
+          <div class="row small">📧 {{ a.patient?.email || a.doctor?.email || '—' }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

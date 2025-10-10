@@ -2,7 +2,10 @@ package com.wecp.healthcare_appointment_management_system.service;
 
 
 import com.wecp.healthcare_appointment_management_system.entity.Doctor;
+import com.wecp.healthcare_appointment_management_system.entity.User;
 import com.wecp.healthcare_appointment_management_system.repository.DoctorRepository;
+import com.wecp.healthcare_appointment_management_system.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,9 @@ public class DoctorService {
 
     @Autowired
     private DoctorRepository doctorRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public Doctor findDoctorByID(Long Id){
         return doctorRepository.findById(Id).orElse(null);
@@ -33,4 +39,12 @@ public class DoctorService {
         }
     }
     
+
+    public String getUsernameById(Long id) {
+    return userRepository.findById(id)
+            .map(User::getUsername)
+            .orElse("User not found");
+
+    }
+
 }

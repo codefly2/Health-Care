@@ -1,148 +1,805 @@
-/* General Body & Container Styling */
-body {
-  background-color: #f8f9fa; /* Light background for the page */
-  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+$primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+$success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+$card-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+$card-shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.15);
+$available-color: #10b981;
+$unavailable-color: #ef4444;
+$text-primary: #1f2937;
+$text-secondary: #6b7280;
+
+.schedule-container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: $text-primary;
+  background: linear-gradient(180deg, #f9fafb 0%, #ffffff 100%);
+  min-height: 100vh;
 }
 
-.container {
-  max-width: 960px; /* Max width for content */
+// ===========================
+// Page Header Animation
+// ===========================
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  animation: fadeInDown 0.8s ease-out;
 }
 
-/* Card Styling */
+.main-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: $primary-gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.title-icon {
+  font-size: 3rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.subtitle {
+  color: $text-secondary;
+  font-size: 1.1rem;
+  animation: fadeIn 1s ease-out 0.3s both;
+}
+
+// ===========================
+// Charts Row
+// ===========================
+.charts-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.chart-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: $card-shadow;
+  flex: 1;
+  min-width: 300px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: $primary-gradient;
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: $card-shadow-hover;
+
+    &::before {
+      transform: scaleX(1);
+    }
+  }
+}
+
+.small-chart {
+  max-width: 48%;
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.chart-icon {
+  font-size: 2rem;
+  animation: bounceIn 0.6s ease-out;
+}
+
+.section-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: $text-primary;
+  margin: 0;
+}
+
+.chart-wrapper {
+  position: relative;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  canvas {
+    max-height: 100%;
+    animation: scaleIn 0.6s ease-out 0.2s both;
+  }
+}
+
+// ===========================
+// Card Styles
+// ===========================
 .card {
-  border: none;
-  border-radius: 0.75rem; /* More rounded corners */
-  overflow: hidden; /* Ensures header background covers corners */
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08); /* Softer shadow */
+  border-radius: 20px;
+  box-shadow: $card-shadow;
+  background: white;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: $card-shadow-hover;
+  }
 }
 
 .card-header {
-  padding: 1.25rem 1.5rem;
-  border-bottom: none; /* Remove default border */
-  font-weight: 600;
-  h4 {
-    margin-bottom: 0;
-    font-size: 1.5rem;
+  background: $primary-gradient;
+  color: white;
+  padding: 1.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 2;
+
+    h4 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
   }
-  &.bg-primary {
-    background-color: #007bff !important; /* Blue for Add Appointment */
+
+  .header-icon {
+    font-size: 2rem;
+    animation: rotateIn 0.6s ease-out;
   }
-  &.bg-info {
-    background-color: #17a2b8 !important; /* Teal for Doctors List */
+
+  .header-decoration {
+    position: absolute;
+    top: -50%;
+    right: -5%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
   }
-  color: white; /* Text color for headers */
 }
 
 .card-body {
   padding: 2rem;
 }
 
-/* Form Styling */
-.appointment-form-card {
-  .form-label {
-    font-weight: 500;
-    color: #495057;
-    margin-bottom: 0.5rem;
-  }
-  .form-control {
-    border-radius: 0.5rem;
-    padding: 0.75rem 1rem;
-    border-color: #ced4da;
-    transition: all 0.2s ease-in-out;
-    &:focus {
-      border-color: #80bdff;
-      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+// ===========================
+// Table Styles
+// ===========================
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  thead {
+    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+
+    tr {
+      th {
+        padding: 1.25rem 1rem;
+        text-align: left;
+        font-weight: 600;
+        color: $text-primary;
+        border-bottom: 2px solid #e5e7eb;
+        position: relative;
+
+        &:first-child {
+          border-top-left-radius: 12px;
+        }
+
+        &:last-child {
+          border-top-right-radius: 12px;
+        }
+      }
     }
   }
-  .is-invalid {
-    border-color: #dc3545;
-    &:focus {
-      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+
+  tbody {
+    tr {
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.5s ease-out both;
+
+      @for $i from 1 through 20 {
+        &:nth-child(#{$i}) {
+          animation-delay: #{$i * 0.05}s;
+        }
+      }
+
+      &:hover {
+        background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+        transform: scale(1.01);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      td {
+        padding: 1.25rem 1rem;
+        border-bottom: 1px solid #f3f4f6;
+      }
     }
   }
-  .invalid-feedback {
-    color: #dc3545;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
+}
+
+.th-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.th-icon {
+  font-size: 1.1rem;
+}
+
+.row-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: $primary-gradient;
+  color: white;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.doctor-name {
+  font-weight: 500;
+  color: $text-primary;
+}
+
+.specialty-badge {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: linear-gradient(135deg, #e0e7ff 0%, #ddd6fe 100%);
+  color: #6366f1;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+// ===========================
+// Availability Status
+// ===========================
+.availability-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+
+  .status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
   }
-  .appointment-submit-btn {
-    background-color: #28a745; /* Green submit button */
-    border-color: #28a745;
-    padding: 0.75rem 1.5rem;
+
+  &.available {
+    background: #d1fae5;
+    color: $available-color;
+
+    .status-dot {
+      background: $available-color;
+      box-shadow: 0 0 0 3px rgba($available-color, 0.2);
+    }
+  }
+
+  &.not-available {
+    background: #fee2e2;
+    color: $unavailable-color;
+
+    .status-dot {
+      background: $unavailable-color;
+      box-shadow: 0 0 0 3px rgba($unavailable-color, 0.2);
+    }
+  }
+}
+
+// ===========================
+// Book Button
+// ===========================
+.btn-book {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: $primary-gradient;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  .btn-icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+  }
+
+  .btn-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+
+    .btn-icon {
+      transform: scale(1.2) rotate(15deg);
+    }
+
+    .btn-shine {
+      left: 100%;
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.unavailable-text {
+  color: $text-secondary;
+  font-style: italic;
+}
+
+// ===========================
+// Appointment Form
+// ===========================
+.appointment-form {
+  max-width: 600px;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+
+  .label-icon {
+    font-size: 1.3rem;
+  }
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.stylish-input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+  color: $text-primary;
+
+  &:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
+  }
+
+  &:hover {
+    border-color: #d1d5db;
+  }
+}
+
+.input-focus-border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: $primary-gradient;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.stylish-input:focus ~ .input-focus-border {
+  transform: scaleX(1);
+}
+
+.error-msg {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  color: $unavailable-color;
+  font-size: 0.9rem;
+  animation: shake 0.5s ease;
+
+  .error-icon {
     font-size: 1.1rem;
-    border-radius: 0.5rem;
-    transition: all 0.2s ease-in-out;
-    &:hover:not(:disabled) {
-      background-color: #218838;
-      border-color: #1e7e34;
-      transform: translateY(-2px);
-    }
-    &:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
   }
 }
 
-/* Doctors List Table Styling */
-.doctors-list-card {
-  .table {
-    border-collapse: separate; /* Required for border-radius on cells */
-    border-spacing: 0; /* Remove default spacing */
-    thead th {
-      background-color: #e9ecef; /* Light background for header */
-      border-bottom: 2px solid #dee2e6;
-      padding: 1rem 1.5rem;
-      font-weight: 600;
-      color: #343a40;
-      text-align: left;
+// ===========================
+// Submit Button
+// ===========================
+.btn-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2.5rem;
+  background: $primary-gradient;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  .btn-submit-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  .btn-submit-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+
+    .btn-submit-icon {
+      transform: rotate(360deg) scale(1.2);
     }
-    tbody tr {
-      transition: background-color 0.2s ease-in-out;
-      &:hover {
-        background-color: #f1f1f1; /* Light hover effect */
-      }
-    }
-    td {
-      padding: 1rem 1.5rem;
-      vertical-align: middle;
-      border-top: 1px solid #e9ecef;
-    }
-    .badge {
-      font-size: 0.85em;
-      padding: 0.4em 0.7em;
-      border-radius: 0.35rem;
-      font-weight: 600;
-    }
-    .btn-outline-primary {
-      color: #007bff;
-      border-color: #007bff;
-      &:hover {
-        background-color: #007bff;
-        color: white;
-      }
+
+    .btn-submit-shine {
+      left: 100%;
     }
   }
-  .table-responsive {
-    border-radius: 0.75rem; /* Apply radius to the wrapper to clip table */
-    overflow: hidden;
+
+  &:active {
+    transform: translateY(-1px);
   }
 }
 
-/* Utility for spacing (if not using Bootstrap's own classes extensively) */
-.mt-5 {
-  margin-top: 3rem !important;
+// ===========================
+// Success Alert
+// ===========================
+.success-alert {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  border-radius: 16px;
+  border-left: 5px solid $available-color;
+  animation: slideInUp 0.5s ease-out, successPulse 2s ease-in-out infinite;
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
 }
-.mb-4 {
-  margin-bottom: 1.5rem !important;
+
+.success-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: $available-color;
+  border-radius: 50%;
+  animation: successBounce 0.6s ease-out;
 }
-.mt-4 {
-  margin-top: 1.5rem !important;
+
+.success-icon {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: bold;
 }
-.py-3 {
-  padding-top: 1rem !important;
-  padding-bottom: 1rem !important;
+
+.success-content {
+  flex: 1;
 }
-.me-1 {
-  margin-right: 0.25rem !important;
+
+.success-title {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: $available-color;
+}
+
+.success-message {
+  margin: 0;
+  color: #065f46;
+  font-size: 1rem;
+}
+
+// ===========================
+// Keyframe Animations
+// ===========================
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-180deg) scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes successBounce {
+  0% {
+    transform: scale(0) rotate(-180deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+@keyframes successPulse {
+  0%, 100% {
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
+  }
+  50% {
+    box-shadow: 0 15px 40px rgba(16, 185, 129, 0.3);
+  }
+}
+
+// ===========================
+// Animation Classes
+// ===========================
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.slide-in-left {
+  animation: slide-in-left 0.6s ease-out;
+}
+
+.slide-in-right {
+  animation: slide-in-right 0.6s ease-out 0.1s both;
+}
+
+.slide-in-up {
+  animation: slideInUp 0.5s ease-out;
+}
+
+// ===========================
+// Responsive Design
+// ===========================
+@media (max-width: 768px) {
+  .schedule-container {
+    padding: 1rem;
+  }
+
+  .main-title {
+    font-size: 2rem;
+  }
+
+  .charts-row {
+    flex-direction: column;
+  }
+
+  .small-chart {
+    max-width: 100%;
+  }
+
+  .modern-table {
+    font-size: 0.9rem;
+
+    thead th,
+    tbody td {
+      padding: 0.75rem 0.5rem;
+    }
+  }
+
+  .btn-book {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-title {
+    font-size: 1.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+
+
+  .btn-submit {
+    width: 100%;
+    justify-content: center;
+  }
 }

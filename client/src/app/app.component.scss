@@ -14,3 +14,26 @@
 .slide-out {
   transform-origin: bottom;
 }
+.navbar-nav .nav-link {
+    padding: 0.35rem 0.75rem; /* reduces vertical padding */
+    line-height: 1.2;         /* reduces line spacing */
+    font-size: 0.95rem;       /* slightly smaller text */
+}
+
+.navbar {
+    min-height: 50px;         /* keeps navbar compact */
+}
+
+.navbar .nav-link:hover {
+  color: #0d6efd;
+  background: rgba(13, 110, 253, 0.1);
+  border-radius: 5px;
+}
+
+.navbar-brand {
+  font-size: 1.25rem;
+}
+
+.navbar-toggler {
+  border: none;
+}

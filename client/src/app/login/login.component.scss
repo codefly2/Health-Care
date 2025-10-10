@@ -353,3 +353,18 @@ body {
     padding: 25px;
   }
 }
+
+.resend-otp-button {
+  margin-top: 15px;
+  background: transparent;
+  border: none;
+  color: var(--primary-color);
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.resend-otp-button:disabled {
+  color: var(--secondary-color);
+  cursor: not-allowed;
+}

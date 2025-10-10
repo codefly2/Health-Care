@@ -1,0 +1,59 @@
+<div class="doctor-dashboard">
+  <header class="topbar">
+    <div class="brand">{{ doctorName }}</div>
+    <div class="clock">{{ currentTime | date:'mediumTime' }}</div>
+  </header>
+
+  <div class="news-section card">
+    <div class="header">
+      <h3>Medical News</h3>
+      <button (click)="loadNews(true)" [disabled]="isNewsLoading">
+        🔄 {{ isNewsLoading ? 'Refreshing...' : 'Refresh Feed' }}
+      </button>
+    </div>
+
+    <div *ngFor="let n of newsFeed; let i = index" class="news-item">
+      <div class="title" (click)="toggleDescription(i)">
+        {{ n.title }}
+        <span class="arrow">{{ expandedIndex === i ? '▲' : '▼' }}</span>
+      </div>
+      <div class="desc" *ngIf="expandedIndex === i">
+        <p>{{ n.description }}</p>
+        <a *ngIf="n.url" [href]="n.url" target="_blank">Read More →</a>
+      </div>
+    </div>
+  </div>
+ <br>
+  <div class="main-content">
+    <div class="chart-section card small-chart">
+      <h3>Patients Seen Per Day</h3>
+      <canvas id="patientsChart"></canvas>
+    </div>
+
+    <div class="tasks card">
+      <h3>Daily Tasks</h3>
+      <div class="task-input">
+        <input [(ngModel)]="newTask" placeholder="Add new task..." />
+        <button (click)="addTask()">➕</button>
+      </div>
+      <ul>
+        <li *ngFor="let t of tasks; let i = index" [class.done]="t.done">
+          <input type="checkbox" [checked]="t.done" (change)="toggleTask(i)" />
+          <span>{{ t.text }}</span>
+          <button class="delete-btn" (click)="deleteTask(i)">🗑️</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="notepad card">
+    <h3>My Notepad</h3>
+    <textarea [(ngModel)]="notes" (keyup)="saveNotes()" placeholder="Write quick notes..."></textarea>
+    <div class="actions">
+      <button (click)="saveNotes()">💾 Save</button>
+      <button (click)="clearNotes()">🧹 Clear</button>
+    </div>
+  </div>
+
+ 
+</div>
