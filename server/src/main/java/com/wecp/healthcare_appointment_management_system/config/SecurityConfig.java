@@ -138,7 +138,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/api/user/resend-otp",
                 "/api/patient/register",
                 "/api/doctors/register",
-                "/api/receptionist/register"
+                "/api/receptionist/register",
+                 "/api/news",
+                 "/api/doctor/profile"
+                
 
             ).permitAll()
             // role-based endpoints

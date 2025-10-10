@@ -36,4 +36,13 @@ public class DoctorController {
         Doctor updatedDoctor = doctorService.updateAvailability(doctorId, availability);
         return ResponseEntity.status(HttpStatus.OK).body(updatedDoctor);
     }
+
+@GetMapping("/api/doctor/profile/{id}")
+public ResponseEntity<String> getDoctorUsername(@PathVariable Long id) {
+    String username = doctorService.getUsernameById(id);
+    return ResponseEntity.ok(username);
+}
+
+
+
 }

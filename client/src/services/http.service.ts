@@ -151,4 +151,13 @@ export class HttpService {
  
     return this.http.get(this.serverName + '/api/receptionist/dashboard-data', { headers });
   }
+getDoctorProfile(id: any) {
+    const authToken = this.authService.getToken();
+    let headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${authToken}`);
+    return this.http.get(`${this.serverName}/api/doctor/profile/${id}`, { headers });
+  }
+  
+
 }
