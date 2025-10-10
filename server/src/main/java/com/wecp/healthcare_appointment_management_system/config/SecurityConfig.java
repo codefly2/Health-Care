@@ -140,8 +140,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/api/doctors/register",
                 "/api/receptionist/register",
                  "/api/news",
-                 "/api/doctor/profile"
-                
+                 "/api/doctor/profile",
+                "/api/patientId"
 
             ).permitAll()
             // role-based endpoints
