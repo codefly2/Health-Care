@@ -70,15 +70,6 @@ export class DoctorDashboardComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
-  // ---- Dashboard ----
-  // loadDashboardData() {
-  //   this.httpService.getDashboardData().subscribe({
-  //     next: (res: any) => (this.totalPatients = res.totalPatients || 0),
-  //     error: () => (this.totalPatients = 7)
-  //   });
-  // }
-
   // ---- Appointments ----
   loadAppointments() {
     this.httpService.getAppointmentByDoctor(this.doctorId).subscribe({
@@ -101,44 +92,6 @@ export class DoctorDashboardComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
-  // ---- News ----
-  // loadNews(forceRefresh: boolean = false) {
-  //   this.isNewsLoading = true;
-  //   const cacheKey = 'newsCache';
-  //   const cached = localStorage.getItem(cacheKey);
-
-  //   if (!forceRefresh && cached) {
-  //     try {
-  //       const parsed = JSON.parse(cached);
-  //       const age = (Date.now() - parsed.timestamp) / (1000 * 60 * 60);
-  //       if (age < 6 && parsed.articles?.length) {
-  //         this.newsFeed = parsed.articles.slice(0, 6);
-  //         this.isNewsLoading = false;
-  //         return;
-  //       }
-  //     } catch {}
-  //   }
-
-  //   const url ='https://gnews.io/api/v4/top-headlines?category=health&lang=en&apikey=7d0e3f203ae7967c37acea40374ac006https://gnews.io/api/v4/top-headlines?category=health&lang=en&apikey=7d0e3f203ae7967c37acea40374ac006';
-
-  //   fetch(url)
-  //     .then(res => res.json())
-  //     .then((data: any) => {
-  //       this.newsFeed = (data.articles || []).slice(0, 6);
-  //       localStorage.setItem(
-  //         cacheKey,
-  //         JSON.stringify({ timestamp: Date.now(), articles: this.newsFeed })
-  //       );
-  //     })
-  //     .catch(() => {
-  //       this.newsFeed = [
-  //         { title: 'AI in Healthcare', description: 'AI is improving diagnosis accuracy.' },
-  //         { title: 'WHO warns on mental health', description: 'New report highlights rising stress.' }
-  //       ];
-  //     })
-  //     .finally(() => (this.isNewsLoading = false));
-  // }
   public serverName=environment.apiUrl;
   loadNews(forceRefresh: boolean = false) {
     this.isNewsLoading = true;
