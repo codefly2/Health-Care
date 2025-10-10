@@ -19,9 +19,9 @@ $text-secondary: #6b7280;
   min-height: 100vh;
 }
 
-// ===========================
+
 // Page Header Animation
-// ===========================
+
 .page-header {
   text-align: center;
   margin-bottom: 3rem;
@@ -53,9 +53,8 @@ $text-secondary: #6b7280;
   animation: fadeIn 1s ease-out 0.3s both;
 }
 
-// ===========================
 // Charts Row
-// ===========================
+
 .charts-row {
   display: flex;
   justify-content: space-between;
@@ -133,9 +132,9 @@ $text-secondary: #6b7280;
   }
 }
 
-// ===========================
+
 // Card Styles
-// ===========================
+
 .card {
   border-radius: 20px;
   box-shadow: $card-shadow;
@@ -290,9 +289,9 @@ $text-secondary: #6b7280;
   font-weight: 500;
 }
 
-// ===========================
+
 // Availability Status
-// ===========================
+
 .availability-status {
   display: inline-flex;
   align-items: center;
@@ -330,9 +329,9 @@ $text-secondary: #6b7280;
   }
 }
 
-// ===========================
+
 // Book Button
-// ===========================
+
 .btn-book {
   display: inline-flex;
   align-items: center;
@@ -387,9 +386,8 @@ $text-secondary: #6b7280;
   font-style: italic;
 }
 
-// ===========================
+
 // Appointment Form
-// ===========================
 .appointment-form {
   max-width: 600px;
 }
@@ -467,9 +465,8 @@ $text-secondary: #6b7280;
   }
 }
 
-// ===========================
 // Submit Button
-// ===========================
+
 .btn-submit {
   display: inline-flex;
   align-items: center;
@@ -525,9 +522,8 @@ $text-secondary: #6b7280;
   }
 }
 
-// ===========================
 // Success Alert
-// ===========================
+
 .success-alert {
   display: flex;
   align-items: center;
@@ -574,9 +570,9 @@ $text-secondary: #6b7280;
   font-size: 1rem;
 }
 
-// ===========================
+
 // Keyframe Animations
-// ===========================
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -731,9 +727,9 @@ $text-secondary: #6b7280;
   }
 }
 
-// ===========================
+
 // Animation Classes
-// ===========================
+
 .fade-in-up {
   animation: fadeInUp 0.6s ease-out;
 }
@@ -750,9 +746,9 @@ $text-secondary: #6b7280;
   animation: slideInUp 0.5s ease-out;
 }
 
-// ===========================
+
 // Responsive Design
-// ===========================
+
 @media (max-width: 768px) {
   .schedule-container {
     padding: 1rem;

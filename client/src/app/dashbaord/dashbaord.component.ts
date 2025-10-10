@@ -296,6 +296,5 @@ getBmiResultClass(): string {
   }
 }
  
- 
 }
  

@@ -55,20 +55,6 @@ public class RegisterAndLoginController {
         return new ResponseEntity<>(registeredReceptionist, HttpStatus.CREATED);
     }
 
-    // @PostMapping("/api/user/login")
-    // public ResponseEntity<LoginResponse> loginUser(@RequestBody LoginRequest loginRequest) {
-    //     User user = userService.loginUser(loginRequest.getUsername(), loginRequest.getPassword());
-    //     if (user != null) {
-
-    //         String tokens= jwtUtil.generateToken(loginRequest.getUsername());
-            
-    //         LoginResponse response = new LoginResponse(user.getId(),tokens, user.getUsername(), user.getEmail(), user.getRole());
-    //         return ResponseEntity.ok(response);
-    //     } else {
-    //         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-    //     }
-    // }
-
 
 
     // Step 1: validate username/password and send OTP

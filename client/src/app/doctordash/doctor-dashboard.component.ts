@@ -12,7 +12,7 @@ Chart.register(...registerables);
   styleUrls: ['./doctor-dashboard.component.scss']
 })
 export class DoctorDashboardComponent implements OnInit, AfterViewInit {
-  doctorName: string = 'Good morning Doc 👋';
+  doctorName: string = 'Hi Doctor';
   doctorId!: number;
 
   totalPatients = 0;
@@ -20,12 +20,11 @@ export class DoctorDashboardComponent implements OnInit, AfterViewInit {
   dates: string[] = [];
   dashboardChart: any;
 
-  // 🩵 Tasks + Notepad
   tasks: { text: string; done: boolean }[] = [];
   newTask = '';
   notes = '';
 
-  // 🩵 News
+  //  News
   newsFeed: any[] = [];
   expandedIndex: number | null = null;
   isNewsLoading = false;
@@ -62,35 +61,20 @@ export class DoctorDashboardComponent implements OnInit, AfterViewInit {
         if (res && res.username) {
           this.doctorName = `Dr. ${res.username}`;
         } else {
-          this.doctorName = 'Good morning Doc 👋';
+          this.doctorName = 'Hi Doctor';
         }
       },
       error: () => {
-        this.doctorName = 'Good morning Doc 👋';
+        this.doctorName = 'Hi Doctor';
       }
     });
   }
+  
   // ---- Appointments ----
   loadAppointments() {
-    this.httpService.getAppointmentByDoctor(this.doctorId).subscribe({
-      next: (res: any) => {
-        if (!Array.isArray(res)) return;
-        const dailyMap: { [key: string]: number } = {};
-        res.forEach((a: any) => {
-          const day = (a.date || a.appointmentDate || '').slice(0, 10);
-          if (!day) return;
-          dailyMap[day] = (dailyMap[day] || 0) + 1;
-        });
-        this.dates = Object.keys(dailyMap).slice(-5);
-        this.patientPerDayData = Object.values(dailyMap).slice(-5);
-        this.renderChart();
-      },
-      error: () => {
         this.dates = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
         this.patientPerDayData = [10, 14, 9, 11, 7];
         this.renderChart();
-      }
-    });
   }
   public serverName=environment.apiUrl;
   loadNews(forceRefresh: boolean = false) {
