@@ -353,3 +353,36 @@ body {
     padding: 25px;
   }
 }
+
+.resend-otp-button {
+  margin-top: 15px;
+  background: transparent;
+  border: none;
+  color: var(--primary-color);
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.resend-otp-button:disabled {
+  color: var(--secondary-color);
+  cursor: not-allowed;
+}
+
+/* Error Message */
+.error-message {
+  color: #ff0000; /* Bright red for error messages */
+  font-size: 0.85rem;
+  margin-top: 5px;
+  display: block;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Invalid Field Border */
+.form-field.has-error input,
+.form-field.has-error .form-select {
+  border-color: #ff0000; /* Bright red for invalid fields */
+}

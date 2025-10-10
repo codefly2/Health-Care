@@ -1,12 +1,12 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent implements OnInit,AfterViewInit {
   typedText = '';
   fullTexts = [
     'Best Healthcare Solution In Your City',
@@ -18,6 +18,9 @@ export class LandingComponent implements OnInit {
   typingSpeed = 80;
   pauseBetween = 1200;
 constructor(private viewportScroller: ViewportScroller) {}
+  ngAfterViewInit(): void {
+      this.animateCounters();
+  }
 
   ngOnInit() {
     this.typeText();
@@ -47,4 +50,24 @@ scrollToTop(event: Event) {
   event.preventDefault();
   this.viewportScroller.scrollToPosition([0, 0]);
 }
+animateCounters() {
+    const counters = document.querySelectorAll<HTMLElement>(".counter");
+
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute("data-target")!;
+        const count = +counter.innerText;
+
+        const increment = target / 200; // speed
+
+        if (count < target) {
+          counter.innerText = Math.ceil(count + increment).toString();
+          setTimeout(updateCount, 20);
+        } else {
+          counter.innerText = target.toString();
+        }
+      };
+      updateCount();
+    });
+  }
 }

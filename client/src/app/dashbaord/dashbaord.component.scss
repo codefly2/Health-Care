@@ -1,0 +1,287 @@
+// Color and style variables for consistency
+$primary-blue: #0D6EFD;
+$light-gray: #f8f9fa;
+$border-color: #dee2e6;
+$text-color: #212529;
+$text-muted: #6c757d;
+$shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+ 
+ 
+// Main two-column layout
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 1fr 350px; // Main content and fixed-width sidebar
+  gap: 24px;
+  padding: 24px;
+  background-color: #F4F7FC; // Light blue-gray background from image
+  animation: fadeIn 0.5s ease forwards;
+  opacity: 0;
+}
+ 
+// Fade-in animation for dashboard
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+ 
+.main-content {
+  grid-column: 1 / 2;
+}
+ 
+.right-sidebar {
+  grid-column: 2 / 3;
+}
+ 
+// Cards and Shadows with animation on hover
+.card {
+  border: none;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: $shadow;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  will-change: box-shadow, transform;
+ 
+  &:hover {
+    box-shadow: 0 12px 30px rgba(30, 136, 229, 0.25);
+    transform: translateY(-5px);
+  }
+}
+ 
+.card-body {
+  padding: 24px;
+}
+ 
+// Typography
+.main-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 24px;
+}
+ 
+.card-title-secondary {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+ 
+// Table styling with hover pop effect on td
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px; // add vertical spacing between rows
+ 
+  thead {
+    th {
+      background-color: #e3f2fd; // light blue header background
+      color: #0d47a1;            // dark blue header text
+      font-weight: 700;
+      padding: 12px 15px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      text-align: left;
+      border-bottom: 2px solid #90caf9; // underline headers
+      user-select: none;
+    }
+  }
+ 
+  tbody {
+    tr {
+      background: #ffffff;
+      box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+ 
+      &:hover {
+        background-color: #e8f0fe; // subtle hover highlight
+        cursor: pointer;
+      }
+    }
+ 
+    td {
+      padding: 12px 15px;
+      color: #444;
+      border-top: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f0f0f0;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      will-change: transform, box-shadow;
+     
+      &:first-child {
+        border-left: 6px solid #42a5f5; // blue accent on left of first column
+        font-weight: 600;
+      }
+ 
+      &:last-child {
+        border-right: 6px solid #42a5f5; // blue accent on right of last column
+      }
+ 
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(66, 165, 245, 0.35);
+        z-index: 1;
+        position: relative;
+        background-color: #e8f0fe;
+        cursor: pointer;
+      }
+    }
+  }
+}
+ 
+// Buttons with gradient and glowing effect
+.btn-gradient {
+    background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    font-weight: 600;
+    padding: 0.62em 2.5em;
+    font-size: 1.06em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 8px 15px rgba(64, 191, 255, 0.3);
+    transform-origin: center;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease, color 0.4s ease;
+ 
+    &:hover, &:focus {
+      background: linear-gradient(45deg, #00f2fe 0%, #4facfe 100%);
+    //   box-shadow: 0 12px 25px rgba(64, 191, 255, 0.6);
+      color: white;
+      outline: none;
+      transform: scale(1.15);
+    }
+  }
+ 
+  .checkin-title {
+    font-size: 1.3rem;      // Increase font size as needed
+    font-weight: 700;
+    color: #1E88E5;         // Blue color matching your theme
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0.75rem;
+  }
+ 
+  .blue-dot {
+    width: 14px;            // Size of the blue dot
+    height: 14px;
+    background-color: #1E88E5;
+    border-radius: 50%;     // Circle
+    display: inline-block;
+  }
+ 
+.btn {
+  transition: box-shadow 0.3s ease;
+ 
+  &:hover {
+    box-shadow: 0 0 12px #1e88e5;
+  }
+}
+ 
+// Notifications panel styling
+.notifications-container {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+  padding: 1.25rem 1.5rem;
+ 
+  h6 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #495057;
+  }
+}
+ 
+.notifications-list {
+  max-height: 180px;
+  overflow-y: auto;
+  padding-left: 0;
+}
+ 
+.notification-item {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #e9ecef;
+ 
+  &:last-child {
+    border-bottom: none;
+  }
+ 
+  strong {
+    color: #212529;
+  }
+ 
+  small {
+    font-size: 0.8rem;
+  }
+}
+ 
+// Chart containers sizing
+.chart-container-bar {
+  height: 250px;
+}
+ 
+.chart-container-doughnut {
+  height: 250px;
+  position: relative;
+}
+ 
+.footer-stats {
+    display: flex;
+    justify-content: space-between;  // spaced between left and right groups
+    align-items: center;
+    padding: 16px 24px;
+    background-color: #fff;
+    border-top: 1px solid $border-color;
+    position: fixed; // Or sticky, depending on desired behavior
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.03);
+    font-size: 0.9rem;
+    color: $text-muted;
+    z-index: 25;
+ 
+    // Left side: General Clinic Statistics
+    > div:first-child {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      color: $primary-blue;
+    }
+ 
+    // Right side: stats items container
+    .stats-items {
+      display: flex;
+      gap: 32px; // spacing between stats
+ 
+      .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+ 
+      .stat-number {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $text-color;
+      }
+    }
+  }
+  .bmi-underweight {
+    color: #f39c12;
+  }
+  .bmi-normal {
+    color: #28a745;
+  }
+  .bmi-overweight {
+    color: #ff9800;
+  }
+  .bmi-obese {
+    color: #e74c3c;
+  }

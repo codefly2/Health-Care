@@ -17,6 +17,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 public class PatientController {
@@ -55,4 +58,15 @@ public class PatientController {
         // view medical records
         return new ResponseEntity<>(medicalRecordService.getMedicalRecordsByPatientId(patientId),HttpStatus.OK);
     }
+    @GetMapping("/api/patient/appointment/{id}/qr")
+    public ResponseEntity<String> getAppointmentQr(@PathVariable Long id) {
+        try{
+            String qrBase64 = appointmentService.genrateAppointmentQr(id);
+            return new ResponseEntity<>(qrBase64,HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>("Error generating QR: "+ e.getMessage(),HttpStatus.BAD_REQUEST);
+        }
+    }
+    
 }

@@ -46,7 +46,7 @@ export class HttpService {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     headers = headers.set('Authorization', `Bearer ${authToken}`);   
-    return this.http.get(this.serverName+'/api/patient/appointments?patientId='+id,{headers:headers});
+    return this.http.get<any>(this.serverName+'/api/patient/appointments?patientId='+id,{headers:headers});
   
   }
   ScheduleAppointment( details:any):Observable<any> {  
@@ -83,36 +83,24 @@ export class HttpService {
     return this.http.get(this.serverName+`/api/patient/doctors`,{headers:headers});
   }
 
-  // --- OTP RELATED METHODS ---
-
-  // Modified Login method to reflect OTP flow.
-  // This method should trigger OTP generation if 2FA is enabled.
   Login(details:any):Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
-    // Assuming your backend's login endpoint handles sending OTP
-    // and returns a response indicating if OTP was sent.
     return this.http.post(this.serverName+'/api/user/login',details,{headers:headers});
   }
 
-  // New method to verify the OTP entered by the user
-  VerifyOtp(otpData: { username: string; otp: string }): Observable<any> {
-    let headers = new HttpHeaders();
-    headers = headers.set('Content-Type', 'application/json');
-    // Assuming your backend has an endpoint like '/api/user/verify-otp'
-    return this.http.post(this.serverName+'/api/user/verify-otp', otpData, {headers:headers});
+
+  loginSendOtp(payload: { username: string; password: string }): Observable<any> {
+    return this.http.post(`${this.serverName}/api/user/login`, payload);
   }
 
-  // New method to request a new OTP be sent
-  ResendOtp(requestData: { username: string }): Observable<any> {
-    let headers = new HttpHeaders();
-    headers = headers.set('Content-Type', 'application/json');
-    // Assuming your backend has an endpoint like '/api/user/resend-otp'
-    return this.http.post(this.serverName+'/api/user/resend-otp', requestData, {headers:headers});
+  verifyOtp(payload: { username: string; otp: string }): Observable<any> {
+    return this.http.post(`${this.serverName}/api/user/verify-otp`, payload);
   }
 
-  // --- END OTP RELATED METHODS ---
-
+  resendOtp(payload: { username: string }): Observable<any> {
+    return this.http.post(`${this.serverName}/api/user/resend-otp`, payload);
+  }
   registerPatient(details:any):Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
@@ -135,13 +123,41 @@ export class HttpService {
     return this.http.get<boolean>(this.serverName + '/api/user/exists', { headers: headers, params: { username } });
   }
 
-  deleteAppointment(val:any):Observable<any>{ // Changed to return Observable<any> for consistency with other methods
-    console.log("Helloooo"+val);
+  deleteAppointment(appointmentId:any){
     const authToken = this.authService.getToken();  
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     headers = headers.set('Authorization', `Bearer ${authToken}`);   
-    return this.http.delete(this.serverName+'/api/appointment/delete?appointmentId='+val,{headers:headers});
+    return this.http.delete(this.serverName+'/api/appointment/delete?appointmentId='+appointmentId,{headers});
   }
+
+  getAppointmentQr(appointmentId:any):Observable<any>{
+    const authToken = this.authService.getToken();
+    let headers = new HttpHeaders().set('Authorization',`Bearer ${authToken}`);
+    return this.http.get(this.serverName + `/api/patient/appointment/${appointmentId}/qr`, {headers,responseType:'text'});
+  }
+  chatWithAI(message: string): Observable<any> {
+    const authToken = this.authService.getToken();  
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    headers = headers.set('Authorization', `Bearer ${authToken}`);
+    return this.http.post(this.serverName + '/api/chat', { message }, { headers });
+  }
+  getReceptionistDashboardData(): Observable<any> {
+    const authToken = this.authService.getToken();  
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    headers = headers.set('Authorization', `Bearer ${authToken}`);
+ 
+    return this.http.get(this.serverName + '/api/receptionist/dashboard-data', { headers });
+  }
+getDoctorProfile(id: any) {
+    const authToken = this.authService.getToken();
+    let headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${authToken}`);
+    return this.http.get(`${this.serverName}/api/doctor/profile/${id}`, { headers });
+  }
+  
 
 }

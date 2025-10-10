@@ -265,7 +265,7 @@ body {
   font-size: 0.9em;
   width: 15px; /* Fixed width for consistent alignment */
   text-align: center;
-  color: var(--error-color); /* Default to red cross */
+ color: red !important; /* %E2%9D%8C cross */
 }
 
 .password-checklist li.valid {
@@ -273,7 +273,7 @@ body {
 }
 
 .password-checklist li.valid .icon {
-  color: var(--valid-color); /* Green tick */
+color: green !important; /* %E2%9C%85 tick */
 }
 
 
@@ -382,6 +382,7 @@ body {
   background: url('../../assets/img/2.jpg') no-repeat center center;
   background-size: cover;
   position: relative;
+  height: 100vh;
 }
 
 .image-overlay {
@@ -394,3 +395,21 @@ body {
 }
 
 /* Responsive Adjustments */
+
+/* Error Message */
+.error-message {
+  color: #ff0000; /* Bright red for error messages */
+  font-size: 0.85rem;
+  margin-top: 5px;
+  display: block;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Invalid Field Border */
+.form-field.has-error input,
+.form-field.has-error .form-select {
+  border-color: #ff0000; /* Bright red for invalid fields */
+}
