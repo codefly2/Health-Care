@@ -139,14 +139,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/api/patient/register",
                 "/api/doctors/register",
                 "/api/receptionist/register"
+
             ).permitAll()
             // role-based endpoints
             .antMatchers(HttpMethod.GET,"/receptionist/dashboard-data").hasAuthority("RECEPTIONIST")
             .antMatchers(HttpMethod.POST, "/api/doctor/availability").hasAuthority("DOCTOR")
             .antMatchers(HttpMethod.POST, "/api/patient/appointment").hasAuthority("PATIENT")
             .antMatchers(HttpMethod.POST, "/api/receptionist/appointment").hasAuthority("RECEPTIONIST")
-            .antMatchers(HttpMethod.GET, "/api/patient/doctors").hasAuthority("PATIENT")
-            .antMatchers(HttpMethod.GET, "/api/patient/doctors").hasAuthority("RECEPTIONIST")
+            .antMatchers(HttpMethod.GET, "/api/patient/doctors").hasAnyAuthority("PATIENT","RECEPTIONIST")
+
             .antMatchers(HttpMethod.GET, "/api/patient/appointments").hasAuthority("PATIENT")
             .antMatchers(HttpMethod.GET, "/api/patient/medicalrecords").hasAuthority("PATIENT")
             .antMatchers(HttpMethod.GET, "/api/doctor/appointments").hasAuthority("DOCTOR")

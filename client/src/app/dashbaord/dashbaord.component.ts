@@ -298,3 +298,4 @@ getBmiResultClass(): string {
  
  
 }
+ 

@@ -45,7 +45,7 @@ export class ScheduleAppointmentComponent implements OnInit {
   }
 
   renderChart() {
-    const available = this.doctorList.filter((d:any)=> d.availability === 'Yes').length;
+    const available = this.doctorList.filter((d:any)=> d.availability === 'true').length;
     const notAvailable = this.doctorList.length - available;
     // Doctor Availability Chart (now a pie chart)
     if(this.doctorChart) this.doctorChart.destroy();
