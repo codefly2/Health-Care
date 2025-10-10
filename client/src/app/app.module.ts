@@ -23,7 +23,7 @@ import { ReceptionistScheduleAppointmentsComponent } from './receptionist-schedu
 
 import { LandingComponent } from './landing/landing.component';
 import { AboutComponent } from './about/about.component';
-
+import { DoctorDashboardComponent } from './doctordash/doctor-dashboard.component';
 
 
 
@@ -40,7 +40,7 @@ import { AboutComponent } from './about/about.component';
     ReceptionistAppointmentsComponent,
     ReceptionistScheduleAppointmentsComponent,
     LandingComponent,
-    AboutComponent
+    AboutComponent,
     DoctorDashboardComponent
   ],
   imports: [
