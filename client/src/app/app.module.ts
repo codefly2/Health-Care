@@ -41,7 +41,7 @@ import { AboutComponent } from './about/about.component';
     ReceptionistScheduleAppointmentsComponent,
     LandingComponent,
     AboutComponent
-    
+    DoctorDashboardComponent
   ],
   imports: [
     BrowserModule,
