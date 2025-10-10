@@ -8,63 +8,57 @@ import { map, of } from 'rxjs';
   selector: 'app-receptionist-appointments',
   templateUrl: './receptionist-appointments.component.html',
   styleUrls: ['./receptionist-appointments.component.scss'],
-  providers: [DatePipe] 
+  providers: [DatePipe]
 })
 export class ReceptionistAppointmentsComponent implements OnInit {
   itemForm: FormGroup;
-  formModel:any={};
-  responseMessage:any;
-  isAdded: boolean=false;
-  filteredAppointments$:any;
-  appointmentList$:any;
+  formModel: any = {};
+  responseMessage: any;
+  isAdded: boolean = false;
+  filteredAppointments$: any;
+  appointmentList$: any;
   paginatedList$: any;
-  currentPage: number = 1; 
+  currentPage: number = 1;
   itemsPerPage: number = 10;
+  minDateTime!: string;
 
-  constructor(public httpService:HttpService,private formBuilder: FormBuilder,private datePipe: DatePipe) {
+  constructor(
+    public httpService: HttpService,
+    private formBuilder: FormBuilder,
+    private datePipe: DatePipe
+  ) {
     this.itemForm = this.formBuilder.group({
-   
-      id: [this.formModel.id,[ Validators.required]],
-      time: [this.formModel.time,[ Validators.required]],
-  });
-   }
+      id: [this.formModel.id, [Validators.required]],
+      time: [this.formModel.time, [Validators.required]],
+    });
+  }
 
   ngOnInit(): void {
     this.getAppointments();
+    this.minDateTime = new Date().toISOString().slice(0, 16); // <-- Add this line
   }
-
 
   getAppointments() {
-  
-    this.httpService.getAllAppointments().subscribe((data)=>{
+    this.httpService.getAllAppointments().subscribe((data) => {
       this.appointmentList$ = of(data);
-      this.filteredAppointments$ = of(data); //
-    })
+      this.filteredAppointments$ = of(data);
+    });
   }
-  
-  editAppointment(val:any)
-  {  
-    
+
+  editAppointment(val: any) {
     this.itemForm.controls["id"].setValue(val.id);
-  
-    this.isAdded=true;
-
+    this.isAdded = true;
   }
 
-  
-  onSubmit()
-  { 
+  onSubmit() {
     const formattedTime = this.datePipe.transform(this.itemForm.controls['time'].value, 'yyyy-MM-dd HH:mm:ss');
-
-    // Update the form value with the formatted date
     this.itemForm.controls['time'].setValue(formattedTime);
-    this.httpService.reScheduleAppointment(this.itemForm.controls["id"].value, this.itemForm.value).subscribe((data)=>{   
+    this.httpService.reScheduleAppointment(this.itemForm.controls["id"].value, this.itemForm.value).subscribe((data) => {
       this.itemForm.reset();
-      this.responseMessage="Appointment Rescheduled  Save Successfully";
-      this.isAdded=false;
+      this.responseMessage = "Appointment Rescheduled Successfully";
+      this.isAdded = false;
       this.getAppointments();
-    })
-    
+    });
   }
 
   searchAppointments(event: any) {
@@ -72,12 +66,12 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     this.filteredAppointments$ = this.appointmentList$.pipe(
       map((appointments: any[]) => {
         if (!searchTerm) {
-           return appointments;
+          return appointments;
         }
-         return appointments.filter(appointment =>
-          appointment.doctor.username.toLowerCase().includes(searchTerm) || 
+        return appointments.filter(appointment =>
+          appointment.doctor.username.toLowerCase().includes(searchTerm) ||
           appointment.id.toString().includes(searchTerm)
-        );  
+        );
       })
     );
   }

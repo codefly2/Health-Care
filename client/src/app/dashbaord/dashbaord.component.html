@@ -1,4 +1,222 @@
-<div class="row text-center">
-<h1 class="text-capitalize">Healthcare Appointment Management System
-</h1>
+<div *ngIf="roleName === 'RECEPTIONIST'">
+<div class="dashboard-container">
+ 
+  <main class="main-content">
+    <h2 class="main-title">APPOINTMENT MANAGEMENT</h2>
+ 
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h3 class="card-title-secondary">UPCOMING APPOINTMENTS TODAY</h3>
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead>
+              <tr>
+                <th>Patient Name</th>
+                <th>Time</th>
+                <th>Doctor</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let appt of todaysAppointments">
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img [src]="appt.patient.avatar" alt="Patient Avatar" class="avatar me-3">
+                      <span class="fw-bold">{{ appt.patient.name }}</span>
+                    </div>
+                  </td>
+                  <td>{{ appt.time | date: 'hh:mm a' :'UTC' }}</td>
+                <td>
+                    <div class="doctor-info">
+                        <span class="fw-bold">{{ appt.doctor.name }}</span>
+                        <small class="text-muted d-block" *ngIf="appt.doctor.department">{{ appt.doctor.department }}</small>
+                        <!-- <button *ngIf="appt.doctor.action === 'See Trend'" class="btn btn-sm btn-outline-primary action-btn mt-1">See Trend</button> -->
+                    </div>
+                </td>
+                <td>
+                  <span *ngIf="appt.status === 'Scheduled'" class="status-badge status-confirmed">
+                    {{ appt.status }}
+                  </span>
+                  <span *ngIf="appt.status === 'Cancelled'" class="status-badge status-cancelled">
+                    {{ appt.status }}
+                  </span>
+                  <button *ngIf="appt.doctor.action === 'Finish'" class="btn btn-sm btn-light finish-btn">Finish</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="card shadow-sm mt-4">
+      <div class="card-body">
+        <h5 class="card-title checkin-title">
+             DAILY PATIENT FLOW: Check-ins vs Cancellations
+          </h5>
+         
+        <p class="text-muted small "><span class="blue-dot"></span> Check-ins vs Cancellations</p>
+        <div class="chart-container-bar">
+          <canvas id="barChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </main>
+ 
+  <aside class="right-sidebar">
+ 
+    <button class="btn-gradient shadow-lg rounded-pill fw-semibold px-6 d-flex align-items-center gap-2" [routerLink]="['/receptionist-schedule-appointments']" title="Schedule Appointment">
+        <i class="bi bi-plus-circle-fill fs-5"></i> Schedule New Appointment
+      </button>
+      <br>
+ 
+    <!-- <div class="calendar-container mb-4">
+        <h6 class="text-center">September 2024</h6>
+        <table class="calendar">
+            <thead><tr><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th><th>S</th></tr></thead>
+            <tbody>
+                <tr><td></td><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+                <tr><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
+                <tr><td>13</td><td>14</td><td>15</td><td>16</td><td class="active">17</td><td>18</td><td>19</td></tr>
+                <tr><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td></tr>
+                <tr><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td><td></td><td></td></tr>
+            </tbody>
+        </table>
+    </div> -->
+    <div class="notifications-container mb-4">
+        <h6 class="text-center">Notifications</h6>
+        <ul class="notifications-list list-unstyled p-2">
+          <li class="notification-item">
+            <strong>New patient registered:</strong> Sarah Chen
+            <small class="text-muted d-block">10 minutes ago</small>
+          </li>
+          <li class="notification-item">
+            <strong>Appointment confirmed:</strong> Jahita Doe
+            <small class="text-muted d-block">45 minutes ago</small>
+          </li>
+          <li class="notification-item">
+            <strong>Doctor message:</strong> Dr. Lee is running late
+            <small class="text-muted d-block">1 hour ago</small>
+          </li>
+        </ul>
+      </div>
+     
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title-secondary text-center">APPOINTMENT STATUS</h5>
+        <div class="chart-container-doughnut">
+          <canvas id="doughnutChart"></canvas>
+        </div>
+        <div class="d-flex justify-content-around mt-3">
+            <div class="text-center"><span class="legend-dot" style="background-color: #0D6EFD;"></span> Confirmed ({{ confirmedPercent }}%)</div>
+            <div class="text-center"><span class="legend-dot" style="background-color: #E0E0E0;"></span> Rescheduled ({{ rescheduledPercent }}%)</div>
+          </div>
+         
+      </div>
+    </div>
+  </aside>
+ 
+</div>
+ 
+<footer class="footer-stats">
+    <div><i class="fas fa-clinic-medical"></i> General Clinic Statistics</div>
+    <div class="stats-items">
+      <div class="stat-item">
+        <i class="fas fa-users"></i>
+        <span>Patients Today</span>
+        <strong class="stat-number">{{ stats.patientsToday }}</strong>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-calendar-check"></i>
+        <span>Appointments Booked</span>
+        <strong class="stat-number">{{ stats.appointmentsBooked }}</strong>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-user-plus"></i>
+        <span>New Registrations</span>
+        <strong class="stat-number">{{ stats.newRegistrations }}</strong>
+      </div>
+    </div>
+  </footer>
+</div>
+ 
+ 
+ 
+ 
+ 
+ 
+<div *ngIf="roleName === 'DOCTOR'">
+ 
+</div>
+ 
+<div *ngIf="roleName === 'PATIENT'">
+    <div class="container-fluid dashboard-container">
+        <div class="row g-4">
+     
+          <div class="col-lg-7">
+            <div class="dashboard-card">
+              <h5 class="card-title">Monthly Appointments</h5>
+              <div class="chart-container">
+                <canvas id="appointmentsChart">{{ appointmentsChart }}</canvas>
+              </div>
+            </div>
+          </div>
+     
+          <div class="col-lg-5">
+            <div class="dashboard-card">
+              <h5 class="card-title">BMI Calculator</h5>
+              <form (ngSubmit)="calculateBmi()">
+                <div class="mb-3">
+                  <label for="height" class="form-label">Height (cm)</label>
+                  <input type="number" class="form-control" id="height" name="height"
+                         [(ngModel)]="height" placeholder="e.g., 175" required>
+                </div>
+                <div class="mb-4">
+                  <label for="weight" class="form-label">Weight (kg)</label>
+                  <input type="number" class="form-control" id="weight" name="weight"
+                         [(ngModel)]="weight" placeholder="e.g., 70" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Calculate BMI</button>
+              </form>
+     
+              <div *ngIf="bmiResult" id="bmiResult" class="mt-4" [ngClass]="getBmiResultClass()">
+                <h4>{{ bmiResult | number:'1.1-1' }}</h4>
+                <p>{{ bmiCategory }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+      <footer class="dashboard-footer">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="stat-item">
+              <div class="stat-icon"><i class="fas fa-heartbeat"></i></div>
+              <div class="stat-info">
+                <h6>78 BPM</h6>
+                <p>Avg Heart Rate</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stat-item">
+              <div class="stat-icon"><i class="fas fa-shoe-prints"></i></div>
+              <div class="stat-info">
+                <h6>8,230</h6>
+                <p>Steps Today</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stat-item">
+              <div class="stat-icon"><i class="fas fa-bed"></i></div>
+              <div class="stat-info">
+                <h6>7h 45m</h6>
+                <p>Sleep</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
 </div>
